@@ -1,0 +1,9 @@
+{
+  "name": "openflighthpc",
+  "description": "",
+  "repository": "https://github.com/openflighthpc/openflighthpc.org",
+  "scripts": {
+    "dokku": {
+    }
+  }
+}
