@@ -25,7 +25,12 @@ body {
   margin: 0 auto;
   background-blend-mode: lighten;
   cursor: pointer;
+  animation: down 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
   color: #222;
+  transition: background-color 0.5s;
+  background-position: center;
 }
 
 .mountainzone:hover{
@@ -33,29 +38,52 @@ body {
 	text-shadow: 1px 1px 2px #000;
 }
 
+/* Workflow */
 .mountainzone:nth-child(1) {
     width: 25%;
     clip-path: polygon(50% 0, 100% 100%, 0% 100%);
     -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
-    background-color: #0097df;
+    background: rgba(0,151,223,0.7) url("img/workflow.jpg");
+    background-size: cover;
 }
+.mountainzone:nth-child(1):hover {
+    background: rgba(0,151,223,0.2);
+}
+
+/* Environment */
 .mountainzone:nth-child(2) {
     width: 50%;
     clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
     -webkit-clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
-    background-color: #0097df;
+    background: rgba(0,151,223,0.7) url("img/environment.jpg");
+    background-size: cover;
 }
+.mountainzone:nth-child(2):hover {
+    background: rgba(0,151,223,0.2);
+}
+
+/* Platform */
 .mountainzone:nth-child(3) {
     width: 75%;
     clip-path: polygon(16.5% 0, 83% 0, 100% 100%, 0 100%);
     -webkit-clip-path: polygon(16.5% 0, 83% 0, 100% 100%, 0 100%);
-    background-color: #0097df;
+    background: rgba(0,151,223,0.7) url("img/platform.jpg");
+    background-size: cover;
 }
+.mountainzone:nth-child(3):hover {
+    background: rgba(0,151,223,0.2);
+}
+
+/* Architecture */
 .mountainzone:nth-child(4) {
     width: 100%;
     clip-path: polygon(12.5% 0, 87.5% 0, 100% 100%, 0 100%);
     -webkit-clip-path: polygon(12.5% 0, 87.5% 0, 100% 100%, 0 100%);
-    background-color: #0097df;
+    background: rgba(0,151,223,0.7) url("img/architecture.jpg");
+    background-size: cover;
+}
+.mountainzone:nth-child(4):hover {
+    background: rgba(0,151,223,0.2);
 }
 
 .hpcmountain {
