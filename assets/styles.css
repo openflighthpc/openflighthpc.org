@@ -12,9 +12,10 @@ body {
     border-color: #0097df;
 }
 
+/* HPC MOUNTAIN FORMATTING */
 .wrapper {
   width: 80%;
-  max-width: 1100px;
+  max-width: 30%;
   margin: 5vh auto;
 }
 
@@ -25,11 +26,6 @@ body {
   background-blend-mode: lighten;
   cursor: pointer;
   color: #222;
-  animation: down 0.5s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
-  transform: translateY(-500%);
-  transition: background-color 0.5s;
 }
 
 .mountainzone:hover{
