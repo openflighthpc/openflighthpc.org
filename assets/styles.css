@@ -30,7 +30,6 @@ body {
   animation-timing-function: ease-in;
   color: #222;
   transition: background-color 0.5s;
-  background-position: center;
 }
 
 .mountainzone:hover{
@@ -45,6 +44,7 @@ body {
     -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
     background: rgba(0,151,223,0.7) url("img/workflow.jpg");
     background-size: cover;
+    background-position: center;
 }
 .mountainzone:nth-child(1):hover {
     background: rgba(0,151,223,0.2);
@@ -57,6 +57,7 @@ body {
     -webkit-clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
     background: rgba(0,151,223,0.7) url("img/environment.jpg");
     background-size: cover;
+    background-position: center;
 }
 .mountainzone:nth-child(2):hover {
     background: rgba(0,151,223,0.2);
@@ -69,6 +70,7 @@ body {
     -webkit-clip-path: polygon(16.5% 0, 83% 0, 100% 100%, 0 100%);
     background: rgba(0,151,223,0.7) url("img/platform.jpg");
     background-size: cover;
+    background-position: center;
 }
 .mountainzone:nth-child(3):hover {
     background: rgba(0,151,223,0.2);
@@ -81,6 +83,7 @@ body {
     -webkit-clip-path: polygon(12.5% 0, 87.5% 0, 100% 100%, 0 100%);
     background: rgba(0,151,223,0.7) url("img/architecture.jpg");
     background-size: cover;
+    background-position: center;
 }
 .mountainzone:nth-child(4):hover {
     background: rgba(0,151,223,0.2);
