@@ -47,7 +47,7 @@ body {
     background-position: center;
 }
 .mountainzone:nth-child(1):hover {
-    background: rgba(0,151,223,0.2);
+    background-color: rgba(0,151,223,0.2);
 }
 
 /* Environment */
@@ -60,7 +60,7 @@ body {
     background-position: center;
 }
 .mountainzone:nth-child(2):hover {
-    background: rgba(0,151,223,0.2);
+    background-color: rgba(0,151,223,0.2);
 }
 
 /* Platform */
@@ -73,7 +73,7 @@ body {
     background-position: center;
 }
 .mountainzone:nth-child(3):hover {
-    background: rgba(0,151,223,0.2);
+    background-color: rgba(0,151,223,0.2);
 }
 
 /* Architecture */
@@ -86,7 +86,7 @@ body {
     background-position: center;
 }
 .mountainzone:nth-child(4):hover {
-    background: rgba(0,151,223,0.2);
+    background-color: rgba(0,151,223,0.2);
 }
 
 .hpcmountain {
