@@ -16,20 +16,23 @@ body {
 .wrapper {
   width: 80%;
   max-width: 50%;
-  margin: 5vh auto;
+  margin-left: 1%;
 }
 
 .mountainzone {
-  padding: 40px 0;
-  text-align: center;
-  margin: 0 auto;
-  background-blend-mode: lighten;
-  cursor: pointer;
-  animation: down 0.5s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
-  color: #222;
-  transition: background-color 0.5s;
+    padding: 60px 0;
+    text-align: center;
+    margin: 0 auto;
+    background-blend-mode: lighten;
+    cursor: pointer;
+    animation: down 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    color: #222;
+    text-shadow: 1px 1px 2px white;
+    transition: background-color 0.5s;
+    font-family: monospace;
+    font-size: xx-large;
 }
 
 .mountainzone:hover{
@@ -91,9 +94,8 @@ body {
 
 .hpcmountain {
     float: left;
-    width: 750px;
-    height: 600px;
+    width: 1400px;
+    height: 800px;
     font-family: 'Gabriela';
     shape-outside: polygon(310px 0, 130px 405px, 558px 405px);
-    padding-right: 60px;
 }
