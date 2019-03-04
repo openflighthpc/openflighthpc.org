@@ -15,7 +15,7 @@ body {
 /* HPC MOUNTAIN FORMATTING */
 .wrapper {
   width: 80%;
-  max-width: 30%;
+  max-width: 50%;
   margin: 5vh auto;
 }
 
@@ -60,8 +60,8 @@ body {
 
 .hpcmountain {
     float: left;
-    width: 500px;
-    height: 500px;
+    width: 750px;
+    height: 600px;
     font-family: 'Gabriela';
     shape-outside: polygon(310px 0, 130px 405px, 558px 405px);
     padding-right: 60px;
