@@ -1,0 +1,13 @@
+
+a {
+    color: #0097df;
+}
+
+body {
+    background-image: linear-gradient(#aee1f9, #e8f7ff)
+}
+
+.btn-primary {
+    background-color: #0097df;
+    border-color: #0097df;
+}
