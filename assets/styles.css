@@ -99,3 +99,21 @@ body {
     font-family: 'Gabriela';
     shape-outside: polygon(310px 0, 130px 405px, 558px 405px);
 }
+
+@media only screen and (max-width: 1120px) {
+    .mountainzone {
+        font-size: large;
+    }
+}
+
+@media only screen and (max-width: 715px) {
+    .mountainzone {
+        font-size: medium;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .mountainzone {
+        font-size: smaller;
+    }
+}
