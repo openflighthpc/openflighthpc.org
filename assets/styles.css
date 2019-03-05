@@ -14,15 +14,15 @@ body {
 
 /* HPC MOUNTAIN FORMATTING */
 .wrapper {
-  width: 80%;
+/*  width: 80%;
   max-width: 50%;
-  margin-left: 1%;
+  margin-left: 1%; */
 }
 
 .mountainzone {
     padding: 60px 0;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 auto; 
     background-blend-mode: lighten;
     cursor: pointer;
     animation: down 0.5s;
@@ -93,9 +93,9 @@ body {
 }
 
 .hpcmountain {
-    float: left;
+/*    float: left;
     width: 1400px;
-    height: 800px;
+    height: 800px; */
     font-family: 'Gabriela';
     shape-outside: polygon(310px 0, 130px 405px, 558px 405px);
 }
