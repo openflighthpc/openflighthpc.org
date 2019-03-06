@@ -15,18 +15,30 @@
     <!-- Font Awesome icons -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
-    <body>
+  <body>
     <div class="container-fluid text-center">
         <a href="index.html"><img src="assets/png_trans_logo.png" alt="openflightHPC Logo" class="center"></img></a>
         <br >
-        <div class="row">
-            <div class="input-group col-md-6 mx-auto">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScsh0kzK30lZ9l8KfS3De9P3jlFNOPfW0gZg6WEhaEbrHWjOQ/viewform?embedded=true" width="100%" height="1218" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+    </div>
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+            </div>
+            <div class="col-sm-8 text-left centernav">
+                <p>Flight Solo will eventually be unavailable via the AWS Marketplace however the CloudFormation template and related resources are still available to be manually launched. To access the template and launch Flight Solo, you can:</p>
+                <ul>
+                    <li>Login to the AWS console</li>
+                    <li>Navigate to the CloudFormation app</li>
+                    <li>Select 'Create stack'</li>
+                    <li>In 'Specify template' set the 'Amazon S3 URL' to <code>https://s3-eu-west-1.amazonaws.com/openflighthpc/templates/solo-cluster.yaml</code></li>
+                    <li>Click 'Next' and update parameters to configure the Flight Solo cluster</li>
+                </ul>
+            </div>
+            <div class="col-sm-2 sidenav">
             </div>
         </div>
+        <br >
         <button class="btn btn-primary" onclick="goBack()">Back</button>
-        <br >
-        <br >
     </div>
-    </body>
+  </body>
 </html>
