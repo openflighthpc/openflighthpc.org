@@ -12,6 +12,20 @@ body {
     border-color: #0097df;
 }
 
+/* NAVBAR */
+.navbar-dark {
+    background-color: #305375;
+}
+
+.dropdown-menu {
+    background-color: #305375;
+}
+
+.dropdown-item {
+    background-color: #305375;
+    color: white;
+}
+
 /* HPC MOUNTAIN FORMATTING */
 .wrapper {
 /*  width: 80%;
