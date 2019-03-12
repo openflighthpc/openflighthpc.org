@@ -34,6 +34,19 @@ body {
     color: white;
 }
 
+/* FOOTER */
+footer {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   /* Set the fixed height of the footer here */
+   height: 60px;
+   /* Vertically center the text there */
+   line-height: 60px;
+   background-color: #305375;
+}
+
+
 /* HPC MOUNTAIN FORMATTING */
 .wrapper {
 /*  width: 80%;
