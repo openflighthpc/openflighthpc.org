@@ -36,10 +36,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarSupportDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
                     <div class="dropdown-menu" aria-labelledby="navbarSupportDropdown">
-                        <a class="dropdown-item" href="/support/docs.html">Docs</a>
+                        <a class="dropdown-item" href="https://docs.openflighthpc.org">Docs</a>
                         <a class="dropdown-item" href="https://community.openflighthpc.org">Forums</a>
                         <a class="dropdown-item" href="/support/mail-list.html">Mail List</a>
                         <a class="dropdown-item" href="/support/papers.html">Papers</a>
+                        <a class="dropdown-item" href="/support/contributors.html">Contributors</a>
                     </div>
                 </li>
             </ul>
@@ -50,7 +51,7 @@
     </div>
     <br >
     <br >
-    <div class="container-fluid text-center">
+    <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-2 sidenav" id="sidebar1">
             </div>
@@ -58,7 +59,7 @@
                 <%= yield %>
                 <% unless @item[:title] == "Home" %>
                 <br />
-                <button class="btn btn-primary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" style="display: block;margin: 0 auto" onclick="goBack()">Back</button>
                 <br />
                 <br />
                 <br />
