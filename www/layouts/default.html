@@ -25,45 +25,59 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#2d89ef">
     <meta name="theme-color" content="#ffffff">
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="/"><img src="/assets/png_trans_logo-navbar.png" alt="openflightHPC Logo" height="100"></img></a>
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/"><img src="/assets/png_trans_logo-navbar.png" alt="openflightHPC Logo" height="75"></img></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbar
+SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarAboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarAboutDropdown">
-                        <a class="dropdown-item" href="/about/vision.html">Vision</a>
-                        <a class="dropdown-item" href="/about/hpc-mountain.html">HPC Mountain</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about" data-toggle="collapse">About</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDevelopmentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Development</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDevelopmentDropdown">
-                        <a class="dropdown-item" href="/development/tools.html">Tools</a>
-                        <a class="dropdown-item" href="/development/get-involved.html">Get Involved</a>
-                        <a class="dropdown-item" href="/development/roadmap.html">Roadmap</a>
-                    </div>
+                    <a class="nav-link" href="#development" data-toggle="collapse">Development</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarSupportDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarSupportDropdown">
-                        <a class="dropdown-item" href="https://docs.openflighthpc.org">Docs</a>
-                        <a class="dropdown-item" href="https://community.openflighthpc.org">Forums</a>
-                        <a class="dropdown-item" href="/support/mail-list.html">Mail List</a>
-                        <a class="dropdown-item" href="/support/papers.html">Papers</a>
-                        <a class="dropdown-item" href="/support/contributors.html">Contributors</a>
-                    </div>
+                    <a class="nav-link" href="#support" data-toggle="collapse">Support</a>
                 </li>
             </ul>
         </div>
+
         <div class="my-2 my-lg-0">
             <a href="https://github.com/openflighthpc"><span class="fa fa-2x fa-github"></span></a>
         </div>
+    </nav>
+    <!-- Navigation Menus -->
+    <div id="menus">
+        <nav class="collapse nav nav-underline navmenu" id="about" data-parent="#menus">
+            <a class="nav-item nav-link" href="/about/vision.html">Vision</a>
+            <a class="nav-item nav-link" href="/about/hpc-mountain.html">HPC Mountain</a>
+        </nav>
+        <nav class="collapse nav nav-underline navmenu" id="development" data-parent="#menus">
+            <a class="nav-item nav-link" href="/development/tools.html">Tools</a>
+            <a class="nav-item nav-link" href="/development/get-involved.html">Get Involved</a>
+            <a class="nav-item nav-link" href="/development/roadmap.html">Roadmap</a>
+        </nav>
+        <nav class="collapse nav nav-underline navmenu" id="support" data-parent="#menus">
+            <a class="nav-item nav-link" href="https://docs.openflighthpc.org">Docs</a>
+            <a class="nav-item nav-link" href="https://community.openflighthpc.org">Forums</a>
+            <a class="nav-item nav-link" href="/support/mail-list.html">Mail List</a>
+            <a class="nav-item nav-link" href="/support/papers.html">Papers</a>
+            <a class="nav-item nav-link" href="/support/contributors.html">Contributors</a>
+        </nav>
     </div>
     <br >
     <br >
+    <!-- Main Body Layout -->
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-2 sidenav" id="sidebar1">

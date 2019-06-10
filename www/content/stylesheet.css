@@ -34,6 +34,15 @@ body {
     color: white;
 }
 
+/* MENUS */
+.navmenu {
+    background-color: #2296d9;
+}
+
+.navmenu > a {
+    color: white;
+}
+
 /* FOOTER */
 footer {
    position: fixed;
