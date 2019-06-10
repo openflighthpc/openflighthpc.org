@@ -12,7 +12,8 @@ a {
 }
 
 body {
-    background-image: linear-gradient(#aee1f9, #e8f7ff)
+    /*background-image: linear-gradient(#aee1f9, #e8f7ff)*/
+    background-color: #e4f5fd;
 }
 
 .btn-primary {
@@ -29,18 +30,44 @@ body {
     background-color: #305375;
 }
 
+.nav-menu-button {
+    font-weight: bold;
+    font-size: larger;
+}
+
 .dropdown-item {
     background-color: #305375;
     color: white;
 }
 
+.navbar-brand {
+    padding-left: 4rem;
+}
+
+.navbar-right {
+    padding-right: 4rem;
+}
+
 /* MENUS */
 .navmenu {
-    background-color: #2296d9;
+    background-color: #848484;
 }
 
 .navmenu > a {
     color: white;
+    font-weight: bold;
+}
+
+/* HEADINGS */
+.heading {
+    background-color: #2296d9;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+}
+
+.heading > h1 {
+    color: white;
+    text-align: center;
 }
 
 /* FOOTER */
@@ -52,7 +79,7 @@ footer {
    height: 60px;
    /* Vertically center the text there */
    line-height: 60px;
-   background-color: #305375;
+   background-color: white;
 }
 
 

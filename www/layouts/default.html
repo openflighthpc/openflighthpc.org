@@ -30,7 +30,7 @@
   </head>
   <body>
     <!-- Main Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <a class="navbar-brand" href="/"><img src="/assets/png_trans_logo-navbar.png" alt="openflightHPC Logo" height="75"></img></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbar
@@ -41,19 +41,19 @@ SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#about" data-toggle="collapse">About</a>
+                    <a class="nav-link nav-menu-button" href="#about" data-toggle="collapse">About</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#development" data-toggle="collapse">Development</a>
+                <li class="nav-item">
+                    <a class="nav-link nav-menu-button" href="#development" data-toggle="collapse">Development</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#support" data-toggle="collapse">Support</a>
+                <li class="nav-item">
+                    <a class="nav-link nav-menu-button" href="#support" data-toggle="collapse">Support</a>
                 </li>
             </ul>
         </div>
 
-        <div class="my-2 my-lg-0">
-            <a href="https://github.com/openflighthpc"><span class="fa fa-2x fa-github"></span></a>
+        <div class="my-2 my-lg-0 navbar-right">
+            <a href="https://github.com/openflighthpc"><span class="fa fa-3x fa-github"></span></a>
         </div>
     </nav>
     <!-- Navigation Menus -->
@@ -75,14 +75,19 @@ SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <a class="nav-item nav-link" href="/support/contributors.html">Contributors</a>
         </nav>
     </div>
-    <br >
-    <br >
+    <!-- Title Heading --> 
+    <% if @item[:heading] %>
+    <div class="heading">
+        <h1><%= @item[:heading] %></h1>
+    </div>
+    <% end %>
     <!-- Main Body Layout -->
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-2 sidenav" id="sidebar1">
             </div>
             <div class="col-sm-8 centernav" id="main">
+                <br />
                 <%= yield %>
                 <% unless @item[:title] == "Home" %>
                 <br />
@@ -97,7 +102,7 @@ SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         </div>
         <br />
     </div>
-    <footer class="footer">
+    <footer class="footer border-top">
         <div class="container">
             <span class="text-muted" style="float: left">Copyright 2019 openflightHPC</span>
         </div>
