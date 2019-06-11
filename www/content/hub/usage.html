@@ -151,24 +151,8 @@ flight cloud [aws/azure] deploy node01 node/node01 -p "securitygroup,network1Sub
     </ul>
   </div>
   <div class="tab-pane fade" id="azure2" role="tabpanel" aria-labelledby="azure2-tab">
-    <ul>
-        <li>Deploy the domain
-            <pre>
-flight cloud azure deploy mycluster-domain domain</pre>
-        </li>
-        <li>Deploy the gateway
-            <pre>
-flight cloud azure deploy gateway1 node/gateway1 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
-        </li>
-        <li>Copy the SSH key to the gateway (GATEWAY-IP can be found via <code>flight cloud azure list machines</code>)
-            <pre>
-scp /root/.ssh/id_rsa root@GATEWAY-IP:/root/.ssh/</pre>
-        </li>
-        <li>Deploy the nodes (example given: node01)
-            <pre>
-flight cloud azure deploy node01 node/node01 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
-        </li>
-    </ul>
+      <br />
+      <p><b>Coming soon...</b></p>
   </div>
   <div class="tab-pane fade" id="metal2" role="tabpanel" aria-labelledby="metal2-tab">
       <br />
