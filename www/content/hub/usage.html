@@ -1,19 +1,170 @@
 ---
 heading: Using the OpenFlightHPC Hub
 ---
-<p>The OpenFlightHPC is available on AWS, Azure and libvirt*.</p>
+<h2>Deploy the Hub</h2>
 
-<h2>Deploying to a Platform</h2>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="aws-tab" data-toggle="tab" href="#aws" role="tab" aria-controls="aws" aria-selected="true">AWS</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="azure-tab" data-toggle="tab" href="#azure" role="tab" aria-controls="azure" aria-selected="false">Azure</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="metal-tab" data-toggle="tab" href="#metal" role="tab" aria-controls="metal" aria-selected="false">Metal</a>
+  </li>
+</ul>
 
-<h3>AWS</h3>
-<p>Document</p>
-<h3>Azure</h3>
-<p>Document</p>
-<h3>Libvirt</h3>
-<p>Document</p>
 
-<h2>First Login and Cluster Deployment</h2>
-<p>Some text here</p>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="aws" role="tabpanel" aria-labelledby="aws-tab">
+    <ul>
+        <li>Login to your aws account and navigate to EC2 > AMIs</li>
+        <li>Search for `openflight-hub` and launch a copy of the latest release<br /><img src="/assets/img/aws/ami-01.png" width=600></img></li>
+        <li>Select the instance type to use<br /><img src="/assets/img/aws/ami-02.png" width=600></img></li>
+        <li>Configure the instance details (ensuring that a public IP is assigned)<br/><img src="/assets/img/aws/ami-03.png" width=600></img></li>
+        <li>Configure storage space<br /><img src="/assets/img/aws/ami-04.png" width=600></img></li>
+        <li>Name the instance<br /><img src="/assets/img/aws/ami-05.png" width=600></img></li>
+        <li>Configure Security Group to include the following<br /><img src="/assets/img/aws/ami-06.png" width=600></img></li>
+        <li>Launch the instance</li>
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="azure" role="tabpanel" aria-labelledby="azure-tab">
+      <br />
+      <p><b>Coming soon...</b></p>
+  </div>
+  <div class="tab-pane fade" id="metal" role="tabpanel" aria-labelledby="metal-tab">
+      <br />
+      <p><b>Coming soon...</b></p>
+  </div>
+</div>
+<br />
+<hr />
+
+<h2>First Login and Cluster Configuration</h2>
+
+<ul>
+    <li>Login to hub
+        <pre>
+[user@myhost ~]$ ssh centos@HUB-IP</pre>
+    </li>
+    <li>On first login, there will be some configuration questions
+        <pre>
+                                   __ _ _       _     _  ==>
+   ==>                            / _| (_)     | |   | |  ==>
+  ==>   ___   _ __    ___  _ __  | |_| |_  __ _| |__ | |_  ==>
+ ==>   / _ \ | '_ \  / _ \| '_ \ |  _| | |/ _` | '_ \| __|  ==>
+==>   | (_) || |_) ||  __/| | | || | | | | (_| | | | | |_    ==>
+ ==>   \___/ | .__/  \___||_| |_||_| |_|_|\__, |_| |_|\__|  ==>
+  ==>        |_|                           __/ |           ==>
+   ==>                                    |___/           ==>
+    ==>
 
 
-<p><i>*to create a hub for libvirt, see the <a href="https://github.com/openflighthpc/openflight-hub/blob/master/build-libvirt.sh">build script</a>.</i></p>
+Deploying cloud resources requires at least one of either AWS or Azure credentials.
+
+For information on locating your cloud credentials, see:
+
+    https://github.com/openflighthpc/flight-cloud#configuring-cloud-authentication
+
+At least one cloud provider must be configured
+
+Configure AWS Access Credentials? [y/n] y
+AWS Default Region: eu-west-1
+AWS Access Key ID: MyAWSaccessKeyID
+AWS Secret Access Key: MyAWSsecretAccessKey
+Configure Azure Access Credentials? [y/n] n
+
+
+Name for the cluster: mycluster
+Finishing cluster configuration...
+Generating Templates
+aws: |================================================================================================================================|
+azure: |==============================================================================================================================|
+
+OpenFlight Hub Configuration Complete!
+
+To deploy your cluster:
+
+1. Deploy the domain
+
+    flight cloud aws deploy mycluster-domain domain
+
+2. Deploy the gateway
+
+    flight cloud aws deploy gateway1 node/gateway1 -p "securitygroup,network1SubnetID=*mycluster-domain"
+
+3. Copy the SSH key to the gateway
+
+    scp /root/.ssh/id_rsa root@GATEWAY-IP:/root/.ssh/
+
+4. Deploy the nodes (example given: node01)
+
+    flight cloud aws deploy node01 node/node01 -p "securitygroup,network1SubnetID=*mycluster-domain"
+</pre>
+    </li>
+    <li>The default cluster has now been configured and is ready for deployment</li>
+</ul>
+
+<hr />
+
+<h2>Deploy Cluster</h2>
+
+<ul class="nav nav-tabs" id="myTab2" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="aws2-tab" data-toggle="tab" href="#aws2" role="tab" aria-controls="aws2" aria-selected="true">AWS</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="azure2-tab" data-toggle="tab" href="#azure2" role="tab" aria-controls="azure2" aria-selected="false">Azure</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="metal2-tab" data-toggle="tab" href="#metal2" role="tab" aria-controls="metal2" aria-selected="false">Metal</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent2">
+  <div class="tab-pane fade show active" id="aws2" role="tabpanel" aria-labelledby="aws2-tab">
+    <ul>
+        <li>Deploy the domain
+            <pre>
+flight cloud aws deploy mycluster-domain domain</pre>
+        </li>
+        <li>Deploy the gateway
+            <pre>
+flight cloud aws deploy gateway1 node/gateway1 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
+        </li>
+        <li>Copy the SSH key to the gateway (GATEWAY-IP can be found via <code>flight cloud aws list machines</code>)
+            <pre>
+scp /root/.ssh/id_rsa root@GATEWAY-IP:/root/.ssh/</pre>
+        </li>
+        <li>Deploy the nodes (example given: node01)
+            <pre>
+flight cloud [aws/azure] deploy node01 node/node01 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
+        </li>
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="azure2" role="tabpanel" aria-labelledby="azure2-tab">
+    <ul>
+        <li>Deploy the domain
+            <pre>
+flight cloud azure deploy mycluster-domain domain</pre>
+        </li>
+        <li>Deploy the gateway
+            <pre>
+flight cloud azure deploy gateway1 node/gateway1 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
+        </li>
+        <li>Copy the SSH key to the gateway (GATEWAY-IP can be found via <code>flight cloud azure list machines</code>)
+            <pre>
+scp /root/.ssh/id_rsa root@GATEWAY-IP:/root/.ssh/</pre>
+        </li>
+        <li>Deploy the nodes (example given: node01)
+            <pre>
+flight cloud azure deploy node01 node/node01 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
+        </li>
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="metal2" role="tabpanel" aria-labelledby="metal2-tab">
+      <br />
+      <p><b>Coming soon...</b></p>
+  </div>
+</div>

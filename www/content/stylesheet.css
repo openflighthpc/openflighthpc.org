@@ -1,3 +1,10 @@
+li {
+    padding-top: 1rem;
+}
+
+pre {
+    background-color: #ffffff;
+}
 
 h1 {
     text-align: center;
