@@ -1,3 +1,14 @@
+.btn-outline-light { 
+    color: #2296d9;
+    border-color: #2296d9;
+}
+
+.btn-outline-light:hover {
+    color: #ffffff;
+    border-color: #2296d9;
+    background-color: #2296d9;
+}
+
 li {
     padding-top: 1rem;
 }
