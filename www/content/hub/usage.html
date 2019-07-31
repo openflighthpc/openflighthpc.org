@@ -66,46 +66,52 @@ heading: Using the OpenFlightHPC Hub
     ==>
 
 
-Deploying cloud resources requires at least one of either AWS or Azure credentials.
+Deploying cloud resources requires either AWS or Azure access credentials.
 
 For information on locating your cloud credentials, see:
 
     https://github.com/openflighthpc/flight-cloud#configuring-cloud-authentication
 
-At least one cloud provider must be configured
+Continuing will remove the comments from the config file: /opt/flight/opt/cloud/etc/config.yaml
+Do you wish to continue (y/n)? y
+Configure aws (y/n)? y
+What is the access_key_id? MyAWSaccessKeyID
+What is the secret_access_key? MyAWSsecretAccessKey
+What is the default_region? eu-west-1
+Configure azure (y/n)? n
 
-Configure AWS Access Credentials? [y/n] y
-AWS Default Region: eu-west-1
-AWS Access Key ID: MyAWSaccessKeyID
-AWS Secret Access Key: MyAWSsecretAccessKey
-Configure Azure Access Credentials? [y/n] n
 
-
-Name for the cluster: mycluster
+Name for the default cluster: mycluster
 Finishing cluster configuration...
 Generating Templates
 aws: |================================================================================================================================|
 azure: |==============================================================================================================================|
+kickstart: |==========================================================================================================================|
 
 OpenFlight Hub Configuration Complete!
 
 To deploy your cluster:
 
-1. Deploy the domain
+1. Select AWS or Azure cluster (replace PLATFORM with aws' or 'azure')
 
-    flight cloud aws deploy mycluster-domain domain
+    flight cloud cluster switch mycluster-PLATFORM
 
-2. Deploy the gateway
+2. Deploy the domain
 
-    flight cloud aws deploy gateway1 node/gateway1 -p "securitygroup,network1SubnetID=*mycluster-domain"
+    flight cloud deploy domain
 
-3. Copy the SSH key to the gateway
+3. Deploy the gateway
+
+    flight cloud deploy gateway1 -p "securitygroup,network1SubnetID=*domain"
+
+4. Copy the SSH key to the gateway
 
     scp /root/.ssh/id_rsa root@GATEWAY-IP:/root/.ssh/
 
-4. Deploy the nodes (example given: node01)
+5. Deploy the nodes (example given: node01)
 
-    flight cloud aws deploy node01 node/node01 -p "securitygroup,network1SubnetID=*mycluster-domain"
+    flight cloud deploy node01 -p "securitygroup,network1SubnetID=*mycluster-domain"
+
 </pre>
     </li>
     <li>The default cluster has now been configured and is ready for deployment</li>
@@ -133,13 +139,17 @@ To deploy your cluster:
 <div class="tab-content" id="myTabContent2">
   <div class="tab-pane fade show active" id="aws2" role="tabpanel" aria-labelledby="aws2-tab">
     <ul>
+        <li>Select AWS cluster
+            <pre>
+flight cloud cluster switch mycluster-aws</pre>
+        </li>
         <li>Deploy the domain
             <pre>
-flight cloud aws deploy mycluster-domain domain</pre>
+flight cloud deploy domain</pre>
         </li>
         <li>Deploy the gateway
             <pre>
-flight cloud aws deploy gateway1 node/gateway1 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
+flight cloud deploy gateway1 -p "securitygroup,network1SubnetID=*domain"</pre>
         </li>
         <li>Copy the SSH key to the gateway (GATEWAY-IP can be found via <code>flight cloud aws list machines</code>)
             <pre>
@@ -147,7 +157,7 @@ scp /root/.ssh/id_rsa root@GATEWAY-IP:/root/.ssh/</pre>
         </li>
         <li>Deploy the nodes (example given: node01)
             <pre>
-flight cloud [aws/azure] deploy node01 node/node01 -p "securitygroup,network1SubnetID=*mycluster-domain"</pre>
+flight cloud deploy node01 -p "securitygroup,network1SubnetID=*domain"</pre>
         </li>
     </ul>
   </div>
