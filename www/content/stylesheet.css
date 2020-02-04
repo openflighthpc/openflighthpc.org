@@ -14,6 +14,22 @@
     background-color: #2296d9;
 }
 
+.btn-card-link {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fa-card-img {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+@media only screen and (min-width: 1200px) {
+    .pb-3, .card-body {
+        display: flex!important;
+    }
+}
+
 li {
     padding-top: 1rem;
 }
