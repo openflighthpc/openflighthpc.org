@@ -1,0 +1,156 @@
+---
+heading: OpenFlight Images
+---
+
+<p>OpenFlight provides images images to help jumpstart the process of deploying virtual resources on various cloud providers.</p>
+
+<h2>Available Images</h2>
+
+As images are developed, they can be found in <a href="https://repo.openflighthpc.org/?prefix=images/">the OpenFlight repository</a>.
+
+<div class="row">
+  <div class="col-xl-4 pb-3">
+    <div class="card" style="margin-top: 10px">
+      <span class="fa-card-img fa fa-4x fa-hdd-o"></span>
+      <div class="card-body flex-column">
+        <h5 class="card-title" style="text-align: center">CentOS 7</h5>
+        <p class="card-text" style="text-align: center">A clean CentOS 7 image in raw format</p>
+        <a href="https://repo.openflighthpc.org/images/CENTOS7-OPENFLIGHT-2020.1-1303202003_aws.raw" class="btn btn-primary mt-auto" style="width: 100%;margin: 0 auto">Download Now</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 pb-3">
+    <div class="card" style="margin-top: 10px">
+      <span class="fa-card-img fa fa-4x fa-hdd-o"></span>
+      <div class="card-body flex-column">
+        <h5 class="card-title" style="text-align: center">CentOS 8</h5>
+        <p class="card-text" style="text-align: center">A clean CentOS 8 image in raw format</p>
+        <a href="https://repo.openflighthpc.org/images/CENTOS8-OPENFLIGHT-2020.1-1303202017_aws.raw" class="btn btn-primary mt-auto" style="width: 100%;margin: 0 auto">Download Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<h2>Importing Images</h2>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="aws-tab" data-toggle="tab" href="#aws" role="tab" aria-controls="aws" aria-selected="true">AWS</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="azure-tab" data-toggle="tab" href="#azure" role="tab" aria-controls="azure" aria-selected="false">Azure</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="aws" role="tabpanel" aria-labelledby="aws-tab">
+        <h2 id="prerequisites">Prerequisites</h2>
+        <ul>
+            <li><a data-from-md  title='https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html' href='https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html' type=''>AWS CLI tool installed</a></li>
+            <li><a data-from-md  title='https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration' href='https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration' type=''>AWS CLI tool logged into AWS account</a></li>
+            <li><a data-from-md  title='https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#vmimport-role' href='https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#vmimport-role' type=''>The 'vmimport' role setup on the desired destination bucket</a></li>
+        </ul>
+        <h2 id="download-image">Download Image</h2>
+        <ul>
+            <li>Download the desired raw image from <a data-from-md  title='https://repo.openflighthpc.org/?prefix=images/' href='https://repo.openflighthpc.org/?prefix=images/' type=''>https://repo.openflighthpc.org/?prefix=images/</a></li>
+        </ul>
+        <h2 id="upload-to-s3">Upload to S3</h2>
+        <ul>
+            <li>To upload the image to a folder in an S3 bucket, use the following syntax (replacing mybucketname and images with the name and folders of an existing bucket in your AWS account)</li>
+            <pre><code>aws s3 cp CENTOS8-OPENFLIGHT-2020.1-1303202017_aws.raw s3://mybucketname/images/</code></pre>
+        </ul>
+        <h2 id="import-as-disk-snapshot">Import as Disk Snapshot</h2>
+        <ul>
+            <li>Create vmimport policy file to enable vm import operations</li>
+<pre><code>cat << EOF > trust-policy.json
+{
+   "Version": "2012-10-17",
+   "Statement": [
+      {
+         "Effect": "Allow",
+         "Principal": { "Service": "vmie.amazonaws.com" },
+         "Action": "sts:AssumeRole",
+         "Condition": {
+            "StringEquals":{
+               "sts:Externalid": "vmimport"
+            }
+         }
+      }
+   ]
+}
+EOF</code></pre>
+        <li>Create the role from the file</li>
+<pre><code>aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"</code></pre>
+        <li>Create bucket association with vmimport role (replacing "mybucketname" with the name of your S3 bucket)</li>
+<pre><code>cat << EOF > role-policy.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetBucketAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::mybucketname",
+                "arn:aws:s3:::mybucketname/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifySnapshotAttribute",
+                "ec2:CopySnapshot",
+                "ec2:RegisterImage",
+                "ec2:Describe*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOF</code></pre>
+        <li>Apply the role policy</li>
+<pre><code>aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"</code></pre>
+        <li>Create containers.json file with raw disk image information</li>
+<pre><code>cat << EOF > containers.json
+{
+    "Description": "CentOS 8 OpenFlight 2020.1",
+    "Format": "raw",
+    "UserBucket": {
+        "S3Bucket": "mybucketname",
+        "S3Key": "images/CENTOS8-OPENFLIGHT-2020.1-1303202017_aws.raw"
+    }
+}
+EOF</code></pre>
+        <li>Import the disk snapshot</li>
+<pre><code>aws ec2 import-snapshot --description "CentOS 8 OpenFlight 2020.1" --disk-container "file://containers.json"</code></pre>
+        <li>Watch the progress of the import (replacing the import task ID with the ID output in the previous command)</li>
+<pre><code>aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-0ebd7841e141b3618</code></pre>
+        </ul>
+        <h2 id="create-ami-from-snapshot">Create AMI from Snapshot</h2>
+        <ul>
+        <li>Navigate to the AWS website</li>
+        <li>Go to the EC2 service page</li>
+        <li>Click the Snapshots tab</li>
+        <li>Locate the newly created snapshot</li>
+        <li>Right-click on the snapshot and select "Create Image"
+        <ul>
+            <li>Name: CentOS 8 OpenFlight 2020.1</li>
+            <li>Leave everything else as defaults</li>
+        </ul>
+        </li>
+        <li>The AMI will now be created...</li>
+        </ul>
+    </div>
+    <div class="tab-pane fade" id="azure" role="tabpanel" aria-labelledby="azure-tab">
+      <br />
+      <p><b>Coming soon...</b></p>
+  </div>
+</div>
+
+
