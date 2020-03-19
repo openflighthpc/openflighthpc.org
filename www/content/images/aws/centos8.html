@@ -1,0 +1,105 @@
+---
+heading: OpenFlight AWS CentOS 8 Image Import
+---
+
+    <h2 id="prerequisites">Prerequisites</h2>
+    <ul>
+        <li><a href='https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html' type=''>AWS CLI tool installed</a></li>
+        <li><a href='https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration' type=''>AWS CLI tool logged into AWS account</a></li>
+        <li>An S3 bucket for uploading the image to</li>
+    </ul>
+    <h2 id="download-image">Download Image</h2>
+    <ul>
+        <li>Download the raw image from <a href='https://repo.openflighthpc.org/images/CENTOS8-OPENFLIGHT-2020.1-1303202017_aws.raw'>the OpenFlight repo</a></li>
+    </ul>
+    <h2 id="upload-to-s3">Upload to S3</h2>
+    <ul>
+        <li>To upload the image to a folder in an S3 bucket, use the following syntax (replacing mybucketname and images with the name and folders of an existing bucket in your AWS account)</li>
+        <pre><code>aws s3 cp CENTOS8-OPENFLIGHT-2020.1-1303202017_aws.raw s3://mybucketname/images/</code></pre>
+    </ul>
+    <h2 id="import-as-disk-snapshot">Import as Disk Snapshot</h2>
+    <ul>
+        <li>Create vmimport policy file to enable vm import operations</li>
+<pre><code>cat << EOF > trust-policy.json
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+     "Effect": "Allow",
+     "Principal": { "Service": "vmie.amazonaws.com" },
+     "Action": "sts:AssumeRole",
+     "Condition": {
+        "StringEquals":{
+           "sts:Externalid": "vmimport"
+        }
+     }
+  }
+]
+}
+EOF</code></pre>
+    <li>Create the role from the file</li>
+<pre><code>aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"</code></pre>
+    <li>Create bucket association with vmimport role (replacing "mybucketname" with the name of your S3 bucket)</li>
+<pre><code>cat << EOF > role-policy.json
+{
+"Version": "2012-10-17",
+"Statement": [
+    {
+        "Effect": "Allow",
+        "Action": [
+            "s3:GetBucketLocation",
+            "s3:GetObject",
+            "s3:ListBucket",
+            "s3:PutObject",
+            "s3:GetBucketAcl"
+        ],
+        "Resource": [
+            "arn:aws:s3:::mybucketname",
+            "arn:aws:s3:::mybucketname/*"
+        ]
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "ec2:ModifySnapshotAttribute",
+            "ec2:CopySnapshot",
+            "ec2:RegisterImage",
+            "ec2:Describe*"
+        ],
+        "Resource": "*"
+    }
+]
+}
+EOF</code></pre>
+    <li>Apply the role policy</li>
+<pre><code>aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"</code></pre>
+    <li>Create containers.json file with raw disk image information</li>
+<pre><code>cat << EOF > containers.json
+{
+"Description": "CENTOS8-OPENFLIGHT-2020.1-1303202017_aws",
+"Format": "raw",
+"UserBucket": {
+    "S3Bucket": "mybucketname",
+    "S3Key": "images/CENTOS8-OPENFLIGHT-2020.1-1303202017_aws.raw"
+}
+}
+EOF</code></pre>
+    <li>Import the disk snapshot</li>
+<pre><code>aws ec2 import-snapshot --description "CENTOS8-OPENFLIGHT-2020.1-1303202017_aws" --disk-container "file://containers.json"</code></pre>
+    <li>Watch the progress of the import (replacing the import task ID with the ID output in the previous command)</li>
+<pre><code>aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-0ebd7841e141b3618</code></pre>
+    </ul>
+    <h2 id="create-ami-from-snapshot">Create AMI from Snapshot</h2>
+    <ul>
+    <li>Navigate to the AWS website</li>
+    <li>Go to the EC2 service page</li>
+    <li>Click the Snapshots tab</li>
+    <li>Locate the newly created snapshot</li>
+    <li>Right-click on the snapshot and select "Create Image"
+    <ul>
+        <li>Name: CENTOS8-OPENFLIGHT-2020.1-1303202017_aws</li>
+        <li>Leave everything else as defaults</li>
+    </ul>
+    </li>
+    <li>The AMI will now be created...</li>
+    </ul>

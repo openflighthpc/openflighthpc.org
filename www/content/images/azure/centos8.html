@@ -1,0 +1,19 @@
+---
+heading: OpenFlight Azure CentOS 8 Image Import
+---
+
+<h2>Prerequisites</h2>
+<ul>
+  <li><a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI tool installed</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest">Azure CLI tool logged into Azure account</a></li>
+  <li>A storage container within a resource group with a container for uploading the image to</li>
+</ul>
+<h2>Importing Image</h2>
+<ul>
+  <li>Download image from <a href="https://repo.openflighthpc.org/images/CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.raw">the OpenFlight repo</a></li>
+  <li>Upload raw image to a storage container</li>
+<pre><code>az storage blob upload --account-name mystorageaccount --container-name images --type page --file CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.raw --name CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.vhd</code></pre>
+  <li>Create image from file</li>
+<pre><code>az image create --resource-group myresourcegroup --name CENTOS8-OPENFLIGHT-2020.1-1803201919_azure --os-type Linux --source https://mystorageaccount.blob.core.windows.net/images/CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.vhd</code></pre>
+  <li>The image is now available in the resource group to create VMs from</li>
+</ul>
