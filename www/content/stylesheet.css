@@ -1,3 +1,14 @@
+/* Feature List */
+.nav-link {
+    font-size: x-large;
+}
+
+.feature-li {
+    padding-top: unset;
+}
+
+
+
 .table td, .table th {
     vertical-align: middle;
     text-align: center;
