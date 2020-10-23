@@ -10,18 +10,18 @@ heading: OpenFlight Azure CentOS 8 Image Import
 </ul>
 <h2>Importing Image</h2>
 <ul>
-  <li>Download image from <a href="https://repo.openflighthpc.org/images/CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.raw">the OpenFlight repo</a></li>
+  <li>Download image from <a href="https://repo.openflighthpc.org/images/CENTOS8-OPENFLIGHT-2020.2-2210201156_azure.raw">the OpenFlight repo</a></li>
   <li>Resize the system disk to a size suitable for applications and data (at least 16GB)</li>
   <ul>
       <li>This requires v2+ of Qemu as it has support for Azure VHDs (tested with build of v3.1.0 on CentOS 7). The Qemu source is available <a href="https://www.qemu.org/download/#source">here</a></li>
       <li>Resize the image to desired size</li>
-      <pre><code>qemu-img resize CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.raw 16G</code></pre>
+      <pre><code>qemu-img resize CENTOS8-OPENFLIGHT-2020.2-2210201156_azure.raw 16G</code></pre>
       <li>Convert disk to ensure Azure VHD support</li>
-      <pre><code>qemu-img convert -p -f raw -O vpc -o subformat=fixed,force_size CENTOS8-OPENFLIGHT-2020.1-1803201919_azure.raw CENTOS8-OPENFLIGHT-2020.1-1803201919_azure-16G.raw</code></pre>
+      <pre><code>qemu-img convert -p -f raw -O vpc -o subformat=fixed,force_size CENTOS8-OPENFLIGHT-2020.2-2210201156_azure.raw CENTOS8-OPENFLIGHT-2020.2-2210201156_azure-16G.raw</code></pre>
   </ul>
   <li>Upload resized image to a storage container</li>
-<pre><code>az storage blob upload --account-name mystorageaccount --container-name images --type page --file CENTOS8-OPENFLIGHT-2020.1-1803201919_azure-16G.raw --name CENTOS8-OPENFLIGHT-2020.1-1803201919_azure-16G.vhd</code></pre>
+<pre><code>az storage blob upload --account-name mystorageaccount --container-name images --type page --file CENTOS8-OPENFLIGHT-2020.2-2210201156_azure-16G.raw --name CENTOS8-OPENFLIGHT-2020.2-2210201156_azure-16G.vhd</code></pre>
   <li>Create image from file</li>
-<pre><code>az image create --resource-group myresourcegroup --name CENTOS8-OPENFLIGHT-2020.1-1803201919_azure-16G --os-type Linux --source https://mystorageaccount.blob.core.windows.net/images/CENTOS8-OPENFLIGHT-2020.1-1803201919_azure-16G.vhd</code></pre>
+<pre><code>az image create --resource-group myresourcegroup --name CENTOS8-OPENFLIGHT-2020.2-2210201156_azure-16G --os-type Linux --source https://mystorageaccount.blob.core.windows.net/images/CENTOS8-OPENFLIGHT-2020.2-2210201156_azure-16G.vhd</code></pre>
   <li>The image is now available in the resource group to create VMs from</li>
 </ul>
