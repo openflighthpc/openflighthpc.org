@@ -17,4 +17,5 @@ menu:
 
 params:
   hideRSSLink: true
+  favicon: images/openflight-icon.svg
 
