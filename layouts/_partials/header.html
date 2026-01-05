@@ -1,0 +1,15 @@
+<nav>{{- partial "nav.html" . -}}</nav>
+{{- if not (eq .Kind "404") }}
+  {{- with .Title }}
+    <h1>{{ . }}</h1>
+  {{- end }}
+{{- end }}
+{{ with .Description }}
+  <p>{{ . }}</p>
+{{ end }}
+{{- if isset .Params "status" }}
+    <p><b>Project Status:</b> {{ .Params.status }}</p>
+{{- end }}
+{{- if isset .Params "source" }}
+    <p><b>Project Source:</b> <a href="{{ .Params.source }}">{{ .Params.source }}</a></p>
+{{- end }}
