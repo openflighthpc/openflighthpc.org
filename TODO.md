@@ -1,0 +1,18 @@
+- [ ] Projects
+    - [ ] Flight Warehouse
+    - [ ] Flight Solo
+    - [ ] Flight User Suite
+    - [ ] Flight Web Suite
+    - [ ] Flight Admin Suite
+    - [ ] Carbon Leaderboard
+    - [ ] Other Tools
+        - [ ] Job Cost Calculator
+        - [ ] What else? See GitHub repos?
+- [ ] Knowledgebase
+    - [ ] HPC Concepts
+    - [ ] HPC Environment Basics
+    - [ ] HPC Workflows
+        - [ ] Workloads
+        - [ ] Benchmarks
+    - [ ] Greener HPC
+    - [ ] Glossary / Abbreviations 
