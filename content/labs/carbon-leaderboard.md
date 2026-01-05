@@ -1,11 +1,15 @@
 ---
 title: Carbon Leaderboard
 date: 2024-05-01
+toc: true
 params:
   status: archived
   source: https://github.com/openflighthpc/carbon-leaderboard
 archetype: lab
 ---
+
+## Overview 
+
 The OpenFlight Carbon Leaderboard was an initiative aiming to provide a simple methodology and clear comparison of Carbon Impact Estimates for a range of servers while adding a light competitive edge. The service helped get an understanding of the impact of resources (both physical and virtual) at various levels of load. 
 
 ![](/images/labs/carbon-leaderboard.png)
@@ -25,6 +29,16 @@ This project uses the _Global Warming Potential (GWP)_ metric to identify the
 _Carbon Equivalent_ of the system specifications at run time (this means that
 estimations of impact of hardware manufacture are **not** included in the value).
 This value is provided in grams of CO2 equivalent per hour (gCO2eq/hr).
+
+## How Are Virtual Devices Estimated?
+
+The estimation of virtual devices is still in early estimation and will improve over time. One of the main complexities in estimating the impact of virtual resources is through knowing the hardware that hosts the virtual system.
+
+Some initial understanding of the hardware backing AWS instances is implemented in the underlying API which allows for a better estimation in the impact of those resources.
+
+For other platforms (e.g. Azure, GCP, OpenStack), the underlying hardware is not known or is bespoke as is the case with private cloud solutions, such as OpenStack.
+
+For example, it has been observed that estimations for virtual resources on OpenStack have seemed higher than expected because OpenStack will, by default, provide very little CPU layout information to instances. This leads to each core that a VM has being seen as a separate physical CPU. With more physical CPUs this will largely inflate the carbon estimates for the virtual system. It is possible to address this issue on an OpenStack deployment by defining the CPU topology.
 
 ## Are Values Accurate? 
 
