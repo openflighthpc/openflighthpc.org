@@ -1,0 +1,20 @@
+baseURL: https://openflighthpc.org/
+languageCode: en-gb
+title: OpenFlightHPC
+theme: hugo-simple
+
+menu: 
+  main: 
+    - name: Home
+      pageRef: /
+      weight: 10
+    - name: Labs
+      pageRef: /labs/
+      weight: 20
+    - name: Knowledge
+      pageRef: /knowledge/
+      weight: 30
+
+params:
+  hideRSSLink: true
+
