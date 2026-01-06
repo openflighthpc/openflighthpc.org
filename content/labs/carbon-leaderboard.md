@@ -14,7 +14,7 @@ The OpenFlight Carbon Leaderboard was an initiative aiming to provide a simple m
 
 ![](/images/labs/carbon-leaderboard.png)
 
-To deal with HPC systems where multiple systems may have identical specifications the leaderboard groups identical items. These groups then have some helpful (and somewhat playful) comparisons for their emissions
+To deal with HPC services where multiple systems may have identical specifications the leaderboard groups them. These groups then have some helpful (and somewhat playful) comparisons for their emissions
 
 ![](/images/labs/carbon-leaderboard-asset.png)
 
