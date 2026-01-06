@@ -4,10 +4,12 @@
     - [ ] Flight User Suite
     - [ ] Flight Web Suite
     - [ ] Flight Admin Suite
-    - [ ] Carbon Leaderboard
+    - [x] Carbon Leaderboard
+    - [x] GHPC
     - [ ] Other Tools
         - [ ] Job Cost Calculator
         - [ ] What else? See GitHub repos?
+        - [ ] prewarm.openflighthpc.org?
 - [ ] Knowledgebase
     - [ ] HPC Concepts
     - [ ] HPC Environment Basics
@@ -16,3 +18,7 @@
         - [ ] Benchmarks
     - [ ] Greener HPC
     - [ ] Glossary / Abbreviations 
+- [ ] Redirects
+    - [ ] docs.openflighthpc.org
+    - [ ] ghpc.openflighthpc.org
+    - [ ] leaderboard.openflighthpc.org
