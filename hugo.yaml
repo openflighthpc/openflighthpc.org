@@ -2,6 +2,8 @@ baseURL: https://openflighthpc.org/
 languageCode: en-gb
 title: OpenFlightHPC
 theme: hugo-simple
+mainSections:
+  - knowledge
 
 menu: 
   main: 

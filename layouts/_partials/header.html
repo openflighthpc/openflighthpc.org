@@ -13,3 +13,12 @@
 {{- if isset .Params "source" }}
     <p><b>Project Source:</b> <a href="{{ .Params.source }}">{{ .Params.source }}</a></p>
 {{- end }}
+{{- if isset .Params "categories" }}
+    <p><b>Categories:</b>
+    {{- with .GetTerms "categories" }}
+    {{- range . }}
+    <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+    {{- end }}
+    {{- end }}
+    </p>
+{{- end }}
