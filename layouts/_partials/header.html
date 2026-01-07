@@ -14,11 +14,23 @@
     <p><b>Project Source:</b> <a href="{{ .Params.source }}">{{ .Params.source }}</a></p>
 {{- end }}
 {{- if isset .Params "categories" }}
-    <p><b>Categories:</b>
-    {{- with .GetTerms "categories" }}
-    {{- range . }}
-    <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
-    {{- end }}
-    {{- end }}
-    </p>
+{{- with .GetTerms "categories" }}
+    {{ $currentPageUrl := $.Permalink }}
+      {{ range . }}
+        {{ $name := strings.ToLower .LinkTitle }}
+        {{ $series := index $.Site.Taxonomies.categories $name }}
+        {{ if gt (len $series.Pages) 1 }}
+        <hr >
+        <strong>Part of the <a href="{{ .Permalink }}">{{ .LinkTitle }}</a> series</strong>
+        <nav id="TableOfContents">
+        <ul style="display: inline">
+            {{ range $series.Pages.Reverse }} 
+                <li style="display: inline"><a href="{{.Permalink}}" {{ if eq .Permalink $currentPageUrl }}class="current"{{ end }}>{{ .LinkTitle }}</a></li>
+            {{ end }}
+        </ul>
+        </nav>
+        {{ end }}
+      {{ end }}
+    </section>
+{{- end }}
 {{- end }}
