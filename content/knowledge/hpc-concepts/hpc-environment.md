@@ -24,7 +24,7 @@ All job schedulers provide a similar level of functionality and customisations s
 
 ## Application Deployment
 
-General management of applications and libraries is mentioned in the [repository management docs]({{< ref "knowledge/hpc-concepts/base-system.md" >}}#repository-management) however this section focuses on installing applications into the entire HPC environment instead of individually to each node system.
+General management of applications and libraries is mentioned in the [repository management docs]({{< relref "knowledge/hpc-concepts/base-system.md" >}}#repository-management) however this section focuses on installing applications into the entire HPC environment instead of individually to each node system.
 
 A few things to consider when designing/implementing an application deployment system are:
 

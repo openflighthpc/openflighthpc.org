@@ -1,7 +1,7 @@
 {{ define "main" }}
 <ol>
 {{ range .Pages.ByWeight }}
-<li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
 {{ end }}
 <ol>
 {{ end }}

@@ -40,7 +40,7 @@ Further to managing packages on the local system, the entire network may require
 - **Server Management Tools** - Management tools such as ansible, puppet, chef or pdsh can execute commands across multiple systems in parallel. This saves time instead of having to individually login and run commands on each node in the system.
 - **Network Package Managers** - Software such as [Conda](https://conda.io) and [EasyBuild](https://easybuild.io/) can install an application in a centralised storage location, allowing users simply to load the [module](https://modules.sourceforge.net/) in order to start using the application.
 
-For more information regarding network package managers and application deployment, see [application deployment]({{< ref "knowledge/hpc-concepts/hpc-environment.md" >}}#application-deployment).
+For more information regarding network package managers and application deployment, see [application deployment]({{< relref "knowledge/hpc-concepts/hpc-environment.md" >}}#application-deployment).
 
 ## Additional Considerations and Questions
 

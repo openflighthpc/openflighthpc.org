@@ -2,7 +2,7 @@
 {{ if not (eq (len $.Data.Terms) 0) }}
 {{ range .Data.Terms.Alphabetical }}
 <p>
-<strong><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></strong> ({{ .Count }} pages)<br />
+<strong><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></strong> ({{ .Count }} pages)<br />
 <i>{{ .Page.Description }}</i>
 </p>
 {{ end }}

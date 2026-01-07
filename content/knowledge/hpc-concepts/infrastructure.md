@@ -7,7 +7,7 @@ categories:
 toc: true
 ---
 
-Infrastructure design largely relates to the considerations made for the [cluster architecture]({{< ref "knowledge/hpc-concepts/network-and-hardware" >}}#hardware-recommendations). Depending on the design being used, some of the infrastructure decisions may have already been made.
+Infrastructure design largely relates to the considerations made for the [cluster architecture]({{< relref "knowledge/hpc-concepts/network-and-hardware" >}}#hardware-recommendations). Depending on the design being used, some of the infrastructure decisions may have already been made.
 
 ## Infrastructure Service Availability
 
@@ -57,7 +57,7 @@ In addition to the availability of services, the network configuration on the no
 
 ## Recommendations for Infrastructure Design
 
-The example configurations here combine elements of the [network and hardware guide]({{< ref "knowledge/hpc-concepts/network-and-hardware" >}}) as well as the different infrastructure solutions from these infrastructure considerations. These focus on the internal configuration of the master node but these examples can be extrapolated for configuring login, storage, compute or any other nodes that are part of the HPC environment.
+The example configurations here combine elements of the [network and hardware guide]({{< relref "knowledge/hpc-concepts/network-and-hardware" >}}) as well as the different infrastructure solutions from these infrastructure considerations. These focus on the internal configuration of the master node but these examples can be extrapolated for configuring login, storage, compute or any other nodes that are part of the HPC environment.
 
 ### Simple Infrastructure
 

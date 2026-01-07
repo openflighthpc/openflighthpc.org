@@ -15,17 +15,17 @@
 {{- end }}
 {{- if isset .Params "categories" }}
 {{- with .GetTerms "categories" }}
-    {{ $currentPageUrl := $.Permalink }}
+    {{ $currentPageUrl := $.RelPermalink }}
       {{ range . }}
         {{ $name := strings.ToLower .LinkTitle }}
         {{ $series := index $.Site.Taxonomies.categories $name }}
         {{ if gt (len $series.Pages) 1 }}
         <hr >
-        <strong>Part of the <a href="{{ .Permalink }}">{{ .LinkTitle }}</a> series</strong>
+        <strong>Part of the <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a> series</strong>
         <nav id="TableOfContents">
         <ul style="display: inline">
             {{ range $series.Pages.ByWeight }} 
-                <li style="display: inline"><a href="{{.Permalink}}" {{ if eq .Permalink $currentPageUrl }}class="current"{{ end }}>{{ .LinkTitle }}</a></li>
+                <li style="display: inline"><a href="{{.RelPermalink}}" {{ if eq .RelPermalink $currentPageUrl }}class="current"{{ end }}>{{ .LinkTitle }}</a></li>
             {{ end }}
         </ul>
         </nav>

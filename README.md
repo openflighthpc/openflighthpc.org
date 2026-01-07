@@ -44,7 +44,7 @@ Category is needed otherwise it won't appear in any of the website nav. Weight i
 
 To link to other pages within the website sensibly use the shortcode helper in markdown:
 ```markdown
-[LINK_TEXT]({{< ref "path/to/markdown-file-without-extension" >}}) 
+[LINK_TEXT]({{< relref "path/to/markdown-file-without-extension" >}}) 
 ```
 
 ## Dev
