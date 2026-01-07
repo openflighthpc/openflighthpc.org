@@ -1,7 +1,7 @@
 ---
 title: Network and Hardware
 description: Considerations for Network and Hardware Design
-date: 2023-01-02
+weight: 2
 categories:
   - HPC Concepts
 toc: true

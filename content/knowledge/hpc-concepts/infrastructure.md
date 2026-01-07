@@ -1,7 +1,7 @@
 ---
 title: Infrastructure
 description: Considerations for Infrastructure Design
-date: 2023-01-03
+weight: 3
 categories:
   - HPC Concepts
 toc: true
