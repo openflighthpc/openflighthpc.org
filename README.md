@@ -40,6 +40,11 @@ categories:
 
 Category is needed otherwise it won't appear in any of the website nav.
 
+To link to other pages within the website sensibly use the shortcode helper in markdown:
+```markdown
+[LINK_TEXT]({{< ref "path/to/markdown-file-without-extension" >}}) 
+```
+
 ## Dev
 
 - Run dev server on localhost (http://localhost:1313)
