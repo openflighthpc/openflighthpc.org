@@ -14,7 +14,7 @@ menu:
       pageRef: /labs/
       weight: 20
     - name: Knowledge
-      pageRef: /knowledge/
+      pageRef: /categories/
       weight: 30
 
 params:
