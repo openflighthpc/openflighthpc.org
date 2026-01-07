@@ -3,7 +3,7 @@ languageCode: en-gb
 title: OpenFlightHPC
 theme: hugo-simple
 mainSections:
-  - knowledge
+  - categories
 
 menu: 
   main: 
