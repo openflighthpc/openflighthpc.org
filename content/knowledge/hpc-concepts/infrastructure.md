@@ -4,6 +4,7 @@ description: Considerations for Infrastructure Design
 date: 2023-01-03
 categories:
   - HPC Concepts
+toc: true
 ---
 
 Infrastructure design largely relates to the considerations made for the [cluster architecture]({{< ref "knowledge/hpc-concepts/network-and-hardware" >}}#hardware-recommendations). Depending on the design being used, some of the infrastructure decisions may have already been made.
