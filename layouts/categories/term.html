@@ -1,6 +1,6 @@
 {{ define "main" }}
 <ol>
-{{ range .Pages.Reverse }}
+{{ range .Pages.ByWeight }}
 <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
 {{ end }}
 <ol>

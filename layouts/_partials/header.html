@@ -24,7 +24,7 @@
         <strong>Part of the <a href="{{ .Permalink }}">{{ .LinkTitle }}</a> series</strong>
         <nav id="TableOfContents">
         <ul style="display: inline">
-            {{ range $series.Pages.Reverse }} 
+            {{ range $series.Pages.ByWeight }} 
                 <li style="display: inline"><a href="{{.Permalink}}" {{ if eq .Permalink $currentPageUrl }}class="current"{{ end }}>{{ .LinkTitle }}</a></li>
             {{ end }}
         </ul>

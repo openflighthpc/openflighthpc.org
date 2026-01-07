@@ -32,13 +32,15 @@ Create a parent folder reflective of the category/series that documentation rela
 ```yaml
 ---
 title: First Page
-date: 2023-01-01
+description The first page description
+weight: 1
 categories:
 - My Series
+toc: true
 ---
 ```
 
-Category is needed otherwise it won't appear in any of the website nav.
+Category is needed otherwise it won't appear in any of the website nav. Weight is a number, think of it as page number (starting at 1 and going up).
 
 To link to other pages within the website sensibly use the shortcode helper in markdown:
 ```markdown
