@@ -1,7 +1,10 @@
 {{ define "main" }}
 {{ if not (eq (len $.Data.Terms) 0) }}
 {{ range .Data.Terms.Alphabetical }}
-<a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+<p>
+<a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a><br />
+<i>{{ .Page.Description }}</i>
+</p>
 {{ end }}
 {{ end }}
 {{ end }}
