@@ -4,7 +4,7 @@ description: A diskless PXE boot HPC stack with overlayfs & cloud-init
 date: 2025-12-01
 params:
   status: active
-  source: ghpc.openflighthpc.org
+  source: https://ghpc.openflighthpc.org
 toc: true
 ---
 
