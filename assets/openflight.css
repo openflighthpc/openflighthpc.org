@@ -2,3 +2,32 @@
 :root {
     --accent: #2693D7;
 }
+
+
+/* Lab Experiments */
+.lab-experiment {
+    border: var(--border-width)solid var(--border);
+    border-radius: 2rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.lab-experiment h3 {
+    margin-top: 1rem;
+}
+.lab-experiment a {
+    text-decoration: none;
+}
+.lab-experiment .badge .status {
+    color: green;
+}
+.lab-experiment .badge .status-archived {
+    color: red;
+}
+.lab-experiment .badge {
+    border: var(--border-width)solid var(--border);
+    border-radius: 10rem;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-right: 1rem;
+}
