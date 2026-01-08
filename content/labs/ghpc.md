@@ -1,5 +1,6 @@
 ---
 title: GHPC (Diskless Stack)
+description: A diskless PXE boot HPC stack with overlayfs & cloud-init
 date: 2025-12-01
 params:
   status: active

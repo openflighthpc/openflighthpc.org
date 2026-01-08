@@ -1,5 +1,6 @@
 ---
 title: Carbon Leaderboard
+description: A website for collecting & comparing carbon impact of physical & virtual servers
 date: 2024-05-01
 toc: true
 params:
