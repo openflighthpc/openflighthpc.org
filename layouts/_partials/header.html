@@ -1,4 +1,16 @@
 <nav>{{- partial "nav.html" . -}}</nav>
+<ul>
+{{ range .Ancestors.Reverse }}
+    {{ if ne .RelPermalink "/" }}
+      <li style="display: inline">
+        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    {{ end }}
+{{ end }}
+<li style="display: inline">
+</li>
+</ul>
 {{- if not (eq .Kind "404") }}
   {{- with .Title }}
     <h1>{{ . }}</h1>
@@ -13,24 +25,23 @@
 {{- if isset .Params "source" }}
     <p><b>Project Source:</b> <a href="{{ .Params.source }}">{{ .Params.source }}</a></p>
 {{- end }}
-{{- if isset .Params "categories" }}
-{{- with .GetTerms "categories" }}
-    {{ $currentPageUrl := $.RelPermalink }}
-      {{ range . }}
-        {{ $name := strings.ToLower .LinkTitle }}
-        {{ $series := index $.Site.Taxonomies.categories $name }}
-        {{ if gt (len $series.Pages) 1 }}
-        <hr >
-        <strong>Part of the <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a> series</strong>
-        <nav id="TableOfContents">
-        <ul style="display: inline">
-            {{ range $series.Pages.ByWeight }} 
-                <li style="display: inline"><a href="{{.RelPermalink}}" {{ if eq .RelPermalink $currentPageUrl }}class="current"{{ end }}>{{ .LinkTitle }}</a></li>
-            {{ end }}
-        </ul>
-        </nav>
-        {{ end }}
-      {{ end }}
-    </section>
-{{- end }}
-{{- end }}
+
+{{ $currentPageUrl := $.RelPermalink }}
+{{ if gt (len .Ancestors) 0 }}
+{{ $section := (.Ancestors | first 1) }}
+{{ range $section }}
+{{ $ignore := slice "/" "/labs/" "/knowledge/" }}
+{{ if not (in $ignore .RelPermalink) }}
+<hr />
+<strong>Part of the <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    {{ range .Pages.ByWeight }}
+        <li style="display: inline"><a href="{{.RelPermalink}}" {{ if eq .RelPermalink $currentPageUrl }}class="current"{{ end }}>{{ .LinkTitle }}</a></li>
+    {{ end }}
+</ul>
+</nav>
+{{ end }}
+{{ end }}
+{{ end }}
+

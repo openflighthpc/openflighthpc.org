@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{ range .Sections }}
+<p>
+<strong><a href="{{ .RelPermalink }}">{{ .Title }}</a></strong> ({{ len .Pages }} pages)<br />
+<i>{{ .Description }}</i>
+</p>
+{{ range .Pages }}
+{{ if .IsSection }}
+<p style='margin-left:5rem;padding-left: 1rem;border-left: 1px solid'>
+<strong><a href="{{ .RelPermalink }}">{{ .Title }}</a></strong> ({{ len .Pages }} pages)<br />
+<i>{{ .Description }}</i>
+</p>
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

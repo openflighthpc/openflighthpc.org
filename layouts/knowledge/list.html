@@ -1,0 +1,18 @@
+{{ define "main" }}
+<ol>
+{{ range .Pages.ByWeight }}
+    {{ if .IsSection }}
+    <li><strong><a href="{{ .RelPermalink }}">{{ .Title }}</a></strong><br />
+    <p style="font-size: small;margin: 0">{{ .Description }}</p></li>
+    <ol>
+        {{ range .Pages }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+        {{ end }}
+    </ol>
+    {{ else }}
+    <li><strong><a href="{{ .RelPermalink }}">{{ .Title }}</a></strong><br />
+    {{ end }}
+{{ end }}
+</ol>
+{{ end }}
+
