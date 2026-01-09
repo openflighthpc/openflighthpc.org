@@ -1,8 +1,6 @@
 ---
 title: Overview
 weight: 1
-categories:
-- HPC Concepts
 ---
 The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.
 

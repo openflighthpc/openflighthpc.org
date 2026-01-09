@@ -2,8 +2,6 @@
 title: Base System
 description: Considerations for Software and Application Deployment
 weight: 4
-categories:
-  - HPC Concepts
 toc: true
 ---
 

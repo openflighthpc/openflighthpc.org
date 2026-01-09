@@ -2,8 +2,6 @@
 title: HPC Environment
 description: Considerations for HPC Environment Design
 weight: 8
-categories:
-  - HPC Concepts
 toc: true
 ---
 

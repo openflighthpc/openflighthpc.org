@@ -2,8 +2,6 @@
 title: Infrastructure
 description: Considerations for Infrastructure Design
 weight: 3
-categories:
-  - HPC Concepts
 toc: true
 ---
 

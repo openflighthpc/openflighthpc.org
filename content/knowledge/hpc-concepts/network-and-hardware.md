@@ -2,8 +2,6 @@
 title: Network and Hardware
 description: Considerations for Network and Hardware Design
 weight: 2
-categories:
-  - HPC Concepts
 toc: true
 ---
 In general, the things to consider when designing the hardware and network solution for a HPC platform are:

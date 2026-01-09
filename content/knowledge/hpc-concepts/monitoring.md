@@ -2,8 +2,6 @@
 title: Monitoring
 description: Considerations for Monitoring the HPC Platform
 weight: 7
-categories:
-  - HPC Concepts
 toc: true
 ---
 

@@ -2,8 +2,6 @@
 title: Storage
 description: Considerations for Storage Solution
 weight: 6
-categories:
-  - HPC Concepts
 toc: true
 ---
 

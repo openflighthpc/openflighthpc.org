@@ -2,8 +2,6 @@
 title: Verification
 description: Considerations for HPC Platform Verification
 weight: 9
-categories:
-  - HPC Concepts
 toc: true
 ---
 

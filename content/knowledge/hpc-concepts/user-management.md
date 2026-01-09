@@ -2,8 +2,6 @@
 title: User Management
 description: Considerations for User Management
 weight: 5
-categories:
-  - HPC Concepts
 toc: true
 ---
 
