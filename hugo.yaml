@@ -21,3 +21,7 @@ params:
   hideRSSLink: true
   favicon: images/openflight-icon.svg
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
