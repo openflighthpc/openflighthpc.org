@@ -11,8 +11,8 @@
         - [ ] What else? See GitHub repos?
         - [ ] prewarm.openflighthpc.org?
 - [ ] Knowledgebase
-    - [ ] HPC Concepts
-    - [ ] HPC Environment Basics
+    - [x] HPC Concepts
+    - [x] HPC Environment Basics
     - [ ] HPC Workflows
         - [ ] Workloads
         - [ ] Benchmarks
