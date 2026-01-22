@@ -1,7 +1,8 @@
 {{ define "main" }}
-{{ range .Sections }}
+<h4><i>Below are the topics covered by documentation grouped from oldest documentation to newest.</i></h4>
+{{ range .Sections.ByDate }}
 <p>
-<strong><a href="{{ .RelPermalink }}">{{ .Title }}</a></strong> ({{ len .Pages }} pages)<br />
+<strong>[{{ .Date.Format "2006" }}] <a href="{{ .RelPermalink }}">{{ .Title }}</a></strong> ({{ len .Pages }} pages)<br />
 <i>{{ .Description }}</i>
 </p>
 {{ range .Pages }}
