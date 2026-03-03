@@ -13,9 +13,9 @@
 - [ ] Knowledgebase
     - [x] HPC Concepts
     - [x] HPC Environment Basics
-    - [ ] HPC Workflows
-        - [ ] Workloads
-        - [ ] Benchmarks
+    - [x] HPC Workflows
+        - [x] Workloads
+        - [x] Benchmarks
     - [ ] Greener HPC
     - [ ] Glossary / Abbreviations 
 - [ ] Redirects
