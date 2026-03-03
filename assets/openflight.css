@@ -20,6 +20,9 @@
 .lab-experiment .badge .status {
     color: green;
 }
+.lab-experiment .badge .status-maintenance {
+    color: orange;
+}
 .lab-experiment .badge .status-archived {
     color: red;
 }

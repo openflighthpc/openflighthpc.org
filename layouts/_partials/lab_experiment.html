@@ -6,7 +6,16 @@
             {{ .Date.Format "2006-01-02" }}
         </span>
         <span class="badge" >Status: 
-            <span {{ if eq .Params.status "archived" }}class="status-archived"{{ else }}class="status"{{ end }}>{{ .Params.status }}</span>
+            <span {{ if eq .Params.status "archived" }}
+                    class="status-archived"
+                  {{ else if eq .Params.status "maintenance" }}
+                    class="status-maintenance"
+                  {{ else }}
+                    class="status"
+                  {{ end }}
+            >
+                {{ .Params.status }}
+            </span>
         </span>
         <span class="badge" >
             <a href="{{ .Params.source }}">Source</a>
