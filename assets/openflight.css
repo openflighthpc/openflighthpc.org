@@ -3,6 +3,11 @@
     --accent: #2693D7;
 }
 
+/* Notices */
+.notice {
+    color: orange;
+    text-align: center;
+}
 
 /* Lab Experiments */
 .lab-experiment {
