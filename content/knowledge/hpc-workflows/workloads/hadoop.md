@@ -8,7 +8,7 @@ This example sets up hadoop on a single node and processes an example data set.
 
 ## Installing & Running Hadoop
 
-> This example uses the flight environment which will need to be activated before the environments can be created so be sure to run `flight start` or [setup your environment to automatically activate the flight environment]({{< relref "knowledge/flight-environment/use-flight/flight-user-suite/_index.md" >}}).
+> This example uses the flight environment which will need to be activated before the environments can be created so be sure to run `flight start` or [setup your environment to automatically activate the flight environment]({{< relref "knowledge/flight-environment/flight-user-suite/_index.md" >}}).
 
 - Install dependencies for Hadoop:
     ```bash

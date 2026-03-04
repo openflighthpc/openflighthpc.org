@@ -5,7 +5,7 @@ toc: true
 
 Tensorflow is an open-source machine learning platform. It provides an ecosystem of tools and libraries that allow researchers to build and deploy machine learning applications.
 
-> This example uses the flight environment which will need to be activated before the environments can be created so be sure to run `flight start` or [setup your environment to automatically activate the flight environment]({{< relref "knowledge/flight-environment/use-flight/flight-user-suite/_index.md" >}}).
+> This example uses the flight environment which will need to be activated before the environments can be created so be sure to run `flight start` or [setup your environment to automatically activate the flight environment]({{< relref "knowledge/flight-environment/flight-user-suite/_index.md" >}}).
 
 ## Installing Tensorflow
 

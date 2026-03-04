@@ -3,7 +3,7 @@ title: OpenFOAM Workflow Example
 toc: true
 ---
 
-OpenFOAM is a popular engineering application toolbox. It's open source and is used for simulating fluid flow around objects. This section describes the different installation process available and how to run some basic jobs. Some parts in this section use the [Flight Silo]({{< relref "knowledge/flight-environment/use-flight/flight-user-suite/flight-silo.md" >}}) tool to download necessary files.
+OpenFOAM is a popular engineering application toolbox. It's open source and is used for simulating fluid flow around objects. This section describes the different installation process available and how to run some basic jobs. Some parts in this section use the [Flight Silo]({{< relref "knowledge/flight-environment/flight-user-suite/flight-silo.md" >}}) tool to download necessary files.
 
 ## Install OpenFOAM
 
@@ -11,7 +11,7 @@ There are 3 different ways you can install OpenFOAM, each with varying levels of
 
 ### Basic 
 
-1. Download and install OpenFlight OpenFOAM software using [Flight Silo]({{< relref "knowledge/flight-environment/use-flight/flight-user-suite/flight-silo.md" >}})
+1. Download and install OpenFlight OpenFOAM software using [Flight Silo]({{< relref "knowledge/flight-environment/flight-user-suite/flight-silo.md" >}})
     ```bash
     flight silo software pull OpenFOAM 22.12 --repo openflight
     ```
@@ -134,7 +134,7 @@ For this example, your environment will need to have a job scheduler such as [Sl
 
 Once the cavity job has finished running, the results can be visualised through a desktop session.
 
-1. Connect to VNC or web-suite desktop (For more information on launching desktops, see the [Flight Desktop section]({{< relref "knowledge/flight-environment/use-flight/flight-user-suite/flight-desktop.md" >}})).
+1. Connect to VNC or web-suite desktop (For more information on launching desktops, see the [Flight Desktop section]({{< relref "knowledge/flight-environment/flight-user-suite/flight-desktop.md" >}})).
 
 2. Navigate to the cavity directory and launch the paraFoam viewer:
     ```bash
@@ -186,7 +186,7 @@ For this example, your environment will need to have a job scheduler such as [Sl
 
 Once the job has finished running, the results can be visualised through a desktop session.
 
-1. Connect to VNC or web-suite desktop (For more information on launching desktops, see the [Flight Desktop section]({{< relref "knowledge/flight-environment/use-flight/flight-user-suite/flight-desktop.md" >}})).
+1. Connect to VNC or web-suite desktop (For more information on launching desktops, see the [Flight Desktop section]({{< relref "knowledge/flight-environment/flight-user-suite/flight-desktop.md" >}})).
 
 2. Open a terminal and navigate to the job directory.
 
