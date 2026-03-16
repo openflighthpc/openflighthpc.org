@@ -54,6 +54,10 @@ hugo server -F -D --cleanDestinationDir
 
 ## Release
 
+The site is hosted with [statichost.uk](https://statichost.uk). Automated deployments are not configured. To deploy, login to that dashboard and click deploy.
+
+### OLD
+
 To build the site simply
 ```bash
 hugo --cleanDestinationDir
