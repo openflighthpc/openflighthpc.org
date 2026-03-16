@@ -20,6 +20,8 @@ menu:
 params:
   hideRSSLink: true
   favicon: images/openflight-icon.svg
+  author:
+    name: "OpenFlight Admin" 
 
 markup:
   goldmark:
