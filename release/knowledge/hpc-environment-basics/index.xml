@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-environment-basics/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 02 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-environment-basics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Genders and PDSH</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/genders-pdsh/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/genders-pdsh/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Genders&lt;/strong&gt; provides a simple method for categorising a node inventory. To learn more about genders, read the &lt;a href=&#34;https://github.com/chaos/genders/blob/master/TUTORIAL&#34;&gt;official tutorial&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PDSH&lt;/strong&gt; provides a CLI tool for performing commands on multiple nodes at once, utilising the data stored in genders. To learn more about using PDSH, read the manual page for the command &lt;code&gt;man pdsh&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;installing-genders-and-pdsh&#34;&gt;Installing Genders and PDSH&lt;/h2&gt;
+&lt;p&gt;The packages should be available in the package manager for your distribution. To install on CentOS/RHEL/Rocky:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
+<p><strong>Genders</strong> provides a simple method for categorising a node inventory. To learn more about genders, read the <a href="https://github.com/chaos/genders/blob/master/TUTORIAL">official tutorial</a>.</p>
+<p><strong>PDSH</strong> provides a CLI tool for performing commands on multiple nodes at once, utilising the data stored in genders. To learn more about using PDSH, read the manual page for the command <code>man pdsh</code>.</p>
+<h2 id="installing-genders-and-pdsh">Installing Genders and PDSH</h2>
+<p>The packages should be available in the package manager for your distribution. To install on CentOS/RHEL/Rocky:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dnf install pdsh genders</span></span></code></pre></div>
+<blockquote>
+<p>You will need <code>sudo</code> permissions to install packages, see <a href="/knowledge/hpc-environment-basics/cli-basics/becoming-root/">becoming the root user</a> for more information</p></blockquote>
+<h2 id="creating-a-genders-file">Creating a Genders File</h2>
+<p>Open the genders file (<code>/etc/genders</code>) with your preferred text editor and add a gender in with the following format:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>node01,node02,node03,node04,node05 gendername</code></pre>
+<p>There are alternate formats that make writing a gender easier:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>node01,node02,node03,node04,node05:    node[01-05]
+node3,node7,node9,node10,node11:       node[3,7,9-11]
+nodei,nodej,node0,node1,node2:         nodei,nodej,node[0-2]</code></pre>
+<p>For example:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>node[01-05] mygroup1
+nodeA,nodeB,node[1,2,3,10-20],nodeC mygroup2</code></pre>
+<p>After adding the desired gender(s), save and close the file.</p>
+<h2 id="finding-the-names-of-your-compute-nodes">Finding the Names of Your Compute Nodes</h2>
+<p>In best practice, the hostnames of compute nodes usually follow a sequential order (e.g. node01, node02, node03&hellip; node10).</p>
+<p>Users can find the names of their compute nodes by using the <code>nodeattr</code> command with a group; e.g.</p>
+<ul>
+<li>Show a space-separated list of hosts in the group &rsquo;nodes'
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nodeattr -s nodes</span></span></code></pre></div>
+</li>
+<li>Show a comma-separated list of hosts in the group &lsquo;group&rsquo;
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nodeattr -c group</span></span></code></pre></div>
+</li>
+<li>Show a newline-separate list of hosts in the group &lsquo;groups&rsquo;
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nodeattr -n groups</span></span></code></pre></div>
+</li>
+</ul>
+<h2 id="using-pdsh">Using PDSH</h2>
+<p>Users can run a command across many hosts at once using the pdsh command. This can be useful if users want to make the same change to multiple systems in the research environment - for example, installing a new software package. The <code>pdsh</code> command can take a number of parameters that control how commands are processed; for example:</p>
+<ul>
+<li>Run <code>uptime</code> across hosts in the &lsquo;all&rsquo; group
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdsh -g all uptime</span></span></code></pre></div>
+</li>
+<li>Install the package <code>screen</code> with <code>yum</code> on all hosts in the &rsquo;nodes&rsquo; group
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdsh -g nodes <span style="color:#e6db74">&#39;sudo yum -y install screen&#39;</span></span></span></code></pre></div>
+</li>
+<li>Check usage of <code>/tmp</code> on all hosts in the &rsquo;nodes&rsquo; group one at a time
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdsh -g nodes -f <span style="color:#ae81ff">1</span> df -h /tmp</span></span></code></pre></div>
+</li>
+<li>Run <code>which ldconfig</code> on two specified hosts
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdsh -w node01,node03 which ldconfig</span></span></code></pre></div>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

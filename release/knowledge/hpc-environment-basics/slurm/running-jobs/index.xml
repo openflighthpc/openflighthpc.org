@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Submitting an Interactive Job</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/interactive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/interactive/</guid>
+      <description>&lt;p&gt;You can start a new interactive job on your research environment by using the &lt;code&gt;srun&lt;/code&gt; command; the scheduler will search for an available compute node, and provide you with an interactive login shell on the node if one is available.&lt;/p&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ srun --pty /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@node01 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@node01 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ squeue
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;REASON&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;               &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;       all     bash    centos R       0:39      &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; node01&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In the above example, the &lt;code&gt;srun&lt;/code&gt; command is used together with two options: &lt;code&gt;--pty&lt;/code&gt; and &lt;code&gt;/bin/bash&lt;/code&gt;. The &lt;code&gt;--pty&lt;/code&gt; option executes the task in pseudo terminal mode, allowing the session to act like a standard terminal session. The &lt;code&gt;/bin/bash&lt;/code&gt; option is the command that you wish to run - here the default Linux shell, BASH.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>You can start a new interactive job on your research environment by using the <code>srun</code> command; the scheduler will search for an available compute node, and provide you with an interactive login shell on the node if one is available.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ srun --pty /bin/bash
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@node01 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@node01 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>           JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">3</span>       all     bash    centos R       0:39      <span style="color:#ae81ff">1</span> node01</span></span></code></pre></div>
+<p>In the above example, the <code>srun</code> command is used together with two options: <code>--pty</code> and <code>/bin/bash</code>. The <code>--pty</code> option executes the task in pseudo terminal mode, allowing the session to act like a standard terminal session. The <code>/bin/bash</code> option is the command that you wish to run - here the default Linux shell, BASH.</p>
+<p>Alternatively, the <code>srun</code> command can also be executed from an interactive desktop session; the job-scheduler will automatically find an available compute node to launch the job on. Applications launched from within the <code>srun</code> session are executed on the assigned research environment compute node.</p>
+<p><img src="/images/knowledge/hpc-environment-basics/interactivejob.png" alt=""></p>
+<blockquote>
+<p>The Slurm scheduler does not automatically set up your session to allow you to run graphical applications inside an interactive session. Once your interactive session has started, you must run the following command before running a graphical application: <code>export DISPLAY=chead1$DISPLAY</code> (where <code>chead1</code> is the name of the login system)</p></blockquote>
+<blockquote>
+<p>Running X applications from a compute node may not work due to missing X libraries on the compute node, these can be installed from an SSH session into a compute node with <code>sudo yum groupinstall &quot;X Window System&quot;</code></p></blockquote>
+<p>When you&rsquo;ve finished running your application in your interactive session, simply type <code>logout</code>, <code>exit</code>, or press ++ctrl+d++ to exit the interactive job.</p>
+<p>If the job-scheduler could not satisfy the resource you&rsquo;ve requested for your interactive job (e.g. all your available compute nodes are busy running other jobs), it will report back after a few seconds with an error:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ srun --pty /bin/bash
+</span></span><span style="display:flex;"><span>srun: job <span style="color:#ae81ff">20</span> queued and waiting <span style="color:#66d9ef">for</span> resources</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Submitting a Batch Job</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/batch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/batch/</guid>
+      <description>&lt;p&gt;Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user &lt;a href=&#34;https://www.quora.com/What-do-you-do-while-youre-waiting-for-your-code-to-finish-running&#34;&gt;does something else&lt;/a&gt;. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (&lt;em&gt;stdout&lt;/em&gt; and &lt;em&gt;stderr&lt;/em&gt; in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user <a href="https://www.quora.com/What-do-you-do-while-youre-waiting-for-your-code-to-finish-running">does something else</a>. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (<em>stdout</em> and <em>stderr</em> in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line.</p>
+<p>We&rsquo;ll start with a basic example - the following script is written in bash (the default Linux command-line interpreter). You can create the script yourself using the <a href="https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/">Nano</a> command-line editor - use the command <code>nano simplejobscript.sh</code> to create a new file, then type in the contents below. The script does nothing more than print some messages to the screen (the <strong>echo</strong> lines), and sleeps for 120 seconds. We&rsquo;ve saved the script to a file called <code>simplejobscript.sh</code> - the <code>.sh</code> extension helps to remind us that this is a <em>shell</em> script, but adding a filename extension isn&rsquo;t strictly necessary for Linux.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>echo <span style="color:#e6db74">&#34;Starting running on host </span>$HOSTNAME<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Finished running - goodbye from </span>$HOSTNAME<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+<blockquote>
+<p>We use the <code>-l</code> option to bash on the first line of the script to request a login session. This ensures that environment modules can be loaded as required as part of your script.</p></blockquote>
+<p>We can execute that script directly on the login node by using the command <code>bash simplejobscript.sh</code> - after a couple of minutes, we get the following output:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Started running on host chead1
+</span></span><span style="display:flex;"><span>Finished running - goodbye from chead1</span></span></code></pre></div>
+<p>To submit your job script to the research environment job scheduler, use the command <code>sbatch simplejobscript.sh</code>. The job scheduler should immediately report the job-ID for your job; your job-ID is unique for your current research environment - it will never be repeated once used.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch simplejobscript.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span>simplejobscript.sh  slurm-21.out
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ cat slurm-21.out
+</span></span><span style="display:flex;"><span>Starting running on host node01
+</span></span><span style="display:flex;"><span>Finished running - goodbye from node01</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Submitting an Array Job</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/array/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/array/</guid>
+      <description>&lt;p&gt;A common workload is having a large number of jobs to run which basically do the same thing, aside perhaps from having different input data. You could generate a job-script for each of them and submit it, but that&amp;rsquo;s not very convenient - especially if you have many hundreds or thousands of tasks to complete. Such jobs are known as &lt;strong&gt;task arrays&lt;/strong&gt; - an &lt;a href=&#34;https://en.wikipedia.org/wiki/Embarrassingly_parallel&#34;&gt;embarrassingly parallel&lt;/a&gt; job will often fit into this category.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>A common workload is having a large number of jobs to run which basically do the same thing, aside perhaps from having different input data. You could generate a job-script for each of them and submit it, but that&rsquo;s not very convenient - especially if you have many hundreds or thousands of tasks to complete. Such jobs are known as <strong>task arrays</strong> - an <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a> job will often fit into this category.</p>
+<p>A convenient way to run such jobs on a research environment is to use a task array, using the <code>-a [array_spec] | --array=[array_spec]</code> directive. Your job-script can then use the pseudo environment variables created by the scheduler to refer to data used by each task in the job. The following job-script uses the <code>$SLURM_ARRAY_TASK_ID</code>/<code>%a</code> variable to echo its current task ID to an output file:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=array</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --output=output.array.%A.%a</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --array=1-1000</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;I am </span>$SLURM_ARRAY_TASK_ID<span style="color:#e6db74"> from job </span>$SLURM_ARRAY_JOB_ID<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+<p>Once submitted, we can see the various iterations of this array on the queue:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch arrayjob.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">77</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>           JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    77_<span style="color:#f92672">[</span>85-1000<span style="color:#f92672">]</span>       all    array    centos PD       0:00      <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>Resources<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>           77_71       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node03
+</span></span><span style="display:flex;"><span>           77_72       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node06
+</span></span><span style="display:flex;"><span>           77_73       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node03
+</span></span><span style="display:flex;"><span>           77_74       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node06
+</span></span><span style="display:flex;"><span>           77_75       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node07
+</span></span><span style="display:flex;"><span>           77_76       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node07
+</span></span><span style="display:flex;"><span>           77_77       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node05
+</span></span><span style="display:flex;"><span>           77_78       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node05
+</span></span><span style="display:flex;"><span>           77_79       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node02
+</span></span><span style="display:flex;"><span>           77_80       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node04
+</span></span><span style="display:flex;"><span>           77_81       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node01
+</span></span><span style="display:flex;"><span>           77_82       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node01
+</span></span><span style="display:flex;"><span>           77_83       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node02
+</span></span><span style="display:flex;"><span>           77_84       all    array    centos  R       0:00      <span style="color:#ae81ff">1</span> node04</span></span></code></pre></div>
+<p>All tasks in an array job are given a job ID with the format <code>[job_ID]_[task_number]</code> e.g. <code>77_81</code> would be job number 77, array task 81.</p>
+<p>Array jobs can easily be cancelled using the <code>scancel</code> command - the following examples show various levels of control over an array job:</p>
+<ul>
+<li>Cancel all array tasks under the job ID <code>77</code>
+
+
+
+
+
+
+<pre tabindex="0"><code>scancel 77</code></pre>
+</li>
+<li>Cancel array tasks <code>100-200</code> under the job ID <code>77</code>
+
+
+
+
+
+
+<pre tabindex="0"><code>scancel 77_[100-200]</code></pre>
+</li>
+<li>Cancel array task <code>5</code> under the job ID <code>77</code>
+
+
+
+
+
+
+<pre tabindex="0"><code>scancel 77_5</code></pre>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Job Configuration</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/</guid>
+      <description>&lt;p&gt;In order to promote efficient usage of the research environment - the job-scheduler is automatically configured with default run-time limits for jobs. These defaults can be overridden by users to help the scheduler understand how you want it to run your job.&lt;/p&gt;
+&lt;p&gt;Job instructions can be provided in two ways; they are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;On the command line&lt;/strong&gt;, as parameters to your &lt;code&gt;sbatch&lt;/code&gt; or &lt;code&gt;srun&lt;/code&gt; command. For example, you can set the name of your job using the &lt;code&gt;--job-name=[name] | -J [name]&lt;/code&gt; option:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ sbatch --job-name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mytestjob simplejobscript.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Submitted batch job &lt;span style=&#34;color:#ae81ff&#34;&gt;51&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ squeue
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;REASON&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#ae81ff&#34;&gt;51&lt;/span&gt;       all mytestjo    centos  R       0:02      &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; node01&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;In your job script&lt;/strong&gt;, by including scheduler directives at the top of your job script - you can achieve the same effect as providing options with the &lt;code&gt;sbatch&lt;/code&gt; or &lt;code&gt;srun&lt;/code&gt; commands. Create an example job script or modify your existing script to include a scheduler directive to use a specified job name:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash -l
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#SBATCH --job-name=mytestjob&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Starting running on host &lt;/span&gt;$HOSTNAME&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sleep &lt;span style=&#34;color:#ae81ff&#34;&gt;120&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Finished running - goodbye from &lt;/span&gt;$HOSTNAME&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Including job scheduler instructions in your job-scripts is often the most convenient method of working for batch jobs - follow the guidelines below for the best experience:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>In order to promote efficient usage of the research environment - the job-scheduler is automatically configured with default run-time limits for jobs. These defaults can be overridden by users to help the scheduler understand how you want it to run your job.</p>
+<p>Job instructions can be provided in two ways; they are:</p>
+<ol>
+<li><strong>On the command line</strong>, as parameters to your <code>sbatch</code> or <code>srun</code> command. For example, you can set the name of your job using the <code>--job-name=[name] | -J [name]</code> option:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch --job-name<span style="color:#f92672">=</span>mytestjob simplejobscript.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">51</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">51</span>       all mytestjo    centos  R       0:02      <span style="color:#ae81ff">1</span> node01</span></span></code></pre></div>
+</li>
+<li><strong>In your job script</strong>, by including scheduler directives at the top of your job script - you can achieve the same effect as providing options with the <code>sbatch</code> or <code>srun</code> commands. Create an example job script or modify your existing script to include a scheduler directive to use a specified job name:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=mytestjob</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Starting running on host </span>$HOSTNAME<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Finished running - goodbye from </span>$HOSTNAME<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+</li>
+</ol>
+<p>Including job scheduler instructions in your job-scripts is often the most convenient method of working for batch jobs - follow the guidelines below for the best experience:</p>
+<ul>
+<li>Lines in your script that include job-scheduler directives must start with <code>#SBATCH</code> at the beginning of the line.</li>
+<li>You can put multiple instructions separated by a space on a single line starting with <code>#SBATCH</code></li>
+<li>The scheduler will parse the script from top to bottom and set instructions in order; if you set the same parameter twice, the second value will be used.</li>
+<li>Instructions are parsed at job submission time, before the job itself has actually run. This means you can&rsquo;t, for example, tell the scheduler to put your job output in a directory that you create in the job-script itself - the directory will not exist when the job starts running, and your job will fail with an error.</li>
+<li>You can use dynamic variables in your instructions (see next)</li>
+</ul>
+<blockquote>
+<p>After <code>#!/bin/bash -l</code> write all of your <code>#SBATCH</code> lines. As soon as the interpreter reads a normal script line it will stop looking for <code>#SBATCH</code> lines.</p></blockquote>
+<p><a href="https://slurm.schedmd.com/sbatch.html#SECTION_DESCRIPTION">More information on this</a></p>
+<h2 id="common-job-configuration-examples">Common Job Configuration Examples</h2>
+<h3 id="setting-output-file-location">Setting Output File Location</h3>
+<p>To set the output file location for your job, use the <code>-o [file_name] | --output=[file_name]</code> option - both standard-out and standard-error from your job-script, including any output generated by applications launched by your job-script will be saved in the filename you specify.</p>
+<p>By default, the scheduler stores data relative to your home-directory - but to avoid confusion, we recommend <strong>specifying a full path to the filename</strong> to be used. Although Linux can support several jobs writing to the same output file, the result is likely to be garbled - it&rsquo;s common practice to include something unique about the job (e.g. its job-ID) in the output filename to make sure your job&rsquo;s output is clear and easy to read.</p>
+<p>!!! note
+The directory used to store your job output file must exist and be writable by your user before you submit your job to the scheduler. Your job may fail to run if the scheduler cannot create the output file in the directory requested.</p>
+<p>The following example uses the <code>--output=[file_name]</code> instruction to set the output file location:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=myjob --output=output.%j</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Starting running on host </span>$HOSTNAME<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Finished running - goodbye from </span>$HOSTNAME<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+<p>In the above example, assuming the job was submitted as the <code>centos</code> user and was given the job-ID number <code>24</code>, the scheduler will save the output data from the job in the filename <code>/home/centos/output.24</code>.</p>
+<h3 id="setting-working-directory">Setting Working Directory</h3>
+<p>By default, jobs are executed from your home-directory on the research environment (i.e. <code>/home/&lt;your-user-name&gt;</code>, <code>$HOME</code> or <code>~</code>). You can include <code>cd</code> commands in your job-script to change to different directories; alternatively, you can provide an instruction to the scheduler to change to a different directory to run your job. The available options are:</p>
+<p><code>-D | --workdir=[dir_name]</code> - instruct the job scheduler to move into the directory specified before starting to run the job on a compute node</p>
+<blockquote>
+<p>The directory specified must exist and be accessible by the compute node in order for the job you submitted to run.</p></blockquote>
+<h3 id="waiting-for-a-previous-job-before-running">Waiting for a Previous Job Before Running</h3>
+<p>You can instruct the scheduler to wait for an existing job to finish before starting to run the job you are submitting with the <code>-d [state:job_id] | --depend=[state:job_id]</code> option. For example, to wait until the job with ID 75 has finished before starting the job, you could use the following syntax:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">75</span>       all    myjob    centos  R       0:01      <span style="color:#ae81ff">1</span> node01
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch --dependency<span style="color:#f92672">=</span>afterok:75 mytestjob.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">76</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">76</span>       all    myjob    centos PD       0:00      <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>Dependency<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">75</span>       all    myjob    centos  R       0:15      <span style="color:#ae81ff">1</span> node01</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Dynamic Scheduler Variables</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/</guid>
+      <description>&lt;p&gt;Your research environment job scheduler automatically creates a number of pseudo environment variables which are available to your job-scripts when they are running on research environment compute nodes, along with standard Linux variables. Useful values include the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$HOME&lt;/code&gt; The location of your home-directory&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;%u&lt;/code&gt; / &lt;code&gt;$USER&lt;/code&gt; The Linux username of the submitting user. The &lt;code&gt;%u&lt;/code&gt; substitution should only be used in your job scheduler filename directives.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$HOSTNAME&lt;/code&gt; The Linux hostname of the compute node running the job&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;%a&lt;/code&gt; / &lt;code&gt;$SLURM_ARRAY_TASK_ID&lt;/code&gt; Job array ID (index) number. The &lt;code&gt;%a&lt;/code&gt; substitution should only be used in your job scheduler filename directives&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;%A&lt;/code&gt; / &lt;code&gt;$SLURM_ARRAY_JOB_ID&lt;/code&gt; Job allocation number for an array job. The &lt;code&gt;%A&lt;/code&gt; substitution should only be used in your job scheduler filename directives&lt;sup id=&#34;fnref1:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;%j&lt;/code&gt; / &lt;code&gt;$SLURM_JOBID&lt;/code&gt; Job allocation number. The &lt;code&gt;%j&lt;/code&gt; substitution should only be used in your job scheduler filename directives&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://slurm.schedmd.com/sbatch.html#SECTION_%3CB%3Efilename-pattern%3C/B%3E&#34;&gt;More information on this.&lt;/a&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Your research environment job scheduler automatically creates a number of pseudo environment variables which are available to your job-scripts when they are running on research environment compute nodes, along with standard Linux variables. Useful values include the following:</p>
+<ul>
+<li><code>$HOME</code> The location of your home-directory</li>
+<li><code>%u</code> / <code>$USER</code> The Linux username of the submitting user. The <code>%u</code> substitution should only be used in your job scheduler filename directives.</li>
+<li><code>$HOSTNAME</code> The Linux hostname of the compute node running the job</li>
+<li><code>%a</code> / <code>$SLURM_ARRAY_TASK_ID</code> Job array ID (index) number. The <code>%a</code> substitution should only be used in your job scheduler filename directives<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+<li><code>%A</code> / <code>$SLURM_ARRAY_JOB_ID</code> Job allocation number for an array job. The <code>%A</code> substitution should only be used in your job scheduler filename directives<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+<li><code>%j</code> / <code>$SLURM_JOBID</code> Job allocation number. The <code>%j</code> substitution should only be used in your job scheduler filename directives</li>
+</ul>
+<p><a href="https://slurm.schedmd.com/sbatch.html#SECTION_%3CB%3Efilename-pattern%3C/B%3E">More information on this.</a></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>These relate to task array jobs, which are covered in a <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/array/">previous section</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Requesting More Resources</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/</guid>
+      <description>&lt;p&gt;By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.&lt;/p&gt;
+&lt;h2 id=&#34;running-multi-threaded-jobs&#34;&gt;Running Multi-Threaded Jobs&lt;/h2&gt;
+&lt;p&gt;If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the &lt;code&gt;-n&lt;/code&gt; or &lt;code&gt;--ntasks=&amp;lt;number&amp;gt;&lt;/code&gt; option in either your submission command or the scheduler directives in your job script. The &lt;code&gt;--ntasks&lt;/code&gt; option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default &lt;code&gt;--ntasks=1&lt;/code&gt; is assumed. You could specify the option &lt;code&gt;-n 4&lt;/code&gt; to request 4 CPU cores for your job. Besides the number of tasks, you will need to add &lt;code&gt;--nodes=1&lt;/code&gt; to your scheduler command or at the top of your job script with &lt;code&gt;#SBATCH --nodes=1&lt;/code&gt;, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.</p>
+<h2 id="running-multi-threaded-jobs">Running Multi-Threaded Jobs</h2>
+<p>If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the <code>-n</code> or <code>--ntasks=&lt;number&gt;</code> option in either your submission command or the scheduler directives in your job script. The <code>--ntasks</code> option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default <code>--ntasks=1</code> is assumed. You could specify the option <code>-n 4</code> to request 4 CPU cores for your job. Besides the number of tasks, you will need to add <code>--nodes=1</code> to your scheduler command or at the top of your job script with <code>#SBATCH --nodes=1</code>, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --nodes=2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --ntasks=2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --mem=200</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Example asking for 2 CPU cores and 2 nodes&#34;</span></span></span></code></pre></div>
+<blockquote>
+<p>If you request more cores than are available on a node in your research environment, the job will not run until a node capable of fulfilling your request becomes available. The scheduler will display the error in the output of the <code>squeue</code> command</p></blockquote>
+<h2 id="running-parallel-mpi-jobs">Running Parallel (MPI) Jobs</h2>
+<p>If users want to run parallel jobs via a messaging passing interface (MPI), they need to inform the scheduler - this allows jobs to be efficiently spread over compute nodes to get the best possible performance. Using multiple CPU cores across multiple nodes is achieved by specifying the <code>-N</code> or <code>--nodes=&lt;minnodes[-maxnodes]&gt;</code> option - which requests a minimum (and optional maximum) number of nodes to allocate to the submitted job. If <em>only</em> the <code>minnodes</code> count is specified - then this is used for both the minimum <em>and</em> maximum node count for the job.</p>
+<ul>
+<li>Example of how to request a minimum of 1 node and maximum of 4.
+
+
+
+
+
+
+<pre tabindex="0"><code>--nodes=1-4</code></pre>
+</li>
+</ul>
+<p>You can request multiple cores over multiple nodes using a combination of scheduler directives either in your job submission command or within your job script. Some of the following examples demonstrate how you can obtain cores across different resources:</p>
+<ul>
+<li>Request 16 cores across 2 compute nodes
+
+
+
+
+
+
+<pre tabindex="0"><code>--nodes=2 --ntasks=16</code></pre>
+</li>
+<li>Request all available cores of 2 compute nodes
+
+
+
+
+
+
+<pre tabindex="0"><code>--nodes=2</code></pre>
+</li>
+<li>Request 16 cores across any available compute nodes
+
+
+
+
+
+
+<pre tabindex="0"><code>--ntasks=16</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>If you request more CPU cores than your research environment can accommodate, your job will wait in the queue.</p></blockquote>
+<h2 id="requesting-more-memory">Requesting More Memory</h2>
+<p>In order to promote best use of the research environment scheduler - particularly in a shared environment, it is recommended to inform the scheduler the maximum required memory per submitted job. This helps the scheduler appropriately place jobs on the available nodes in the research environment.</p>
+<p>You can specify the maximum amount of memory required per submitted job with the <code>--mem=&lt;MB&gt;</code> option. This informs the scheduler of the memory required for the submitted job. Optionally - you can also request an amount of memory <em>per CPU core</em> rather than a total amount of memory required per job. To specify an amount of memory to allocate <em>per core</em>, use the <code>--mem-per-cpu=&lt;MB&gt;</code> option.</p>
+<p>Examples:</p>
+<ul>
+<li><code>--mem=200</code> - Requesting 200MB of memory.</li>
+<li><code>--mem-per-cpu=10</code> - Requesting 10MB of memory per CPU.</li>
+</ul>
+<blockquote>
+<p>When running a job across multiple compute hosts, the <code>--mem=&lt;MB&gt;</code> option informs the scheduler of the required memory per node</p></blockquote>
+<h2 id="requesting-a-longer-runtime">Requesting a Longer Runtime</h2>
+<p>In order to promote best-use of the research environment scheduler, particularly in a shared environment, it is recommend to inform the scheduler the amount of time the submitted job is expected to take. You can inform the research environment scheduler of the expected runtime using the <code>-t, --time=&lt;time&gt;</code> option. For example - to submit a job that runs for 2 hours, the following example job script could be used:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=sleep</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH -D $HOME/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --time=0-2:00</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">7200</span></span></span></code></pre></div>
+<p>You can then see any time limits assigned to running jobs using the command <code>squeue --long</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue --long
+</span></span><span style="display:flex;"><span>Tue Aug <span style="color:#ae81ff">30</span> 10:55:55 <span style="color:#ae81ff">2016</span>
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER    STATE       TIME TIME_LIMI  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">1163</span>       all    sleep    centos  RUNNING       0:07   2:00:00      <span style="color:#ae81ff">1</span> ip-10-75-1-42</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

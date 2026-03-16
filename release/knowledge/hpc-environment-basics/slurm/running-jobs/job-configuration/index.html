@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Job Configuration&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Job Configuration"
+/>
+<meta
+  name="description"
+  content="How to provide runtime flags to a job"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Job Configuration">
+  <meta property="og:description" content="How to provide runtime flags to a job">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Job Configuration">
+  <meta name="twitter:description" content="How to provide runtime flags to a job">
+
+
+
+
+
+  <meta itemprop="name" content="Job Configuration">
+  <meta itemprop="description" content="How to provide runtime flags to a job">
+  <meta itemprop="wordCount" content="823">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/">HPC Environment Basics</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/">SLURM</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Job Configuration</h1>
+
+  <p>How to provide runtime flags to a job</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/interactive/" >Submitting an Interactive Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/batch/" >Submitting a Batch Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/array/" >Submitting an Array Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/" class="current">Job Configuration</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/" >Dynamic Scheduler Variables</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/" >Requesting More Resources</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+  <content>
+    <p>In order to promote efficient usage of the research environment - the job-scheduler is automatically configured with default run-time limits for jobs. These defaults can be overridden by users to help the scheduler understand how you want it to run your job.</p>
+<p>Job instructions can be provided in two ways; they are:</p>
+<ol>
+<li><strong>On the command line</strong>, as parameters to your <code>sbatch</code> or <code>srun</code> command. For example, you can set the name of your job using the <code>--job-name=[name] | -J [name]</code> option:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch --job-name<span style="color:#f92672">=</span>mytestjob simplejobscript.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">51</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">51</span>       all mytestjo    centos  R       0:02      <span style="color:#ae81ff">1</span> node01</span></span></code></pre></div>
+</li>
+<li><strong>In your job script</strong>, by including scheduler directives at the top of your job script - you can achieve the same effect as providing options with the <code>sbatch</code> or <code>srun</code> commands. Create an example job script or modify your existing script to include a scheduler directive to use a specified job name:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=mytestjob</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Starting running on host </span>$HOSTNAME<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Finished running - goodbye from </span>$HOSTNAME<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+</li>
+</ol>
+<p>Including job scheduler instructions in your job-scripts is often the most convenient method of working for batch jobs - follow the guidelines below for the best experience:</p>
+<ul>
+<li>Lines in your script that include job-scheduler directives must start with <code>#SBATCH</code> at the beginning of the line.</li>
+<li>You can put multiple instructions separated by a space on a single line starting with <code>#SBATCH</code></li>
+<li>The scheduler will parse the script from top to bottom and set instructions in order; if you set the same parameter twice, the second value will be used.</li>
+<li>Instructions are parsed at job submission time, before the job itself has actually run. This means you can&rsquo;t, for example, tell the scheduler to put your job output in a directory that you create in the job-script itself - the directory will not exist when the job starts running, and your job will fail with an error.</li>
+<li>You can use dynamic variables in your instructions (see next)</li>
+</ul>
+<blockquote>
+<p>After <code>#!/bin/bash -l</code> write all of your <code>#SBATCH</code> lines. As soon as the interpreter reads a normal script line it will stop looking for <code>#SBATCH</code> lines.</p></blockquote>
+<p><a href="https://slurm.schedmd.com/sbatch.html#SECTION_DESCRIPTION">More information on this</a></p>
+<h2 id="common-job-configuration-examples">Common Job Configuration Examples</h2>
+<h3 id="setting-output-file-location">Setting Output File Location</h3>
+<p>To set the output file location for your job, use the <code>-o [file_name] | --output=[file_name]</code> option - both standard-out and standard-error from your job-script, including any output generated by applications launched by your job-script will be saved in the filename you specify.</p>
+<p>By default, the scheduler stores data relative to your home-directory - but to avoid confusion, we recommend <strong>specifying a full path to the filename</strong> to be used. Although Linux can support several jobs writing to the same output file, the result is likely to be garbled - it&rsquo;s common practice to include something unique about the job (e.g. its job-ID) in the output filename to make sure your job&rsquo;s output is clear and easy to read.</p>
+<p>!!! note
+The directory used to store your job output file must exist and be writable by your user before you submit your job to the scheduler. Your job may fail to run if the scheduler cannot create the output file in the directory requested.</p>
+<p>The following example uses the <code>--output=[file_name]</code> instruction to set the output file location:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=myjob --output=output.%j</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Starting running on host </span>$HOSTNAME<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Finished running - goodbye from </span>$HOSTNAME<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+<p>In the above example, assuming the job was submitted as the <code>centos</code> user and was given the job-ID number <code>24</code>, the scheduler will save the output data from the job in the filename <code>/home/centos/output.24</code>.</p>
+<h3 id="setting-working-directory">Setting Working Directory</h3>
+<p>By default, jobs are executed from your home-directory on the research environment (i.e. <code>/home/&lt;your-user-name&gt;</code>, <code>$HOME</code> or <code>~</code>). You can include <code>cd</code> commands in your job-script to change to different directories; alternatively, you can provide an instruction to the scheduler to change to a different directory to run your job. The available options are:</p>
+<p><code>-D | --workdir=[dir_name]</code> - instruct the job scheduler to move into the directory specified before starting to run the job on a compute node</p>
+<blockquote>
+<p>The directory specified must exist and be accessible by the compute node in order for the job you submitted to run.</p></blockquote>
+<h3 id="waiting-for-a-previous-job-before-running">Waiting for a Previous Job Before Running</h3>
+<p>You can instruct the scheduler to wait for an existing job to finish before starting to run the job you are submitting with the <code>-d [state:job_id] | --depend=[state:job_id]</code> option. For example, to wait until the job with ID 75 has finished before starting the job, you could use the following syntax:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">75</span>       all    myjob    centos  R       0:01      <span style="color:#ae81ff">1</span> node01
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch --dependency<span style="color:#f92672">=</span>afterok:75 mytestjob.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">76</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">76</span>       all    myjob    centos PD       0:00      <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>Dependency<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">75</span>       all    myjob    centos  R       0:15      <span style="color:#ae81ff">1</span> node01</span></span></code></pre></div>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Bowtie Workflow Example&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Bowtie Workflow Example"
+/>
+<meta
+  name="description"
+  content="Bowtie is a sequencing tool-set for aligning sets of DNA into large genomes."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-workflows/workloads/bowtie/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Bowtie Workflow Example">
+  <meta property="og:description" content="Bowtie is a sequencing tool-set for aligning sets of DNA into large genomes.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Bowtie Workflow Example">
+  <meta name="twitter:description" content="Bowtie is a sequencing tool-set for aligning sets of DNA into large genomes.">
+
+
+
+
+
+  <meta itemprop="name" content="Bowtie Workflow Example">
+  <meta itemprop="description" content="Bowtie is a sequencing tool-set for aligning sets of DNA into large genomes.">
+  <meta itemprop="wordCount" content="140">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-workflows/">HPC Workflows</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-workflows/workloads/">HPC Workloads</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Bowtie Workflow Example</h1>
+
+  <p>Bowtie is a sequencing tool-set for aligning sets of DNA into large genomes.</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-workflows/workloads/">HPC Workloads</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-workflows/workloads/bowtie/" class="current">Bowtie Workflow Example</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-workflows/workloads/hadoop/" >Hadoop Workflow Example</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-workflows/workloads/openfoam/" >OpenFOAM Workflow Example</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-workflows/workloads/tensorflow/" >Tensorflow Workflow Example</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+  <content>
+    <h2 id="workflow">Workflow</h2>
+<h3 id="installing-bowtie-with-spack">Installing Bowtie with Spack</h3>
+<blockquote>
+<p>This example uses the flight environment which will need to be activated before the environments can be created so be sure to run <code>flight start</code> or <a href="/knowledge/flight-environment/flight-user-suite/">setup your environment to automatically activate the flight environment</a>.</p></blockquote>
+<ol>
+<li>Create a spack software environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env create spack</span></span></code></pre></div>
+</li>
+<li>Activate the environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate spack</span></span></code></pre></div>
+</li>
+<li>Install bowtie:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ spack install bowtie</span></span></code></pre></div>
+</li>
+</ol>
+<h3 id="running-a-bowtie-job">Running a Bowtie Job</h3>
+<ol>
+<li>Download example ecoli data:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight silo file pull openflight:bowtie/ecoli.fq</span></span></code></pre></div>
+</li>
+<li>Download an example job script to run in the current working directory:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight silo file pull openflight:bowtie/ecoli-job.sh</span></span></code></pre></div>
+</li>
+<li>Submit the job to the queue:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch ecoli-job.sh</span></span></code></pre></div>
+</li>
+</ol>
+<p>The results can then be reviewed from the slurm output file for the job in the current working directory.</p>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

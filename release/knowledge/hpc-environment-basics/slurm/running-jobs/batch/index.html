@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Submitting a Batch Job&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Submitting a Batch Job"
+/>
+<meta
+  name="description"
+  content="Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user does something else. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (stdout and stderr in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/batch/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Submitting a Batch Job">
+  <meta property="og:description" content="Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user does something else. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (stdout and stderr in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Submitting a Batch Job">
+  <meta name="twitter:description" content="Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user does something else. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (stdout and stderr in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line.">
+
+
+
+
+
+  <meta itemprop="name" content="Submitting a Batch Job">
+  <meta itemprop="description" content="Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user does something else. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (stdout and stderr in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line.">
+  <meta itemprop="wordCount" content="361">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/">HPC Environment Basics</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/">SLURM</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Submitting a Batch Job</h1>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/interactive/" >Submitting an Interactive Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/batch/" class="current">Submitting a Batch Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/array/" >Submitting an Array Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/" >Job Configuration</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/" >Dynamic Scheduler Variables</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/" >Requesting More Resources</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+  <content>
+    <p>Batch (or non-interactive) jobs allow users to leverage one of the main benefits of having a research environment scheduler; jobs can be queued up with instructions on how to run them and then executed across the research environment while the user <a href="https://www.quora.com/What-do-you-do-while-youre-waiting-for-your-code-to-finish-running">does something else</a>. Users submit jobs as scripts, which include instructions on how to run the job - the output of the job (<em>stdout</em> and <em>stderr</em> in Linux terminology) is written to a file on disk for review later on. You can write a batch job that does anything that can be typed on the command-line.</p>
+<p>We&rsquo;ll start with a basic example - the following script is written in bash (the default Linux command-line interpreter). You can create the script yourself using the <a href="https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/">Nano</a> command-line editor - use the command <code>nano simplejobscript.sh</code> to create a new file, then type in the contents below. The script does nothing more than print some messages to the screen (the <strong>echo</strong> lines), and sleeps for 120 seconds. We&rsquo;ve saved the script to a file called <code>simplejobscript.sh</code> - the <code>.sh</code> extension helps to remind us that this is a <em>shell</em> script, but adding a filename extension isn&rsquo;t strictly necessary for Linux.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>echo <span style="color:#e6db74">&#34;Starting running on host </span>$HOSTNAME<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Finished running - goodbye from </span>$HOSTNAME<span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+<blockquote>
+<p>We use the <code>-l</code> option to bash on the first line of the script to request a login session. This ensures that environment modules can be loaded as required as part of your script.</p></blockquote>
+<p>We can execute that script directly on the login node by using the command <code>bash simplejobscript.sh</code> - after a couple of minutes, we get the following output:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Started running on host chead1
+</span></span><span style="display:flex;"><span>Finished running - goodbye from chead1</span></span></code></pre></div>
+<p>To submit your job script to the research environment job scheduler, use the command <code>sbatch simplejobscript.sh</code>. The job scheduler should immediately report the job-ID for your job; your job-ID is unique for your current research environment - it will never be repeated once used.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch simplejobscript.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span>simplejobscript.sh  slurm-21.out
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ cat slurm-21.out
+</span></span><span style="display:flex;"><span>Starting running on host node01
+</span></span><span style="display:flex;"><span>Finished running - goodbye from node01</span></span></code></pre></div>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Logging In</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/logging-in/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/logging-in/</guid>
+      <description>&lt;p&gt;You can access the login node for your research environment using SSH to connect to the externally facing IP address of the login node. You will need to use the SSH keypair configured for the research environment in order to access it.&lt;/p&gt;
+&lt;p&gt;When you login to the research environment via SSH, you are automatically placed in your home-directory. This area is shared across all compute nodes in the research environment, and is mounted in the same place on every compute node. Data copied to the research environment or created in your home-directory on the login node is also accessible from all compute nodes.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>You can access the login node for your research environment using SSH to connect to the externally facing IP address of the login node. You will need to use the SSH keypair configured for the research environment in order to access it.</p>
+<p>When you login to the research environment via SSH, you are automatically placed in your home-directory. This area is shared across all compute nodes in the research environment, and is mounted in the same place on every compute node. Data copied to the research environment or created in your home-directory on the login node is also accessible from all compute nodes.</p>
+<h2 id="linux--mac">Linux / Mac</h2>
+<p>To access the research environment login node from a Linux or Mac client, use the following command:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i mypublickey.pem flight@52.50.141.144</span></span></code></pre></div>
+<p>Where:</p>
+<ul>
+<li><code>mypublickey.pem</code> is the name of your private key associated with the public SSH key of your user</li>
+<li><code>flight</code> is the username of the user on the research environment</li>
+<li><code>52.50.141.144</code> is the Access-IP address for the gateway node of the research environment</li>
+</ul>
+<h2 id="windows">Windows</h2>
+<p>If you are accessing from a Windows client using the Putty utility, the private key associated with the account will need to be converted to ppk format from pem to be compatible with Putty. This can be done as follows:</p>
+<ul>
+<li>
+<p>Open PuTTYgen (this will already be installed on your system if Putty was installed using <code>.msi</code> and not launched from the <code>.exe</code> - if you do not think you have this, download putty-installer from <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">here</a></p>
+</li>
+<li>
+<p>Select Conversions -&gt; Import Key</p>
+</li>
+<li>
+<p>Locate .pem file and click open</p>
+</li>
+<li>
+<p>Click Save Private Key</p>
+</li>
+<li>
+<p>Answer Yes to saving without a passphrase</p>
+</li>
+<li>
+<p>Input the name for the newly generated ppk to be saved as</p>
+</li>
+</ul>
+<p>To load the key in Putty, select Connection -&gt; SSH -&gt; Auth, click Browse and select the ppk that was generated from the above steps.</p>
+<p><img src="/images/knowledge/hpc-environment-basics/PuttyKey.png" alt=""></p>
+<p>Next, enter the username and IP address of the research environment login node in the “Host Name” box provided (in the Session section):</p>
+<p><img src="/images/knowledge/hpc-environment-basics/putty.png" alt=""></p>
+<p>The first time you connect to your research environment, you will be prompted to accept a new server SSH host-key. This happens because you&rsquo;ve never logged in to your research environment before - it should only happen the first time you login; click <strong>OK</strong> to accept the warning. Once connected to the research environment, you should be logged in to the research environment login node as your user.</p>
+<p><img src="/images/knowledge/hpc-environment-basics/firstlogin.png" alt=""></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Understanding the CLI</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/understanding-the-cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/understanding-the-cli/</guid>
+      <description>&lt;p&gt;Usually a lot of HPC environment usage takes place via the Linux command line. For unfamiliar users here is a brief description of a typical CLI prompt.&lt;/p&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 folder&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ echo Hello World!
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hello World!&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;flight&lt;/code&gt; is the name of the user.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chead1&lt;/code&gt; is the node the user is currently on.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;folder&lt;/code&gt; is the directory the user is currently in. If this is a &lt;code&gt;~&lt;/code&gt; then that means you are in your home directory.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$&lt;/code&gt; indicates whether the user is a root user or normal user (root users see a &lt;code&gt;#&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;echo Hello World!&lt;/code&gt; is a command that prints out &amp;ldquo;Hello World!&amp;rdquo;. This is where commands you type will go.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The prompt can vary based on user preference and global environment configuration. The above is an example for illustrative purposes&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Usually a lot of HPC environment usage takes place via the Linux command line. For unfamiliar users here is a brief description of a typical CLI prompt.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 folder<span style="color:#f92672">]</span>$ echo Hello World!
+</span></span><span style="display:flex;"><span>Hello World!</span></span></code></pre></div>
+<ul>
+<li><code>flight</code> is the name of the user.</li>
+<li><code>chead1</code> is the node the user is currently on.</li>
+<li><code>folder</code> is the directory the user is currently in. If this is a <code>~</code> then that means you are in your home directory.</li>
+<li><code>$</code> indicates whether the user is a root user or normal user (root users see a <code>#</code>).</li>
+<li><code>echo Hello World!</code> is a command that prints out &ldquo;Hello World!&rdquo;. This is where commands you type will go.</li>
+</ul>
+<blockquote>
+<p>The prompt can vary based on user preference and global environment configuration. The above is an example for illustrative purposes</p></blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Moving Between Hosts</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/moving-between-hosts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/moving-between-hosts/</guid>
+      <description>&lt;p&gt;Usually SSH is used to navigate between systems in a HPC environment. This provides a secure shell connection to another host in order to access the CLI on that system.&lt;/p&gt;
+&lt;p&gt;The first connection between two hosts will create a trust relationship. Depending on the user management solution for the HPC environment it may be possible to navigate between hosts without being prompted for a password or needing to specify a private key which would allow moving quickly and seamlessly between hosts and simplifying the running of large-scale jobs which involve multiple nodes.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Usually SSH is used to navigate between systems in a HPC environment. This provides a secure shell connection to another host in order to access the CLI on that system.</p>
+<p>The first connection between two hosts will create a trust relationship. Depending on the user management solution for the HPC environment it may be possible to navigate between hosts without being prompted for a password or needing to specify a private key which would allow moving quickly and seamlessly between hosts and simplifying the running of large-scale jobs which involve multiple nodes.</p>
+<p>From the command line, a user can simply use the <code>ssh &lt;node-name&gt;</code> command to login to one of the compute nodes from the login node. For example, to login to a compute node named <code>node01</code> from the current host, use the command:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh node01</span></span></code></pre></div>
+<p>Use the command <code>logout</code> or <code>exit</code> (or press ++ctrl+d++) to exit the compute node and return to the previous host.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Becoming the Root User</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/becoming-root/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/cli-basics/becoming-root/</guid>
+      <description>&lt;p&gt;Most research environment operations, including starting applications and running jobs, should be performed by a regular user. However - for some privileged operations, users may need to change to being the root user. Users can prefix any command they want to run as the root user with the &lt;code&gt;sudo&lt;/code&gt; command; e.g.&lt;/p&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo yum install screen&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To get a Linux shell with root privileges, please login as your standard user then execute the command &lt;code&gt;sudo -s&lt;/code&gt;.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Most research environment operations, including starting applications and running jobs, should be performed by a regular user. However - for some privileged operations, users may need to change to being the root user. Users can prefix any command they want to run as the root user with the <code>sudo</code> command; e.g.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo yum install screen</span></span></code></pre></div>
+<p>To get a Linux shell with root privileges, please login as your standard user then execute the command <code>sudo -s</code>.</p>
+<blockquote>
+<p>Users must exercise caution when running commands as root, as they have the potential to disrupt research environment operations.</p></blockquote>
+<blockquote>
+<p>Some users may <strong>not</strong> have root privileges. This is at the discretion of your admin or system configuration.</p></blockquote>
+<p>You can log out of the root user by running the command <code>exit</code>, <code>logout</code>, or by pressing <kbd>CTRL+D</kbd></p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

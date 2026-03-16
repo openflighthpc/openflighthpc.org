@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flight Desktop</title>
+      <link>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-desktop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-desktop/</guid>
+      <description>&lt;p class=&#34;notice&#34;&gt;
+  This documentation is for an &lt;a href=&#34;https://openflighthpc.org/labs/flight-environment/&#34;&gt;OpenFlight Labs Project&lt;/a&gt; which is in maintenance mode
+&lt;/p&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p class="notice">
+  This documentation is for an <a href="/labs/flight-environment/">OpenFlight Labs Project</a> which is in maintenance mode
+</p>
+
+<h2 id="overview">Overview</h2>
+<p>Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool.</p>
+<h2 id="preparing-a-desktop-type">Preparing a Desktop Type</h2>
+<h3 id="view-available-types">View Available Types</h3>
+<p>Your research environment supports many types of graphical session designed to provide interactive applications directly to users. To view the available types of session, use the command <code>flight desktop avail</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop avail
+</span></span><span style="display:flex;"><span>┌───────┬──────────────────────────────────────────────────┬────────────┐
+</span></span><span style="display:flex;"><span>│ Name  │ Summary                                          │ State      │
+</span></span><span style="display:flex;"><span>├───────┼──────────────────────────────────────────────────┼────────────┤
+</span></span><span style="display:flex;"><span>│ gnome │ GNOME v3, a free and open-source desktop         │ Unverified │
+</span></span><span style="display:flex;"><span>│       │ environment <span style="color:#66d9ef">for</span> Unix-like operating systems.     │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│       │  &gt; https://www.gnome.org/                        │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│ kde   │ KDE Plasma Desktop <span style="color:#f92672">(</span>KDE 4<span style="color:#f92672">)</span>. Plasma is KDE<span style="color:#960050;background-color:#1e0010">&#39;</span>s      │ Unverified │
+</span></span><span style="display:flex;"><span>│       │ desktop environment. Simple by default, powerful │            │
+</span></span><span style="display:flex;"><span>│       │ when needed.                                     │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│       │  &gt; https://kde.org/                              │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│ xfce  │ Xfce is a lightweight desktop environment        │ Unverified │
+</span></span><span style="display:flex;"><span>│       │ <span style="color:#66d9ef">for</span> UNIX-like operating systems. It aims to be   │            │
+</span></span><span style="display:flex;"><span>│       │ fast and low on system resources, <span style="color:#66d9ef">while</span> still    │            │
+</span></span><span style="display:flex;"><span>│       │ being visually appealing and user friendly.      │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│       │  &gt; https://xfce.org/                             │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>└───────┴──────────────────────────────────────────────────┴────────────┘
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<p>Application types that are <code>unverified</code> need to be prepared before they can be started.</p>
+<h3 id="preparing-a-type">Preparing a Type</h3>
+<p>To prepare a new session type, use the command <code>flight desktop prepare &lt;type&gt;</code> (preparing will automatically install any required application and support files, if these dependencies have been installed manually then a desktop session can be checked for verification with <code>flight desktop verify &lt;type&gt;</code>). Once enabled, users can start a new session using the command <code>flight desktop start &lt;type&gt;</code>.</p>
+<blockquote>
+<p>The <code>prepare</code> command is only available to the <code>root</code> user as it requires installation of packages</p></blockquote>
+<blockquote>
+<p>Preparing a new session type only enables it for the machine that you run the command from, any other nodes will need to have the type enabled too.</p></blockquote>
+<h3 id="using-sudo-to-prepare">Using sudo to prepare</h3>
+<p>Since only the root user can use <code>prepare</code>, you also cannot use <code>sudo</code> to run <code>prepare</code>.</p>
+<p>Instead the user must become <a href="/knowledge/hpc-environment-basics/cli-basics/becoming-root/">the root user</a> and enable the <a href="/knowledge/flight-environment/basics/">Flight system</a> then run <code>prepare</code>.</p>
+<h2 id="launch-a-desktop-session">Launch a Desktop Session</h2>
+<p>Users can launch a new session by using the <code>flight desktop start gnome</code> command. After launching the desktop, a message will be printed with connection details to access the new session:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Starting a <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Starting session
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session has been started.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: 4549eae1-6f8b-4983-8057-99b378afcdd3
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 51.104.217.61
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5901</span>
+</span></span><span style="display:flex;"><span>   Display: :1
+</span></span><span style="display:flex;"><span>  Password: mkO3Zxjl
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Refer to <span style="color:#e6db74">&#39;flight desktop show 4549eae1&#39;</span> <span style="color:#66d9ef">for</span> more details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: mkO3Zxjl</span></span></code></pre></div>
+<p>Users need a VNC client to connect to the graphical desktop session.</p>
+<p>Users with Mac clients can use the URL provided in the command output to connect to the session; e.g. from the above example, simply enter <code>vnc://flight:mkO3Zxjl@51.104.217.61:5901</code> into the Safari address bar.</p>
+<p>Linux and Windows users should enter the IP address and port number shown into their VNC client in the format <code>IP:port</code>. For example - for the output above, Linux and Windows client users would enter <code>51.104.217.61:5901</code> into their VNC client:</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/vncclient.png" alt=""></p>
+<p>A one-time randomized password is automatically generated by the flight system when a new session is started. Linux and Windows users may be prompted to enter this password when they connect to the desktop session.</p>
+<p>Once connected to the graphical desktop, users can use the session as they would a local Linux machine:</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/vncdesktop.png" alt=""></p>
+<h2 id="port-forwarding-a-desktop-session">Port Forwarding a Desktop Session</h2>
+<p>Depending on your connection to the HPC you may see this message when starting a desktop session:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>.</span></span></code></pre></div>
+<p>For example in the following:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop start gnome
+</span></span><span style="display:flex;"><span>Starting a <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Starting session
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session has been started.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: dd8acf76-1494-4c88-adb1-a8bbd405d965
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 20.68.202.163
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5903</span>
+</span></span><span style="display:flex;"><span>   Display: :3
+</span></span><span style="display:flex;"><span>  Password: WB3gUQMW
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Refer to <span style="color:#e6db74">&#39;flight desktop show dd8acf76&#39;</span> <span style="color:#66d9ef">for</span> more details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: WB3gUQMW</span></span></code></pre></div>
+<p>By running the command <code>flight desktop show &lt;name&gt;</code> we can see more information</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop show dd8acf76
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: dd8acf76-1494-4c88-adb1-a8bbd405d965
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 20.68.202.163
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5903</span>
+</span></span><span style="display:flex;"><span>   Display: :3
+</span></span><span style="display:flex;"><span>  Password: WB3gUQMW
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ssh -L 5903:20.68.202.163:5903 flight@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Once the ssh connection has been established, depending on your
+</span></span><span style="display:flex;"><span>client, you can connect to the session using one of:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  vnc://flight:WB3gUQMW@localhost:5903
+</span></span><span style="display:flex;"><span>  localhost:5903
+</span></span><span style="display:flex;"><span>  localhost:3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If, when connecting, you receive a warning as follows, try again with
+</span></span><span style="display:flex;"><span>a different port number, e.g. 5904, <span style="color:#ae81ff">5905</span> etc.:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  channel_setup_fwd_listener_tcpip: cannot listen to port: <span style="color:#ae81ff">5903</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: WB3gUQMW</span></span></code></pre></div>
+<h3 id="windows">Windows</h3>
+<p>On Windows, the desktop environment can still be connected like so:</p>
+<ol>
+<li>
+<p>Begin your environment as demonstrated on the previous page.</p>
+</li>
+<li>
+<p>Note down the IP address, port number and password.</p>
+</li>
+<li>
+<p>Open PuTTy</p>
+</li>
+<li>
+<p>Load one of your saved sessions or save a new session with your log in details.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/putty_load_session.png" alt=""></p>
+</li>
+<li>
+<p>Find the &ldquo;Category:&rdquo; section on the left of the window</p>
+<ol>
+<li>
+<p>Scroll down to &ldquo;Connection&rdquo; and expand it.</p>
+</li>
+<li>
+<p>Scroll down to &ldquo;SSH&rdquo; and expand it.</p>
+</li>
+<li>
+<p>Click on the &ldquo;Tunnels page.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/tunnels_page.png" alt=""></p>
+</li>
+</ol>
+</li>
+<li>
+<p>Input the source port (a local port) and destination which is <code>IP address:port number</code> of the desktop environment that was started.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/source_and_destination.png" alt=""></p>
+</li>
+<li>
+<p>After inputting the information, click &ldquo;Add&rdquo; and the details will move to a box above.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/tunnels_add_button.png" alt=""></p>
+</li>
+<li>
+<p>Scroll back to the top of the &ldquo;Category:&rdquo; section, and click on &ldquo;Session&rdquo;</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/save_session.png" alt=""></p>
+</li>
+<li>
+<p>Save the session and then click open to run the command line interface and log in.</p>
+</li>
+<li>
+<p>Open your VNC client, and type <code>localhost:XXXXX</code> where <code>XXXX</code> is the source port number you entered earlier.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/vnc_client_local.png" alt=""></p>
+</li>
+<li>
+<p>Click &ldquo;Connect&rdquo;, and if prompted enter the password you noted down.</p>
+</li>
+</ol>
+<h3 id="linuxmac">Linux/Mac</h3>
+<p>The steps for connecting with Linux/Mac are outlined in the output of the <code>flight desktop show</code> command above.</p>
+<h2 id="resizing-a-desktop-session">Resizing a Desktop Session</h2>
+<p>When launching a graphical desktop session using the <code>flight desktop</code> utility, a session resolution can be specified using the <code>--geometry &lt;size&gt;</code> option. For example, to launch a <code>gnome</code> desktop session with a resolution of 1920x1080 pixels, use the command:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>flight desktop start --geometry 1920x1080 gnome</code></pre>
+<p>By default, your graphical desktop session will launch with a compatibility resolution of 1024x768. For example, to change the default resolution to 1920x1080 pixels, use the command:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>flight desktop set geometry 1920x1080</code></pre>
+<p>Users can resize the desktop to fit their screens using the command <code>flight desktop resize &lt;session id&gt; &lt;resolution&gt;</code>. For example:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>flight desktop resize 4549eae1 1920x1080</code></pre>
+<p>Your graphical desktop session will automatically resize to the new resolution requested. Use your local VNC client application to adjust the compression ratio, colour depth and frame-rate sessions in order to achieve the best user-experience for the desktop session.</p>
+<h2 id="viewing-and-terminating-sessions">Viewing and Terminating Sessions</h2>
+<p>Users can view a list of the currently running sessions by using the command <code>flight desktop list</code>.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop list
+</span></span><span style="display:flex;"><span>┌──────┬──────────┬───────┬───────────┬───────────────┬────────────────┬──────────┬────────┐
+</span></span><span style="display:flex;"><span>│ Name │ Identity │ Type  │ Host name │ IP address    │ Display <span style="color:#f92672">(</span>Port<span style="color:#f92672">)</span> │ Password │ State  │
+</span></span><span style="display:flex;"><span>├──────┼──────────┼───────┼───────────┼───────────────┼────────────────┼──────────┼────────┤
+</span></span><span style="display:flex;"><span>│      │ 4549eae1 │ gnome │ chead1    │ 20.68.202.163 │ :1 <span style="color:#f92672">(</span>5901<span style="color:#f92672">)</span>      │ mkO3Zxjl │ Active │
+</span></span><span style="display:flex;"><span>│      │ 52e44bdd │ gnome │ chead1    │ 20.68.202.163 │ :3 <span style="color:#f92672">(</span>5903<span style="color:#f92672">)</span>      │ 5eAlaST0 │ Active │
+</span></span><span style="display:flex;"><span>│      │ abbbe30b │ gnome │ chead1    │ 20.68.202.163 │ :2 <span style="color:#f92672">(</span>5902<span style="color:#f92672">)</span>      │ XLH7bV30 │ Active │
+</span></span><span style="display:flex;"><span>└──────┴──────────┴───────┴───────────┴───────────────┴────────────────┴──────────┴────────┘</span></span></code></pre></div>
+<p>To display connection information for an existing session, use the command <code>flight desktop show &lt;session-ID&gt;</code>. This command allows users to review the IP-address, port number and one-time password settings for an existing session.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop show 4549eae1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: 4549eae1-6f8b-4983-8057-99b378afcdd3
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 20.68.202.163
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5901</span>
+</span></span><span style="display:flex;"><span>   Display: :1
+</span></span><span style="display:flex;"><span>  Password: mkO3Zxjl
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ssh -L 5901:20.68.202.163:5901 flight@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Once the ssh connection has been established, depending on your
+</span></span><span style="display:flex;"><span>client, you can connect to the session using one of:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  vnc://flight:mkO3Zxjl@localhost:5901
+</span></span><span style="display:flex;"><span>  localhost:5901
+</span></span><span style="display:flex;"><span>  localhost:1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If, when connecting, you receive a warning as follows, try again with
+</span></span><span style="display:flex;"><span>a different port number, e.g. 5902, <span style="color:#ae81ff">5903</span> etc.:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  channel_setup_fwd_listener_tcpip: cannot listen to port: <span style="color:#ae81ff">5901</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: mkO3Zxjl</span></span></code></pre></div>
+<p>Users can terminate a running session by ending their graphical application (e.g. by logging out of a Gnome session, or exiting a terminal session), or by using the <code>flight desktop kill &lt;session-ID&gt;</code> command. A terminated session will be immediately stopped, disconnecting any users.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight desktop kill 4549eae1</span></span></code></pre></div>
+<h2 id="securing-your-desktop-session">Securing your Desktop Session</h2>
+<p>As the VNC protocol does not natively provide support for security protocols such as SSL, you may wish to take steps to secure access to your VNC sessions.</p>
+<p>Several third party tools exist to help you secure your VNC connections.  One option is <em>ssvnc</em>, available <a href="http://ssvnc.sourceforge.net/">here</a>.</p>
+<p>Alternatively, you could use an SSH tunnel to access your session. Refer to online guides for setup instructions.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Flight Env</title>
+      <link>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-env/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-env/</guid>
+      <description>&lt;p class=&#34;notice&#34;&gt;
+  This documentation is for an &lt;a href=&#34;https://openflighthpc.org/labs/flight-environment/&#34;&gt;OpenFlight Labs Project&lt;/a&gt; which is in maintenance mode
+&lt;/p&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The breadth of application of HPC environments can be intimidating. There are many different users and workflows for every application.&lt;/p&gt;
+&lt;p&gt;This part of the documentation aims to provide some suitable examples to demonstrate the ease of establishing consistent workflows and the flexibility provided by the flight tools in assisting with workflow creation.&lt;/p&gt;
+&lt;p&gt;Traditionally, administrators handle a lot of workflow creation. From manually compiling applications all the way through to assisting users launching their workflows. With this in mind, these documents should be able to assist both admins and users to establish their own customised solutions with minimal disruption.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p class="notice">
+  This documentation is for an <a href="/labs/flight-environment/">OpenFlight Labs Project</a> which is in maintenance mode
+</p>
+
+<h2 id="overview">Overview</h2>
+<p>The breadth of application of HPC environments can be intimidating. There are many different users and workflows for every application.</p>
+<p>This part of the documentation aims to provide some suitable examples to demonstrate the ease of establishing consistent workflows and the flexibility provided by the flight tools in assisting with workflow creation.</p>
+<p>Traditionally, administrators handle a lot of workflow creation. From manually compiling applications all the way through to assisting users launching their workflows. With this in mind, these documents should be able to assist both admins and users to establish their own customised solutions with minimal disruption.</p>
+<h2 id="flight-env-command-usage">Flight Env Command Usage</h2>
+<h3 id="viewing-available-ecosystems">Viewing Available Ecosystems</h3>
+<p>Various <a href="#ecosystems">package-ecosystems</a> are available for managing software on your research environment. These can be viewed by using the <code>env</code> subcommand:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight env avail</span></span></code></pre></div>
+<h3 id="creating-a-local-ecosystem">Creating a Local Ecosystem</h3>
+<p>A local ecosystem is only available to the user that creates it. All of the packages and libraries are installed to the users home directory.</p>
+<p>To install a package ecosystem, use the create command as follows (replacing easybuild with your desired package ecosystem):</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight env create easybuild</span></span></code></pre></div>
+<p>Once a package ecosystem has been installed, it needs to be activated for the session to be able to manage software with it:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate easybuild
+</span></span><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<blockquote>
+<p>Your preferred software ecosystem can be set to automatically activate for your user within the flight system by running <code>flight env set-default easybuild</code>, replacing easybuild with your chosen software ecosystem</p></blockquote>
+<h3 id="creating-a-global-ecosystem">Creating a Global Ecosystem</h3>
+<p>A global ecosystem is available to all users on the system. All of the packages and libraries are installed to a shared storage directory. The global directories can be configured in <code>/opt/flight/opt/env/etc/config.yml</code> with the <code>global_depot_path:</code> and <code>global_build_cache_path</code> keys.</p>
+<blockquote>
+<p>The user requires suitable write permissions to the configured global depot paths in order to be able to create a global ecosystem</p></blockquote>
+<p>To install a global package ecosystem, use the create command with the global option flag:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight env create -g easybuild</span></span></code></pre></div>
+<p>Once the global ecosystem has been installed, it needs to be activated for the session to be able to monitor software with it:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate easybuild@global
+</span></span><span style="display:flex;"><span>&lt;easybuild@global&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<h3 id="custom-ecosystem-names">Custom Ecosystem Names</h3>
+<p>When installing an ecosystem, a custom alias can be added by appending <code>@mycustomname</code> to the end of creation command. For example, to create a local gridware installation with the alias <code>test</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight env create easybuild@test</span></span></code></pre></div>
+<p>To activate this environment, the alias will need to be specified in the activation command:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate easybuild@test
+</span></span><span style="display:flex;"><span>&lt;easybuild@test&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<h2 id="ecosystems">Ecosystems</h2>
+<p>The Flight Env command provides streamlined installation of many popular software management ecosystems. These can be seen below along with the features they provide.</p>
+<figure>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>Conda</th>
+          <th>Easybuild</th>
+          <th>Modules</th>
+          <th>Singularity</th>
+          <th>Spack</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Dependency Management</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x274c;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x2714;&#xfe0f;</td>
+      </tr>
+      <tr>
+          <td>Compilation</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x274c;</td>
+          <td>&#x274c;</td>
+          <td>&#x2714;&#xfe0f;</td>
+      </tr>
+      <tr>
+          <td>Preconfigured Binaries</td>
+          <td>&#x274c;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x274c;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x1f539;</td>
+      </tr>
+      <tr>
+          <td>Multiple Versions</td>
+          <td>&#x1f539;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x2714;&#xfe0f;</td>
+          <td>&#x2714;&#xfe0f;</td>
+      </tr>
+  </tbody>
+</table>
+</figure>
+<p>More information on the features:</p>
+<ul>
+<li><strong>Dependency Management</strong> - The ecosystem automatically resolves and installs dependencies</li>
+<li><strong>Compilation</strong> - The ecosystem builds software from source for optimised functionality on the system (Note: these sorts of installations will take a long time)</li>
+<li><strong>Preconfigured Binaries</strong> - The ecosystem provides binaries of the available software for quicker installation to get applications installed quickly</li>
+<li><strong>Multiple Versions</strong> - The ecosystem allows for installation of multiple versions of software which can be toggled between</li>
+</ul>
+<p>&#x1f539; is for partial support. Technically these features are supported in certain use cases and with additional work. This is not considered full support as multiple versions may require undocumented or uncommon use-cases of the tool</p>
+<h3 id="conda-usage-example">Conda Usage Example</h3>
+<p>Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. Conda quickly installs, runs and updates packages and their dependencies. Conda easily creates, saves, loads and switches between environments on your local computer. It was created for Python programs, but it can package and distribute software for any language.</p>
+<h4 id="creating-and-using-ecosystem">Creating and Using Ecosystem</h4>
+<p>Flight Env provides quick setup methods to create a conda software ecosystem.</p>
+<p>To install and use conda:</p>
+<ul>
+<li>Activate the flight system.</li>
+<li>Create the conda installation for the user:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env create conda
+</span></span><span style="display:flex;"><span>Creating environment conda@default
+</span></span><span style="display:flex;"><span>   &gt; ✅ Verifying prerequisites
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>miniconda<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Creating environment <span style="color:#f92672">(</span>conda@default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Environment conda@default has been created</span></span></code></pre></div>
+<ul>
+<li>Activate the conda ecosystem:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env activate conda
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<ul>
+<li>Check that conda can be run:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ conda --version
+</span></span><span style="display:flex;"><span>conda 4.7.10</span></span></code></pre></div>
+<h4 id="installing-and-running-perl">Installing and Running Perl</h4>
+<p>An example workflow using perl is demonstrated below.</p>
+<ul>
+<li>View available versions:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ conda search perl
+</span></span><span style="display:flex;"><span>Loading channels: <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Name                       Version           Build  Channel</span>
+</span></span><span style="display:flex;"><span>perl                          5.26.0      hae598fd_0  pkgs/main
+</span></span><span style="display:flex;"><span>perl                          5.26.2      h14c3975_0  pkgs/main</span></span></code></pre></div>
+<ul>
+<li>Install specific version:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ conda install perl<span style="color:#f92672">=</span>5.26.2
+</span></span><span style="display:flex;"><span>Collecting package metadata <span style="color:#f92672">(</span>current_repodata.json<span style="color:#f92672">)</span>: <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>Solving environment: <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Package Plan ##</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  environment location: /home/flight/.local/share/flight/env/conda+default
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  added / updated specs:
+</span></span><span style="display:flex;"><span>    - perl<span style="color:#f92672">=</span>5.26.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The following packages will be downloaded:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    package                    |            build
+</span></span><span style="display:flex;"><span>    ---------------------------|-----------------
+</span></span><span style="display:flex;"><span>    ca-certificates-2019.5.15  |                <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">134</span> KB
+</span></span><span style="display:flex;"><span>    certifi-2019.6.16          |           py37_1         <span style="color:#ae81ff">156</span> KB
+</span></span><span style="display:flex;"><span>    conda-4.7.11               |           py37_0         3.0 MB
+</span></span><span style="display:flex;"><span>    perl-5.26.2                |       h14c3975_0        10.5 MB
+</span></span><span style="display:flex;"><span>    ------------------------------------------------------------
+</span></span><span style="display:flex;"><span>                                           Total:        13.7 MB
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The following NEW packages will be INSTALLED:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  perl               pkgs/main/linux-64::perl-5.26.2-h14c3975_0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The following packages will be UPDATED:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ca-certificates                               2019.5.15-0 --&gt; 2019.5.15-1
+</span></span><span style="display:flex;"><span>  certifi                                  2019.6.16-py37_0 --&gt; 2019.6.16-py37_1
+</span></span><span style="display:flex;"><span>  conda                                       4.7.10-py37_0 --&gt; 4.7.11-py37_0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Proceed <span style="color:#f92672">([</span>y<span style="color:#f92672">]</span>/n<span style="color:#f92672">)</span>? y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Downloading and Extracting Packages
+</span></span><span style="display:flex;"><span>conda-4.7.11         | 3.0 MB    | <span style="color:#75715e">############################################################################################ | 100%</span>
+</span></span><span style="display:flex;"><span>certifi-2019.6.16    | <span style="color:#ae81ff">156</span> KB    | <span style="color:#75715e">############################################################################################ | 100%</span>
+</span></span><span style="display:flex;"><span>perl-5.26.2          | 10.5 MB   | <span style="color:#75715e">############################################################################################ | 100%</span>
+</span></span><span style="display:flex;"><span>ca-certificates-2019 | <span style="color:#ae81ff">134</span> KB    | <span style="color:#75715e">############################################################################################ | 100%</span>
+</span></span><span style="display:flex;"><span>Preparing transaction: <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>Verifying transaction: <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>    Executing transaction: <span style="color:#66d9ef">done</span></span></span></code></pre></div>
+<ul>
+<li>Check installation location:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ which perl
+</span></span><span style="display:flex;"><span>~/.local/share/flight/env/conda+default/bin/perl</span></span></code></pre></div>
+<ul>
+<li>Install perl library (this may prompt for initial <code>cpan</code> configuration, once configuration is complete then the library will be installed):</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Mon, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">2019</span> 15:17:03 GMT
+</span></span><span style="display:flex;"><span>Running install <span style="color:#66d9ef">for</span> module <span style="color:#e6db74">&#39;File::Slurp&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;</span></span></code></pre></div>
+<ul>
+<li>Check installation worked:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Mon, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">2019</span> 15:17:03 GMT
+</span></span><span style="display:flex;"><span>File::Slurp is up to date <span style="color:#f92672">(</span>9999.27<span style="color:#f92672">)</span>.</span></span></code></pre></div>
+<h3 id="easybuild-usage-example">Easybuild Usage Example</h3>
+<p>EasyBuild is a software build and installation framework that allows you to manage (scientific) software on High Performance Computing (HPC) systems in an efficient way.</p>
+<h4 id="creating-and-using-ecosystem-1">Creating and Using Ecosystem</h4>
+<p>Flight Env provides quick setup methods to create an easybuild software ecosystem.</p>
+<p>To install and use easybuild:</p>
+<ul>
+<li>Activate the flight system</li>
+<li>Create the easybuild installation for the user:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env create easybuild
+</span></span><span style="display:flex;"><span>Creating environment easybuild@default
+</span></span><span style="display:flex;"><span>   &gt; ✅ Verifying prerequisites
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>lua<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>lua<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Building prerequisite <span style="color:#f92672">(</span>lua<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Installing prerequisite <span style="color:#f92672">(</span>lua<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>tcl<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>tcl<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Building prerequisite <span style="color:#f92672">(</span>tcl<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Installing prerequisite <span style="color:#f92672">(</span>tcl<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>lmod<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>lmod<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Configuring prerequisite <span style="color:#f92672">(</span>lmod<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Installing prerequisite <span style="color:#f92672">(</span>lmod<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>easybuild<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Bootstrapping EasyBuild environment <span style="color:#f92672">(</span>easybuild@default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Environment easybuild@default has been created</span></span></code></pre></div>
+<ul>
+<li>Activate the easybuild ecosystem:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env activate easybuild
+</span></span><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<ul>
+<li>Check that easybuild can be run:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ module load EasyBuild
+</span></span><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ eb --version
+</span></span><span style="display:flex;"><span>This is EasyBuild 3.9.4 <span style="color:#f92672">(</span>framework: 3.9.4, easyblocks: 3.9.4<span style="color:#f92672">)</span> on host chead1.pri.basic.cluster.local.</span></span></code></pre></div>
+<h4 id="installing-and-running-perl-1">Installing and Running Perl</h4>
+<p>An example workflow using perl is demonstrated below.</p>
+<ul>
+<li>View available versions:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ eb -S perl
+</span></span><span style="display:flex;"><span>CFGS1<span style="color:#f92672">=</span>/home/flight/.local/share/flight/env/easybuild+default/software/EasyBuild/3.9.4/lib/python2.7/site-packages/easybuild_easyconfigs-3.9.4-py2.7.egg/easybuild/easyconfigs
+</span></span><span style="display:flex;"><span> * $CFGS1/a/annovar/annovar-2016Feb01-foss-2016a-Perl-5.22.1.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/b/Bio-DB-HTS/Bio-DB-HTS-2.11-foss-2017b-Perl-5.26.0.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/b/Bio-DB-HTS/Bio-DB-HTS-2.11-foss-2018b-Perl-5.28.0.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/b/Bio-DB-HTS/Bio-DB-HTS-2.11-intel-2017b-Perl-5.26.0.eb
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;
+</span></span><span style="display:flex;"><span> * $CFGS1/p/Perl/Perl-5.26.1-GCCcore-6.4.0.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/p/Perl/Perl-5.26.1-foss-2018a-bare.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/p/Perl/Perl-5.26.1-foss-2018a.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/p/Perl/Perl-5.28.0-GCCcore-7.3.0.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/p/Perl/Perl-5.28.1-GCCcore-8.2.0.eb
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;
+</span></span><span style="display:flex;"><span> * $CFGS1/y/YAML-Syck/YAML-Syck-1.27-goolf-1.4.10-Perl-5.16.3.eb
+</span></span><span style="display:flex;"><span> * $CFGS1/y/YAML-Syck/YAML-Syck-1.27-ictce-5.3.0-Perl-5.16.3.eb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Note: <span style="color:#ae81ff">9</span> matching archived easyconfig<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> found, use --consider-archived-easyconfigs to see them</span></span></code></pre></div>
+<ul>
+<li>Install specific version:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ eb Perl-5.28.1-GCCcore-8.2.0.eb --robot
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> temporary log file in <span style="color:#66d9ef">case</span> of crash /tmp/eb-MdohD2/easybuild-J6tjhZ.log
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> resolving dependencies ...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> processing EasyBuild easyconfig /home/flight/.local/share/flight/env/easybuild+default/software/EasyBuild/3.9.4/lib/python2.7/site-packages/easybuild_easyconfigs-3.9.4-py2.7.egg/easybuild/easyconfigs/m/M4/M4-1.4.18.eb
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> building and installing M4/1.4.18...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> fetching files...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> creating build dir, resetting environment...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> unpacking...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> patching...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> preparing...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> configuring...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> building...
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;</span></span></code></pre></div>
+<ul>
+<li>Check installation location:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ which perl</span></span></code></pre></div>
+<ul>
+<li>Install perl library (this may prompt for initial <code>cpan</code> configuration, once configuration is complete then the library will be installed):</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Mon, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">2019</span> 15:47:03 GMT
+</span></span><span style="display:flex;"><span>Running install <span style="color:#66d9ef">for</span> module <span style="color:#e6db74">&#39;File::Slurp&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;</span></span></code></pre></div>
+<ul>
+<li>Check installation worked:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;easybuild&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Mon, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">2019</span> 15:47:03 GMT
+</span></span><span style="display:flex;"><span>File::Slurp is up to date <span style="color:#f92672">(</span>9999.27<span style="color:#f92672">)</span>.</span></span></code></pre></div>
+<h3 id="modules-usage-example">Modules Usage Example</h3>
+<p>Modules provides simple environment management. Tools and software to be used with modules will be compiled or installed outside of the modules environment.</p>
+<h4 id="creating-and-using-ecosystem-2">Creating and Using Ecosystem</h4>
+<p>Flight Env provides quick setup methods to create a modules software ecosystem.</p>
+<p>To install and use modules:</p>
+<ul>
+<li>Activate the flight system</li>
+<li>Create the modules installation for the user:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env create modules
+</span></span><span style="display:flex;"><span>Creating environment modules@default
+</span></span><span style="display:flex;"><span>   &gt; ✅ Verifying prerequisites
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>modules<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>modules<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Building prerequisite <span style="color:#f92672">(</span>modules<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Installing prerequisite <span style="color:#f92672">(</span>modules<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Creating environment <span style="color:#f92672">(</span>modules@default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Environment modules@default has been created</span></span></code></pre></div>
+<ul>
+<li>Activate the modules ecosystem:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env activate modules
+</span></span><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<ul>
+<li>Check that modules can be run:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ module --version
+</span></span><span style="display:flex;"><span>Modules Release 4.3.0 <span style="color:#f92672">(</span>2019-07-26<span style="color:#f92672">)</span></span></span></code></pre></div>
+<h4 id="installing-software---general-overview">Installing Software - General Overview</h4>
+<p>Unlike the other <a href="#ecosystems">package ecosystems</a>, Modules provides the ecosystem management tool but not any package management tools. Therefore, with the Modules ecosystem, you are free to compile and install software in a Module compatible manner.</p>
+<p>Module files can be installed to <code>~/.local/share/flight/env/modules+default/modulefiles</code> (for local Modules ecosystems) or to <code>/opt/apps/flight/env/modules+global/modulefiles</code> (for global modules ecosystems).</p>
+<blockquote>
+<p>If the Modules ecosystem has been installed with a <a href="#custom-ecosystem-names">custom ecosystem name</a> then the path will not be <code>modules+default</code>/<code>modules+global</code> but instead <code>modules+mycustomname</code></p></blockquote>
+<p>For more information on building software for Modules, see the <a href="https://modules.readthedocs.io/en/latest/modulefile.html">modulefile reference</a> and build documentation for the chosen software.</p>
+<h4 id="installing-and-running-perl-2">Installing and Running Perl</h4>
+<h5 id="compile-perl-from-source">Compile Perl from Source</h5>
+<ul>
+<li>Download perl 5.30.1 source:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ wget https://www.cpan.org/src/5.0/perl-5.30.1.tar.gz</span></span></code></pre></div>
+<ul>
+<li>Decompress the source files:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ tar -xzf perl-5.30.1.tar.gz</span></span></code></pre></div>
+<ul>
+<li>Configure the software to install to a localperl directory:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cd perl-5.30.1
+</span></span><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ ./Configure -des -Dprefix<span style="color:#f92672">=</span>$HOME/localperl</span></span></code></pre></div>
+<ul>
+<li>Compile and install perl:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ make
+</span></span><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ make install</span></span></code></pre></div>
+<h5 id="create-modulefile-and-test">Create Modulefile and Test</h5>
+<ul>
+<li>Create the perl modulefile:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cat <span style="color:#e6db74">&lt;&lt; EOF &gt; ~/.local/share/flight/env/modules+default/modulefiles/perl-5.30.1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#%Module1.0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">proc ModulesHelp { } {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">global dotversion
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">puts stderr &#34;\tPerl 5.30.1&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">module-whatis &#34;Perl 5.30.1&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">conflict perl
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">prepend-path PATH ~/localperl/bin
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">prepend-path LD_LIBRARY_PATH ~/localperl/lib
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">prepend-path LIBRARY_PATH ~/localperl/lib
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">prepend-path MANPATH ~/localperl/man
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span></span></span></code></pre></div>
+<ul>
+<li>Check install location:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ module load perl-5.30.1
+</span></span><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ which perl
+</span></span><span style="display:flex;"><span>~/localperl/bin/perl</span></span></code></pre></div>
+<ul>
+<li>Install perl library (this may prompt for initial <code>cpan</code> configuration, once configuration is complete then the library will be installed):</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal logger. Log::Log4perl recommended <span style="color:#66d9ef">for</span> better logging
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Wed, <span style="color:#ae81ff">11</span> Mar <span style="color:#ae81ff">2020</span> 15:29:03 GMT
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;
+</span></span><span style="display:flex;"><span>Appending installation info to /home/flight/localperl/lib/5.30.1/x86_64-linux/perllocal.pod
+</span></span><span style="display:flex;"><span>  CAPOEIRAB/File-Slurp-9999.30.tar.gz
+</span></span><span style="display:flex;"><span>  /usr/bin/make install  -- OK</span></span></code></pre></div>
+<ul>
+<li>Check installation worked:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;modules&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal logger. Log::Log4perl recommended <span style="color:#66d9ef">for</span> better logging
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Wed, <span style="color:#ae81ff">11</span> Mar <span style="color:#ae81ff">2020</span> 15:29:03 GMT
+</span></span><span style="display:flex;"><span>File::Slurp is up to date <span style="color:#f92672">(</span><span style="color:#ae81ff">9</span></span></span></code></pre></div>
+<h3 id="singularity-usage-example">Singularity Usage Example</h3>
+<p>Singularity is high-performance container technology specifically designed to enhance Enterprise Performance Computing by building containers that support HPC, analytics, artificial intelligence, machine learning, and deep learning to provide &ldquo;intelligence anywhere&rdquo;.</p>
+<h4 id="creating-and-using-ecosystem-3">Creating and Using Ecosystem</h4>
+<p>Flight Env provides quick setup methods to create a singularity software ecosystem.</p>
+<p>To install and use singularity:</p>
+<blockquote>
+<p>If installing singularity for a user then there are a number of restrictions and additional steps to consider in configuring the environment. See the <code>Personal Environment</code> section of <code>flight env info singularity</code>.</p></blockquote>
+<ul>
+<li>Activate the flight system</li>
+<li>Create the singularity installation for the user:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env create singularity
+</span></span><span style="display:flex;"><span>Creating environment singularity@default
+</span></span><span style="display:flex;"><span>   &gt; ✅ Verifying prerequisites
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>squashfs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>squashfs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Building prerequisite <span style="color:#f92672">(</span>squashfs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Installing prerequisite <span style="color:#f92672">(</span>squashfs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>go<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>go<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>singularity<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting prerequisite <span style="color:#f92672">(</span>singularity<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Building prerequisite <span style="color:#f92672">(</span>singularity<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Installing prerequisite <span style="color:#f92672">(</span>singularity<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Creating environment <span style="color:#f92672">(</span>singularity@default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Environment singularity@default has been created</span></span></code></pre></div>
+<ul>
+<li>Activate the singularity ecosystem:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env activate singularity
+</span></span><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<ul>
+<li>Check that singularity can be run:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ singularity --version
+</span></span><span style="display:flex;"><span>singularity version 3.2.1</span></span></code></pre></div>
+<h4 id="installing-and-running-perl-3">Installing and Running Perl</h4>
+<p>An example workflow using perl is demonstrated below.</p>
+<blockquote>
+<p>The perl container is built from a docker container which can be searched for in the <a href="https://hub.docker.com/">docker hub</a>. To search the singularity container library, use <code>singularity search SEARCHTERM</code>.</p></blockquote>
+<ul>
+<li>Install specific version:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ singularity build --sandbox perl_5.30.simg docker://perl:5.30
+</span></span><span style="display:flex;"><span>INFO:    Starting build...
+</span></span><span style="display:flex;"><span>Getting image source signatures
+</span></span><span style="display:flex;"><span>Copying blob sha256:4ae16bd4778367b46064f39554128dd2fda2803a5747fddeff74059f353391c9
+</span></span><span style="display:flex;"><span> 48.05 MiB / 48.05 MiB <span style="color:#f92672">[====================================================]</span> 0s
+</span></span><span style="display:flex;"><span>Copying blob sha256:bbab4ec87ac4f89eaabdf68dddbd1dd930e3ad43bded38d761b89abf9389a893
+</span></span><span style="display:flex;"><span> 7.44 MiB / 7.44 MiB <span style="color:#f92672">[======================================================]</span> 0s
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;
+</span></span><span style="display:flex;"><span>Writing manifest to image destination
+</span></span><span style="display:flex;"><span>Storing signatures
+</span></span><span style="display:flex;"><span>INFO:    Creating sandbox directory...
+</span></span><span style="display:flex;"><span>INFO:    Build complete: perl_5.30.simg</span></span></code></pre></div>
+<ul>
+<li>Check installation location:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ singularity exec perl_5.30.simg which perl
+</span></span><span style="display:flex;"><span>/usr/local/bin/perl</span></span></code></pre></div>
+<ul>
+<li>Install perl library (this may prompt for initial <code>cpan</code> configuration, once configuration is complete then the library will be installed):</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ singularity exec -w perl_5.30.simg cpan File::Slurp
+</span></span><span style="display:flex;"><span>INFO:    Convert SIF file to sandbox...
+</span></span><span style="display:flex;"><span>perl: warning: Setting locale failed.
+</span></span><span style="display:flex;"><span>perl: warning: Please check that your locale settings:
+</span></span><span style="display:flex;"><span>    LANGUAGE <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>unset<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>    LC_ALL <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>unset<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>    LC_CTYPE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;en_GB.UTF-8&#34;</span>,
+</span></span><span style="display:flex;"><span>    LANG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;en_GB.UTF-8&#34;</span>
+</span></span><span style="display:flex;"><span>    are supported and installed on your system.
+</span></span><span style="display:flex;"><span>perl: warning: Falling back to the standard locale <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;C&#34;</span><span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Wed, <span style="color:#ae81ff">11</span> Sep <span style="color:#ae81ff">2019</span> 13:29:02 GMT
+</span></span><span style="display:flex;"><span>Running install <span style="color:#66d9ef">for</span> module <span style="color:#e6db74">&#39;File::Slurp&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;</span></span></code></pre></div>
+<ul>
+<li>Check installation worked:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ singularity exec perl_5.30.simg cpan File::Slurp
+</span></span><span style="display:flex;"><span>perl: warning: Setting locale failed.
+</span></span><span style="display:flex;"><span>perl: warning: Please check that your locale settings:
+</span></span><span style="display:flex;"><span>    LANGUAGE <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>unset<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>    LC_ALL <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>unset<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>    LC_CTYPE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;en_GB.UTF-8&#34;</span>,
+</span></span><span style="display:flex;"><span>    LANG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;en_GB.UTF-8&#34;</span>
+</span></span><span style="display:flex;"><span>    are supported and installed on your system.
+</span></span><span style="display:flex;"><span>perl: warning: Falling back to the standard locale <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;C&#34;</span><span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Loading internal logger. Log::Log4perl recommended <span style="color:#66d9ef">for</span> better logging
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Wed, <span style="color:#ae81ff">11</span> Sep <span style="color:#ae81ff">2019</span> 13:29:02 GMT
+</span></span><span style="display:flex;"><span>File::Slurp is up to date <span style="color:#f92672">(</span>9999.27<span style="color:#f92672">)</span>.</span></span></code></pre></div>
+<h3 id="spack-usage-example">Spack Usage Example</h3>
+<p>Spack is a package manager for supercomputers, Linux, and macOS. It makes installing scientific software easy. With Spack, you can build a package with multiple versions, configurations, platforms, and compilers, and all of these builds can coexist on the same machine.</p>
+<h2 id="creating-and-using-ecosystem-4">Creating and Using Ecosystem</h2>
+<p>Flight Env provides quick setup methods to create a spack software ecosystem.</p>
+<p>To install and use spack:</p>
+<ul>
+<li>Activate the flight system</li>
+<li>Create the spack installation for the user:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env create spack
+</span></span><span style="display:flex;"><span>Creating environment spack@default
+</span></span><span style="display:flex;"><span>   &gt; ✅ Verifying prerequisites
+</span></span><span style="display:flex;"><span>   &gt; ✅ Fetching prerequisite <span style="color:#f92672">(</span>spack<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Extracting Spack hierarchy <span style="color:#f92672">(</span>spack@default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Bootstrapping Spack environment <span style="color:#f92672">(</span>spack@default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Environment spack@default has been created</span></span></code></pre></div>
+<ul>
+<li>Activate the spack ecosystem:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight env activate spack
+</span></span><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<ul>
+<li>Check that spack can be run:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ spack --version
+</span></span><span style="display:flex;"><span>spack 0.12.1</span></span></code></pre></div>
+<h2 id="installing-and-running-perl-4">Installing and Running Perl</h2>
+<p>An example workflow using perl is demonstrated below.</p>
+<ul>
+<li>View available versions:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ spack list perl
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; <span style="color:#ae81ff">148</span> packages.
+</span></span><span style="display:flex;"><span>perl                          perl-extutils-pkgconfig     perl-math-cdf                    perl-sub-uplevel
+</span></span><span style="display:flex;"><span>perl-algorithm-diff           perl-file-copy-recursive    perl-math-cephes                 perl-svg
+</span></span><span style="display:flex;"><span>perl-app-cmd                  perl-file-listing           perl-math-matrixreal             perl-swissknife
+</span></span><span style="display:flex;"><span>perl-array-utils              perl-file-pushd             perl-module-build                perl-task-weaken
+</span></span><span style="display:flex;"><span>perl-b-hooks-endofscope       perl-file-sharedir-install  perl-module-implementation       perl-term-readkey
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ spack info perl
+</span></span><span style="display:flex;"><span>Package:   perl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Description:
+</span></span><span style="display:flex;"><span>    Perl <span style="color:#ae81ff">5</span> is a highly capable, feature-rich programming language with over
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">27</span> years of development.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Homepage: http://www.perl.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Tags:
+</span></span><span style="display:flex;"><span>    None
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Preferred version:
+</span></span><span style="display:flex;"><span>    5.26.2     http://www.cpan.org/src/5.0/perl-5.26.2.tar.gz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Safe versions:
+</span></span><span style="display:flex;"><span>    5.28.0     http://www.cpan.org/src/5.0/perl-5.28.0.tar.gz
+</span></span><span style="display:flex;"><span>    5.26.2     http://www.cpan.org/src/5.0/perl-5.26.2.tar.gz</span></span></code></pre></div>
+<ul>
+<li>Install specific version:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ spack install perl@5.26.2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; Installing pkgconf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; Searching <span style="color:#66d9ef">for</span> binary cache of pkgconf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; Warning: No Spack mirrors are currently configured
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; No binary <span style="color:#66d9ef">for</span> pkgconf found: installing from source
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; Fetching http://distfiles.alpinelinux.org/distfiles/pkgconf-1.4.2.tar.xz
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; Successfully installed perl
+</span></span><span style="display:flex;"><span>  Fetch: 0.83s.  Build: 2m 31.21s.  Total: 2m 32.04s.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> /home/flight/.local/share/flight/env/spack+default/opt/spack/linux-centos7-x86_64/gcc-4.8.5/perl-5.26.2-wavwojlef7lshvx2awf4zze2lrx5l7l4</span></span></code></pre></div>
+<ul>
+<li>Check installation location:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ module load perl-5.26.2-gcc-4.8.5-wavwojl
+</span></span><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ which perl
+</span></span><span style="display:flex;"><span>~/.local/share/flight/env/spack+default/opt/spack/linux-centos7-x86_64/gcc-4.8.5/perl-5.26.2-wavwojlef7lshvx2awf4zze2lrx5l7l4/bin/perl</span></span></code></pre></div>
+<ul>
+<li>Install perl library (this may prompt for initial <code>cpan</code> configuration, once configuration is complete then the library will be installed):</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Wed, <span style="color:#ae81ff">11</span> Sep <span style="color:#ae81ff">2019</span> 14:41:02 GMT
+</span></span><span style="display:flex;"><span>Running install <span style="color:#66d9ef">for</span> module <span style="color:#e6db74">&#39;File::Slurp&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;-- snip --&gt;</span></span></code></pre></div>
+<ul>
+<li>Check installation worked:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ cpan File::Slurp
+</span></span><span style="display:flex;"><span>Loading internal null logger. Install Log::Log4perl <span style="color:#66d9ef">for</span> logging messages
+</span></span><span style="display:flex;"><span>Reading <span style="color:#e6db74">&#39;/home/flight/.cpan/Metadata&#39;</span>
+</span></span><span style="display:flex;"><span>  Database was generated on Wed, <span style="color:#ae81ff">11</span> Sep <span style="color:#ae81ff">2019</span> 14:41:02 GMT
+</span></span><span style="display:flex;"><span>File::Slurp is up to date <span style="color:#f92672">(</span>9999.27<span style="color:#f92672">)</span>.</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Flight Silo</title>
+      <link>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-silo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-silo/</guid>
+      <description>&lt;p class=&#34;notice&#34;&gt;
+  This documentation is for an &lt;a href=&#34;https://openflighthpc.org/labs/flight-environment/&#34;&gt;OpenFlight Labs Project&lt;/a&gt; which is in maintenance mode
+&lt;/p&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Flight Silo allows users to connect to &amp;ldquo;silos&amp;rdquo; - cloud storage systems designed primarily to distribute software and projects, with more general file storage also available. Silo comes installed as part of the User Suite included with Flight Solo.&lt;/p&gt;
+&lt;p&gt;This section details the various commands used to manage silos, files and software.&lt;/p&gt;
+&lt;h3 id=&#34;setting-up-platforms&#34;&gt;Setting up platforms&lt;/h3&gt;
+&lt;p&gt;Use &lt;code&gt;flight silo type avail&lt;/code&gt; to list all available platform types and their current state. e.g.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p class="notice">
+  This documentation is for an <a href="/labs/flight-environment/">OpenFlight Labs Project</a> which is in maintenance mode
+</p>
+
+<h2 id="overview">Overview</h2>
+<p>Flight Silo allows users to connect to &ldquo;silos&rdquo; - cloud storage systems designed primarily to distribute software and projects, with more general file storage also available. Silo comes installed as part of the User Suite included with Flight Solo.</p>
+<p>This section details the various commands used to manage silos, files and software.</p>
+<h3 id="setting-up-platforms">Setting up platforms</h3>
+<p>Use <code>flight silo type avail</code> to list all available platform types and their current state. e.g.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo type avail
+</span></span><span style="display:flex;"><span>┌───────────┬───────────────────────────────┬──────────┐
+</span></span><span style="display:flex;"><span>│ Name      │ Description                   │ Prepared │
+</span></span><span style="display:flex;"><span>├───────────┼───────────────────────────────┼──────────┤
+</span></span><span style="display:flex;"><span>│ aws       │ Amazon Simple Storage Service │ true     │
+</span></span><span style="display:flex;"><span>│ openstack │ Openstack Swift Storage       │ true     │
+</span></span><span style="display:flex;"><span>└───────────┴───────────────────────────────┴──────────┘</span></span></code></pre></div>
+<p>Types are not prepared by default. To prepare a type you must <a href="/knowledge/hpc-environment-basics/cli-basics/becoming-root/">become the root user</a>, and then do <code>flight silo type prepare &lt;type&gt;</code>. e.g.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@chead1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># flight silo type prepare aws</span>
+</span></span><span style="display:flex;"><span>Preparing...
+</span></span><span style="display:flex;"><span>Type aws prepared <span style="color:#66d9ef">for</span> use</span></span></code></pre></div>
+<p>Types are the backend providers of storage, and each type can hold multiple silos. Silos are used to hold software and files. To find out more about these see the relevant page in this section, or use the command <code>flight silo help</code> to view available commands and command syntax.</p>
+<h2 id="managing-silos">Managing Silos</h2>
+<p>A silo is a storage space that is the same regardless of platform used. Even though a silo may appear as a directory in your cloud storage, it is highly recommended that a silo should <strong>only</strong> be managed by the command line tool.</p>
+<h3 id="openflight-silo">OpenFlight Silo</h3>
+<p>The Flight Silo tool comes with the <code>openflight</code> silo, this is a read-only silo that provides some example files &amp; software. So long as the <a href="#setting-up-platforms">AWS platform</a> is prepared then the <code>openflight</code> repository can be interacted with to pull files and software.</p>
+<h3 id="viewing-silos">Viewing Silos</h3>
+<p>To see the available silos on the system use the command <code>flight silo repo list</code>.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo repo list
+</span></span><span style="display:flex;"><span>┌────────────┬───────────────────────────────────┬──────────┬─────────┬────────────┐
+</span></span><span style="display:flex;"><span>│ Name       │ Description                       │ Platform │ Public? │ ID         │
+</span></span><span style="display:flex;"><span>├────────────┼───────────────────────────────────┼──────────┼─────────┼────────────┤
+</span></span><span style="display:flex;"><span>│ mysilo1    │                                   │ aws      │ false   │ ABCDE123   │
+</span></span><span style="display:flex;"><span>│ openflight │ Openflight software and resources │ aws      │ true    │ OPENFLIGHT │
+</span></span><span style="display:flex;"><span>└────────────┴───────────────────────────────────┴──────────┴─────────┴────────────┘</span></span></code></pre></div>
+<blockquote>
+<p>Silos that are defined locally and no longer exist upstream will be marked in yellow. This can occur when a silo has been deleted from a different system.</p></blockquote>
+<h3 id="creating-and-adding-silos">Creating and Adding Silos</h3>
+<p>You can add an already existing silo with the command <code>flight silo repo add</code>. All questions asked will be the same as for creation, except that the answers will be used to find an existing silo.</p>
+<p>To create a silo use the command <code>flight silo repo create</code>. This will take you through a series of questions:</p>
+<ul>
+<li>Provider type - Which provider the silo should be created on.</li>
+<li>Silo name - What the name of the silo should be.</li>
+</ul>
+<p>After this point, any further questions depend on the chosen platform.</p>
+<h4 id="aws">AWS</h4>
+<ul>
+<li>Region - The region the silo should be created in.</li>
+<li>Access key ID - The ID for a valid aws access key.</li>
+<li>Secret access key - The secret key for a valid aws access key.</li>
+</ul>
+<p>More information about AWS access keys can be found <a href="https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html">in the AWS documentation</a>.</p>
+<h4 id="openstack">OpenStack</h4>
+<ul>
+<li>Endpoint URL - The URL of the OpenStack Swift Storage service to store this silo</li>
+<li>Access key ID - The ID for a valid access key generated by OpenStack EC2-like credentials</li>
+<li>Secret access key - The secret key for the above access key</li>
+</ul>
+<h3 id="removing-and-deleting-silos">Removing and Deleting Silos</h3>
+<p>If you no longer wish to have access to a silo on your machine, you can run the command <code>flight silo repo remove &lt;name&gt;</code>. This means that in order to access the silo again you would need to use the <code>add</code> command.</p>
+<p>A silo can be deleted with <code>flight silo repo delete &lt;name&gt;</code>. Unlike the <code>remove</code> command, the silo could not be re-added later as it is fully deleted upstream along with all of its contents.</p>
+<h3 id="setting-a-default-silo">Setting a default silo</h3>
+<p>If a default silo has been set, then commands that require a silo to be specified in the argument will use the default instead. Set a default with the command <code>flight silo set-default</code> e.g.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo set-default openflight
+</span></span><span style="display:flex;"><span>Default silo set to: openflight</span></span></code></pre></div>
+<h3 id="editing-silo-information">Editing Silo Information</h3>
+<p>When a silo is created it is named and the description is left blank. Both the name and description can be modified using the <code>flight silo repo edit</code> command. For example:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo repo edit mysilo1
+</span></span><span style="display:flex;"><span>Silo name: myfilesilo1
+</span></span><span style="display:flex;"><span>Silo description: This is my silo <span style="color:#66d9ef">for</span> sharing files between ephemeral cloud systems!
+</span></span><span style="display:flex;"><span>Updating silo details...
+</span></span><span style="display:flex;"><span>Silo details updated</span></span></code></pre></div>
+<blockquote>
+<p>Any other systems that have a silo added locally will detect upstream changes and will require <code>flight silo repo refresh</code> to be run to ensure names and descriptions are synchronised with the upstream silo.</p></blockquote>
+<h2 id="managing-files">Managing Files</h2>
+<p>Silo provides simple file management, this allows users to save and restore their files</p>
+<hr>
+<p><code>file list &lt;silo&gt;:&lt;directory&gt;</code></p>
+<p>List the files in the given silo and directory. If no silo is specified then the default will be used. If no directory is given then the top-level of the silo file storage will be shown.</p>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo file list openflight:/openfoam
+</span></span><span style="display:flex;"><span>cavity-example.sh  motorBike.tar.gz  OpenFOAM-v2212.tar.gz</span></span></code></pre></div>
+<hr>
+<p><code>file push &lt;source&gt; &lt;silo&gt;:&lt;destination&gt;</code></p>
+<p>Upload a file to a silo.If no silo is specified then the default will be used.</p>
+<ul>
+<li><code>--recursive</code> - Uploads a whole directory and all of its contents. You must specify a directory rather than a file.</li>
+<li><code>--make-parent</code> - Create parent directories if they don&rsquo;t exist.</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo file push example.sh
+</span></span><span style="display:flex;"><span>Local file <span style="color:#e6db74">&#39;/home/flight/example.sh&#39;</span> copied to remote <span style="color:#e6db74">&#39;/example.sh&#39;</span></span></span></code></pre></div>
+<p><strong>Example 2</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo file push dir/subdir/example.sh --make-parent
+</span></span><span style="display:flex;"><span>Local file <span style="color:#e6db74">&#39;/home/flight/example.sh&#39;</span> copied to remote <span style="color:#e6db74">&#39;/dir/subdir/example.sh&#39;</span></span></span></code></pre></div>
+<hr>
+<p><code>file pull &lt;silo&gt;:&lt;destination&gt; &lt;local destination&gt;</code></p>
+<p>Pull a file or directory from a silo. If no silo is specified then the default will be used. If no local destination is specified then the current working directory will be used.</p>
+<ul>
+<li><code>--recursive</code> - Pulls a whole directory and all of its contents.</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo file pull openflight:/kubernetes/pod-launch-test.yaml
+</span></span><span style="display:flex;"><span>Pulling <span style="color:#e6db74">&#39;openflight:/kubernetes/pod-launch-test.yaml&#39;</span> into <span style="color:#e6db74">&#39;/home/flight&#39;</span>...
+</span></span><span style="display:flex;"><span>File<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> downloaded to /home/flight</span></span></code></pre></div>
+<p><strong>Example 2</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@aztest1 ~<span style="color:#f92672">]</span>$ flight silo file pull --recursive openflight:/openfoam/ openfoam-download-example
+</span></span><span style="display:flex;"><span>Pulling <span style="color:#e6db74">&#39;openflight:/openfoam/&#39;</span> into <span style="color:#e6db74">&#39;openfoam-download-example&#39;</span>...
+</span></span><span style="display:flex;"><span>File<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> downloaded to openfoam-download-example</span></span></code></pre></div>
+<hr>
+<p><code>file delete &lt;silo&gt;:&lt;destination&gt;</code></p>
+<p>Delete a file in a silo. If no silo is specified then the default will be used.</p>
+<ul>
+<li><code>--recursive</code> - Deletes a whole directory and all of its contents. You must specify a directory rather than a file.</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ flight silo file delete example.sh
+</span></span><span style="display:flex;"><span>Deleting remote file <span style="color:#e6db74">&#39;example.sh&#39;</span>...
+</span></span><span style="display:flex;"><span>Deleted remote file <span style="color:#e6db74">&#39;example.sh&#39;</span></span></span></code></pre></div>
+<h2 id="managing-software">Managing Software</h2>
+<p>Software in the context of Flight Silo is software binaries that can be compiled in advance, and then kept in a silo so that they can be accessed from any number of HPC environments without needing to be recompiled. This provides users a method to manage and share their own software.</p>
+<p>This page describes several commands associated with software which are run in the format <code>flight silo &lt;command&gt; --&lt;option&gt;</code>.</p>
+<hr>
+<p><code>software delete &lt;name&gt; &lt;version&gt;</code></p>
+<p>Delete a software binary from the default silo.</p>
+<ul>
+<li><code>--repo &lt;silo&gt;</code> - Instead of using the default silo, specify which one to delete from.</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@chead1 ~]$ flight silo software delete exampl 0.0
+Deleting software &#39;exampl&#39; version &#39;0.0&#39;...
+Deleted software &#39;exampl&#39; version &#39;0.0&#39;.</code></pre>
+<hr>
+<p><code>software pull &lt;name&gt; &lt;version&gt;</code></p>
+<p>Download and extract a software binary from the default silo.</p>
+<ul>
+<li><code>--repo &lt;silo&gt;</code> - Instead of using the default silo, specify which one to pull from.</li>
+<li><code>--dir &lt;path&gt;</code> - Install software within <code>&lt;path&gt;</code> instead of the standard location. The order in which the destination path is decided is based on the following (in priority order):
+<ol>
+<li>The value of the environment variable <code>flight_SILO_software_dir</code></li>
+<li>The <code>--dir</code> argument</li>
+<li>The value of <code>software_dir</code> in <code>~/.config/flight/silo/config.yml</code></li>
+<li>The value of <code>software_dir</code> in <code>/opt/flight/opt/silo/config.yml</code> (this path may differ if a non-standard installation location has been chosen or if the source code has been cloned elsewhere)</li>
+</ol>
+</li>
+<li><code>--overwrite</code> - Overwrite local software if it exists.</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@chead1 ~]$ flight silo software pull exampl 0.0
+Downloading software &#39;exampl&#39; version &#39;0.0&#39;...
+Extracting software to &#39;/home/flight/.local/share/flight/silo/software&#39;...
+Extracted software &#39;exampl&#39; version &#39;0.0 to &#39;/home/flight/.local/share/flight/silo/software&#39;...</code></pre>
+<hr>
+<p><code>software push &lt;file&gt; &lt;name&gt; &lt;version&gt;</code></p>
+<p>Upload a software binary to the default silo.</p>
+<ul>
+<li><code>--repo &lt;silo&gt;</code> - Instead of using the default silo, specify which one to push to.</li>
+<li><code>--force</code> - Overwrite existing software in the silo if it exists.</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@chead1 ~]$ flight silo software push exampl.tar.gz exampl 0.0
+Uploading software &#39;exampl&#39; version &#39;0.0&#39;...
+Uploaded software &#39;exampl&#39; version &#39;0.0&#39;.</code></pre>
+<hr>
+<p><code>software search &lt;name&gt;</code></p>
+<p>List the software binaries in the default silo. If no name is given, then all software will be displayed.</p>
+<ul>
+<li><code>--repo &lt;silo&gt;</code> - Instead of using the default silo, specify which one to search on.</li>
+</ul>
+<p><strong>Example 1 - With Search Term (Shows Versions)</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@chead1 ~]$ flight silo software search exampl
+┌────────┬─────────┬────────┐
+│ Name   │ Version │ Size   │
+├────────┼─────────┼────────┤
+│ exampl │ 0.0     │ 500 MB │
+└────────┴─────────┴────────┘</code></pre>
+<p><strong>Example 2 - With No Search Term</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@chead1 ~]$ flight silo software search
+Showing latest 5 versions...
+┌────────┬─────────┐
+│ Name   │ Version │
+├────────┼─────────┤
+│ exampl │ 0.0     │
+└────────┴─────────┘</code></pre>
+<h2 id="managing-migrations">Managing Migrations</h2>
+<p>Migrations provide a method for replicating <a href="#managing-software">Silo software</a> installations on new clusters. This supports quicker time-to-science by reducing the admin work required to create duplicate environments in ephemeral cloud situations.</p>
+<p>Every <a href="#managing-software">software pull</a> made by the user will be recorded in an &ldquo;archive&rdquo;. This will detail what software version was installed from what silos and to which directories it was installed.</p>
+<hr>
+<p><code>migration view</code></p>
+<p>Show the state of the current migration archives and any others available to the system.</p>
+<ul>
+<li><code>--archive &lt;archive&gt;</code> - Specify the archive to view instead of the currently enabled one</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration view
+
+Archives:
+┌──────────┬─────────┬───────────┐
+│ Archive  │ Status  │ Host Silo │
+├──────────┼─────────┼───────────┤
+│ wooldbfe │ enabled │ Undefined │
+└──────────┴─────────┴───────────┘
+
+Enabled archive details:
+┌──────────┬──────────┬─────────┬───────────────────────┬──────────┬────────────┐
+│ Type     │ Name     │ Version │ Path                  │ Absolute │ Silo Name  │
+├──────────┼──────────┼─────────┼───────────────────────┼──────────┼────────────┤
+│ software │ OpenFOAM │ 22.12   │ ~/apps/OpenFOAM/22.12 │ false    │ openflight │
+└──────────┴──────────┴─────────┴───────────────────────┴──────────┴────────────┘</code></pre>
+<blockquote>
+<p>Software install destinations within home directories are portable between different users as they are not marked as &ldquo;absolute&rdquo; paths so, when migrating, will be installed into the home directory of whichever user is applying the migration</p></blockquote>
+<hr>
+<p><code>migration apply</code></p>
+<p>Apply a migration archive to the current system. This will attempt to install the software within the archive to the recorded destinations.</p>
+<ul>
+<li><code>--archive &lt;archive&gt;</code> - Specify the archive ID to view instead of the currently enabled one</li>
+<li><code>--ignore-missing-item</code> - Don&rsquo;t fail the apply if a silo, software package or version of a software package within the archive are not present</li>
+<li><code>--overwrite</code> - Overwrite software locally if it already exists at the installation location</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration apply --archive qsaoxvxj
+Validating Archive &#39;qsaoxvxj&#39;...
+Migration for archive &#39;qsaoxvxj&#39; started...
+
+Migrating software my-software 1.0.0...
+&#39;my-software&#39; &#39;1.0.0&#39; successfully migrated
+
+
+Migrating software my-software 2.0.0...
+&#39;my-software&#39; &#39;2.0.0&#39; successfully migrated
+
+Migration All Done √</code></pre>
+<hr>
+<p><code>migration continue</code></p>
+<p>Resume monitoring of <code>software pull</code> actions.</p>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration continue
+Migration Monitoring Enabled √</code></pre>
+<hr>
+<p><code>migration pause</code></p>
+<p>Pause monitoring of <code>software pull</code> actions. After running this command any software installed with Silo will not be added to the currently enabled archive.</p>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration pause
+Migration Monitoring Disabled √</code></pre>
+<hr>
+<p><code>migration pull &lt;archive&gt;</code></p>
+<p>Retrieve updated archive details from a silo.</p>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration pull mysilo1
+Obtaining silo migration archives...
+Done √</code></pre>
+<hr>
+<p><code>migration push</code></p>
+<p>Update remote silos with latest local archive information. Archives are pushed to their &ldquo;Host Silo&rdquo;, those without &ldquo;Host Silos&rdquo; are uploaded to the default silo.</p>
+<ul>
+<li><code>--repo &lt;silo&gt;</code> - Specify a silo other than the default to store the local-only archives in</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration push --repo mysilo1
+Updating migration archives for Silo mysilo1...
+All Done √</code></pre>
+<hr>
+<p><code>migration remove software &lt;name&gt; &lt;version&gt;</code></p>
+<p>Remove a software item from the current archive.</p>
+<ul>
+<li><code>--archive &lt;archive&gt;</code> - Remove from the specified archive instead of the current one.</li>
+<li><code>--all</code> - Remove the software version from all archives</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration remove software OpenFOAM 22.12
+Software &#39;OpenFOAM 22.12&#39; migration record has been removed from archive &#39;wooldbfe&#39;</code></pre>
+<hr>
+<p><code>migration switch</code></p>
+<p>Change from the currently enabled archive to a new, empty archive.</p>
+<ul>
+<li><code>--archive &lt;archive&gt;</code> - Instead of creating a new one, enable the specified archive</li>
+</ul>
+<p><strong>Example 1</strong></p>
+
+
+
+
+
+
+<pre tabindex="0"><code>[flight@gateway1 ~]$ flight silo migration switch
+Enabled archive has been switched to &#39;debkxnfs&#39;.</code></pre>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

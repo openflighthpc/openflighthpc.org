@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-workflows/workloads/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-workflows/workloads/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bowtie Workflow Example</title>
+      <link>https://openflighthpc.org/knowledge/hpc-workflows/workloads/bowtie/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-workflows/workloads/bowtie/</guid>
+      <description>&lt;h2 id=&#34;workflow&#34;&gt;Workflow&lt;/h2&gt;
+&lt;h3 id=&#34;installing-bowtie-with-spack&#34;&gt;Installing Bowtie with Spack&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This example uses the flight environment which will need to be activated before the environments can be created so be sure to run &lt;code&gt;flight start&lt;/code&gt; or &lt;a href=&#34;https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/&#34;&gt;setup your environment to automatically activate the flight environment&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Create a spack software environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight env create spack&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Activate the environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight env activate spack&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Install bowtie:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;spack&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ spack install bowtie&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;running-a-bowtie-job&#34;&gt;Running a Bowtie Job&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Download example ecoli data:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;spack&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight silo file pull openflight:bowtie/ecoli.fq&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Download an example job script to run in the current working directory:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;spack&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight silo file pull openflight:bowtie/ecoli-job.sh&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Submit the job to the queue:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;spack&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ sbatch ecoli-job.sh&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The results can then be reviewed from the slurm output file for the job in the current working directory.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="workflow">Workflow</h2>
+<h3 id="installing-bowtie-with-spack">Installing Bowtie with Spack</h3>
+<blockquote>
+<p>This example uses the flight environment which will need to be activated before the environments can be created so be sure to run <code>flight start</code> or <a href="/knowledge/flight-environment/flight-user-suite/">setup your environment to automatically activate the flight environment</a>.</p></blockquote>
+<ol>
+<li>Create a spack software environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env create spack</span></span></code></pre></div>
+</li>
+<li>Activate the environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate spack</span></span></code></pre></div>
+</li>
+<li>Install bowtie:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ spack install bowtie</span></span></code></pre></div>
+</li>
+</ol>
+<h3 id="running-a-bowtie-job">Running a Bowtie Job</h3>
+<ol>
+<li>Download example ecoli data:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight silo file pull openflight:bowtie/ecoli.fq</span></span></code></pre></div>
+</li>
+<li>Download an example job script to run in the current working directory:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight silo file pull openflight:bowtie/ecoli-job.sh</span></span></code></pre></div>
+</li>
+<li>Submit the job to the queue:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;spack&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch ecoli-job.sh</span></span></code></pre></div>
+</li>
+</ol>
+<p>The results can then be reviewed from the slurm output file for the job in the current working directory.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Hadoop Workflow Example</title>
+      <link>https://openflighthpc.org/knowledge/hpc-workflows/workloads/hadoop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-workflows/workloads/hadoop/</guid>
+      <description>&lt;p&gt;Hadoop is a scalable, distributed computing solution provided by Apache. Similar to queuing systems, Hadoop allows for distributed processing of large data sets.&lt;/p&gt;
+&lt;p&gt;This example sets up hadoop on a single node and processes an example data set.&lt;/p&gt;
+&lt;h2 id=&#34;installing--running-hadoop&#34;&gt;Installing &amp;amp; Running Hadoop&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This example uses the flight environment which will need to be activated before the environments can be created so be sure to run &lt;code&gt;flight start&lt;/code&gt; or &lt;a href=&#34;https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/&#34;&gt;setup your environment to automatically activate the flight environment&lt;/a&gt;.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Hadoop is a scalable, distributed computing solution provided by Apache. Similar to queuing systems, Hadoop allows for distributed processing of large data sets.</p>
+<p>This example sets up hadoop on a single node and processes an example data set.</p>
+<h2 id="installing--running-hadoop">Installing &amp; Running Hadoop</h2>
+<blockquote>
+<p>This example uses the flight environment which will need to be activated before the environments can be created so be sure to run <code>flight start</code> or <a href="/knowledge/flight-environment/flight-user-suite/">setup your environment to automatically activate the flight environment</a>.</p></blockquote>
+<ul>
+<li>
+<p>Install dependencies for Hadoop:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sudo yum install -y java-1.8.0-openjdk.x86_64 java-1.8.0-openjdk-devel.x86_64</span></span></code></pre></div>
+</li>
+<li>
+<p>Set default Java version:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sudo alternatives --set java java-1.8.0-openjdk.x86_64
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sudo alternatives --set javac java-1.8.0-openjdk.x86_64</span></span></code></pre></div>
+</li>
+<li>
+<p>Download Hadoop v3.2.1:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight silo software pull --repo openflight hadoop 3.2.1</span></span></code></pre></div>
+</li>
+<li>
+<p>Add the hadoop installation to the user&rsquo;s path along with the Java home (replacing <code>SILO_SOFTWARE_DIR</code> with the software directory used by silo in the download above, this can be done temporarily in the CLI or by adding to the user&rsquo;s <code>~/.bashrc</code>):</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HADOOP_HOME<span style="color:#f92672">=</span>SILO_SOFTWARE_DIR/hadoop/3.2.1
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$PATH<span style="color:#e6db74">:</span>$HADOOP_HOME<span style="color:#e6db74">/bin/:</span>$HADOOP_HOME<span style="color:#e6db74">/sbin/&#34;</span>
+</span></span><span style="display:flex;"><span>export CLASSPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HADOOP_HOME<span style="color:#e6db74">/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.2.1.jar:</span>$HADOOP_HOME<span style="color:#e6db74">/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.2.1.jar:</span>$HADOOP_HOME<span style="color:#e6db74">/share/hadoop/common/hadoop-common-3.2.1.jar:~/MapReduceTutorial/SalesCountry/*:</span>$HADOOP_HOME<span style="color:#e6db74">/lib/*&#34;</span></span></span></code></pre></div>
+</li>
+</ul>
+<blockquote>
+<p>If the above has been set in the <code>~/.bashrc</code> then a new session for the user will need to be started for the environment changes to take effect, otherwise the below commands will not be located</p></blockquote>
+<ul>
+<li>Start the Hadoop distributed file system service:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ start-dfs.sh</span></span></code></pre></div>
+</li>
+<li>Start the resource manager, node manager and app manager service:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ start-yarn.sh</span></span></code></pre></div>
+</li>
+</ul>
+<h2 id="downloading-the-hadoop-job">Downloading the Hadoop Job</h2>
+<p>These steps help setup the Hadoop environment and download a spreadsheet of data which will Hadoop will sort into sales units per region.</p>
+<ul>
+<li>Create job directory:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ mkdir MapReduceTutorial</span></span></code></pre></div>
+</li>
+<li>Download job data:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ cd MapReduceTutorial
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ flight silo file pull openflight:hadoop/hdfiles.tar.gz
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ tar xf hdfiles.tar.gz</span></span></code></pre></div>
+</li>
+<li>Check that job data files are present:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span>Manifest.txt  SalesCountryDriver.java  SalesCountryReducer.java  SalesJan2009.csv  SalesMapper.java  desktop.ini  hdfiles.tar.gz</span></span></code></pre></div>
+</li>
+</ul>
+<h2 id="preparing-the-hadoop-job">Preparing the Hadoop Job</h2>
+<ul>
+<li>Compile java for job:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ javac -d . SalesMapper.java SalesCountryReducer.java SalesCountryDriver.java</span></span></code></pre></div>
+</li>
+<li>Compile the final java file for job:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ jar cfm ProductSalePerCountry.jar Manifest.txt SalesCountry/*.class</span></span></code></pre></div>
+</li>
+</ul>
+<h2 id="loading-data-into-hadoop">Loading Data into Hadoop</h2>
+<ul>
+<li>Create directory for processing data and copy sales results in:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ mkdir ~/inputMapReduce
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ cp SalesJan2009.csv ~/inputMapReduce/</span></span></code></pre></div>
+</li>
+<li>Check data can be seen in distributed file system:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ hdfs dfs -ls ~/inputMapReduce</span></span></code></pre></div>
+</li>
+</ul>
+<h2 id="running-the-hadoop-job">Running the Hadoop Job</h2>
+<ul>
+<li>Execute the MapReduce job:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ hadoop jar ProductSalePerCountry.jar ~/inputMapReduce ~/mapreduce_output_sales</span></span></code></pre></div>
+</li>
+<li>View the job results:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> MapReduceTutorial<span style="color:#f92672">]</span>$ hdfs dfs -cat ~/mapreduce_output_sales/part-00000 | less</span></span></code></pre></div>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>OpenFOAM Workflow Example</title>
+      <link>https://openflighthpc.org/knowledge/hpc-workflows/workloads/openfoam/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-workflows/workloads/openfoam/</guid>
+      <description>&lt;p&gt;OpenFOAM is a popular engineering application toolbox. It&amp;rsquo;s open source and is used for simulating fluid flow around objects. This section describes the different installation process available and how to run some basic jobs. Some parts in this section use the &lt;a href=&#34;https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-silo/&#34;&gt;Flight Silo&lt;/a&gt; tool to download necessary files.&lt;/p&gt;
+&lt;h2 id=&#34;install-openfoam&#34;&gt;Install OpenFOAM&lt;/h2&gt;
+&lt;p&gt;There are 3 different ways you can install OpenFOAM, each with varying levels of time to setup and complexity. The &lt;em&gt;Basic&lt;/em&gt; setup is the fastest and integrates best with the Flight User Suite. The &lt;em&gt;Advanced&lt;/em&gt; setup is for users that want more control, and can take over an hour on a 16 core machine.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>OpenFOAM is a popular engineering application toolbox. It&rsquo;s open source and is used for simulating fluid flow around objects. This section describes the different installation process available and how to run some basic jobs. Some parts in this section use the <a href="/knowledge/flight-environment/flight-user-suite/flight-silo/">Flight Silo</a> tool to download necessary files.</p>
+<h2 id="install-openfoam">Install OpenFOAM</h2>
+<p>There are 3 different ways you can install OpenFOAM, each with varying levels of time to setup and complexity. The <em>Basic</em> setup is the fastest and integrates best with the Flight User Suite. The <em>Advanced</em> setup is for users that want more control, and can take over an hour on a 16 core machine.</p>
+<h3 id="basic">Basic</h3>
+<ol>
+<li>
+<p>Download and install OpenFlight OpenFOAM software using <a href="/knowledge/flight-environment/flight-user-suite/flight-silo/">Flight Silo</a></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight silo software pull OpenFOAM 22.12 --repo openflight</span></span></code></pre></div>
+</li>
+<li>
+<p>Install dependencies for visualisation.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dnf install -y paraview</span></span></code></pre></div>
+</li>
+<li>
+<p>Install dependencies on all nodes.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdsh -g all <span style="color:#e6db74">&#39;sudo dnf install -y openmpi&#39;</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Source the OpenFOAM environment and run a basic test. Make sure to change the source file path to the location of your installation. <strong>Note that the <code>module</code> command will not be available to a shell session existing before the installation, logout and back in for it to be present</strong></p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>module load mpi
+</span></span><span style="display:flex;"><span>source apps/OpenFOAM/22.12/etc/bashrc
+</span></span><span style="display:flex;"><span>foamTestTutorial -full incompressible/simpleFoam/pitzDaily</span></span></code></pre></div>
+</li>
+</ol>
+<h3 id="advanced">Advanced</h3>
+<p>Firstly, become the root user, the added permissions are necessary for setup.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo su -</span></span></code></pre></div>
+<ol>
+<li>Install prerequisites
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dnf install gcc cmake boost fftw-devel paraview-devel paraview-openmpi-devel openmpi-devel flex m4 qt5-devel</span></span></code></pre></div>
+</li>
+<li>Make a directory for OpenFOAM in shared storage, so that the OpenFOAM build is available to all nodes in the cluster.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /opt/apps
+</span></span><span style="display:flex;"><span>mkdir OpenFOAM</span></span></code></pre></div>
+</li>
+<li>Obtain OpenFOAM Source.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight silo file pull openflight:openfoam/OpenFOAM-v2212.tar.gz
+</span></span><span style="display:flex;"><span>tar xf OpenFOAM-v2212.tgz</span></span></code></pre></div>
+</li>
+<li>Compile it.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd OpenFOAM-v2212
+</span></span><span style="display:flex;"><span>module load mpi
+</span></span><span style="display:flex;"><span>source etc/bashrc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>foamSystemCheck <span style="color:#75715e"># Check whether expected to work</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./Allwmake -j -s -q -l <span style="color:#75715e"># Compile on all cores</span></span></span></code></pre></div>
+</li>
+<li>Install dependencies for visualisation.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dnf install -y paraview</span></span></code></pre></div>
+</li>
+<li>Install dependencies on all nodes.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdsh -g all <span style="color:#e6db74">&#39;dnf install -y openmpi&#39;</span></span></span></code></pre></div>
+</li>
+<li>Test that the build works.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>foamTestTutorial -full incompressible/simpleFoam/pitzDaily</span></span></code></pre></div>
+</li>
+</ol>
+<blockquote>
+<p>From this point being the root user is no longer necessary.</p></blockquote>
+<h3 id="legacy">Legacy</h3>
+<ol>
+<li>
+<p>Enable copr for OpenFOAM.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dnf -y copr enable openfoam/openfoam</span></span></code></pre></div>
+</li>
+<li>
+<p>Install OpenFOAM, the OpenFOAM version selector, the additional sub-packages and paraview.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dnf install -y openfoam-selector
+</span></span><span style="display:flex;"><span>sudo dnf install -y openfoam
+</span></span><span style="display:flex;"><span>sudo dnf install -y openfoam2212-default
+</span></span><span style="display:flex;"><span>sudo dnf install -y paraview</span></span></code></pre></div>
+</li>
+<li>
+<p>Ensure that the correct version will be used with:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openfoam-selector --set openfoam2212</span></span></code></pre></div>
+</li>
+<li>
+<p>Refresh the shell by logging out and back in to make openfoam commands accessible.</p>
+</li>
+</ol>
+<blockquote>
+<p>Make sure to do the above installation steps on <strong>all</strong> nodes in the cluster.</p></blockquote>
+<ol>
+<li>Check an OpenFOAM command can be seen by viewing the help page:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>icoFoam -help</span></span></code></pre></div>
+</li>
+</ol>
+<h2 id="simple-workflow-example">Simple Workflow Example</h2>
+<p>For this example, your environment will need to have a job scheduler such as <a href="/knowledge/hpc-environment-basics/slurm/">Slurm</a></p>
+<h3 id="run-job">Run Job</h3>
+<ol>
+<li>
+<p>Download a job script to the working directory. This script assumes that it is being launched from the home directory, change it if that is not the case. It also cannot be run as the root user.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight silo file pull openflight:openfoam/cavity-example.sh</span></span></code></pre></div>
+</li>
+<li>
+<p>Submit the job to the queue system:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sbatch cavity-example.sh</span></span></code></pre></div>
+</li>
+<li>
+<p>Check that the job is running (it may take some time to complete):</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>squeue</span></span></code></pre></div>
+</li>
+</ol>
+<h3 id="view-results">View Results</h3>
+<p>Once the cavity job has finished running, the results can be visualised through a desktop session.</p>
+<ol>
+<li>
+<p>Connect to VNC or web-suite desktop (For more information on launching desktops, see the <a href="/knowledge/flight-environment/flight-user-suite/flight-desktop/">Flight Desktop section</a>).</p>
+</li>
+<li>
+<p>Navigate to the cavity directory and launch the paraFoam viewer:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd cavity
+</span></span><span style="display:flex;"><span>paraFoam</span></span></code></pre></div>
+</li>
+<li>
+<p>In the window that opens, scroll down to &ldquo;Mesh parts&rdquo; and select all the boxes, then click apply
+<img src="/images/knowledge/hpc-workflows/openfoam_parafoam_1.png" alt=""></p>
+</li>
+<li>
+<p>Next, change the display to &lsquo;U&rsquo; in the drop-down menu, click play to change the timestamp and then click and drag to rotate the subject
+<img src="/images/knowledge/hpc-workflows/openfoam_parafoam_2.png" alt=""></p>
+</li>
+</ol>
+<h2 id="mpi-workflow-example">MPI Workflow Example</h2>
+<p>For this example, your environment will need to have a job scheduler such as <a href="/knowledge/hpc-environment-basics/slurm/">Slurm</a></p>
+<h3 id="prepare-job">Prepare Job</h3>
+<ol>
+<li>
+<p>Start by downloading this job directory in a location of your choice.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight silo file pull openflight:openfoam/motorBike.tar.gz</span></span></code></pre></div>
+</li>
+<li>
+<p>Decompress it, which will make a directory called <code>motorBike</code>.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar xf motorBike.tar.gz</span></span></code></pre></div>
+</li>
+<li>
+<p>Update the job configuration.</p>
+<ol>
+<li>Open <code>motorBike/system/decomposeParDict</code> and set:
+<ol>
+<li><code>X</code> to the number of processes to run across.</li>
+<li><code>A B C</code> to be numbers such that <code>A</code>*<code>B</code>*<code>C</code>=<code>X</code></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>Update the job script.</p>
+<ol>
+<li>Open <code>motorBike/motorbike-example.sh</code>.
+<ol>
+<li>Set <code>-n X</code> to the number of processes to run across.</li>
+<li>Set <code>source</code> to point to the location of OpenFOAM.</li>
+<li>Set <code>$HOME/motorBike</code> to the location of the motorBike job.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="run-job-1">Run Job</h3>
+<ol>
+<li>Submit the job script to the scheduler.
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sbatch motorBike/motorbike-example.sh</span></span></code></pre></div>
+</li>
+</ol>
+<h3 id="view-results-1">View Results</h3>
+<p>Once the job has finished running, the results can be visualised through a desktop session.</p>
+<ol>
+<li>
+<p>Connect to VNC or web-suite desktop (For more information on launching desktops, see the <a href="/knowledge/flight-environment/flight-user-suite/flight-desktop/">Flight Desktop section</a>).</p>
+</li>
+<li>
+<p>Open a terminal and navigate to the job directory.</p>
+</li>
+<li>
+<p>Launch Paraview</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>source /opt/apps/OpenFOAM/OpenFOAM-v2212/etc/bashrc
+</span></span><span style="display:flex;"><span>paraFoam</span></span></code></pre></div>
+</li>
+<li>
+<p>In the window that opens, go to the bottom left and scroll down to &ldquo;Mesh parts&rdquo;. Select all the boxes  except <code>frontAndBack</code>, <code>inlet</code>, <code>internalMesh</code>, <code>outlet</code> and <code>upperWall</code>, and then click apply.</p>
+<p><img src="/images/knowledge/hpc-workflows/openfoam_parafoam_motorbike_1.png" alt=""></p>
+</li>
+<li>
+<p>You should now see a motorbike along with a rider and the forces visualised on them!</p>
+<p><img src="/images/knowledge/hpc-workflows/openfoam_parafoam_motorbike_2.png" alt=""></p>
+</li>
+</ol>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Tensorflow Workflow Example</title>
+      <link>https://openflighthpc.org/knowledge/hpc-workflows/workloads/tensorflow/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-workflows/workloads/tensorflow/</guid>
+      <description>&lt;p&gt;Tensorflow is an open-source machine learning platform. It provides an ecosystem of tools and libraries that allow researchers to build and deploy machine learning applications.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This example uses the flight environment which will need to be activated before the environments can be created so be sure to run &lt;code&gt;flight start&lt;/code&gt; or &lt;a href=&#34;https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/&#34;&gt;setup your environment to automatically activate the flight environment&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;installing-tensorflow&#34;&gt;Installing Tensorflow&lt;/h2&gt;
+&lt;h3 id=&#34;singularity&#34;&gt;Singularity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a singularity software environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight env create singularity&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Activate the environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight env activate singularity&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tensorflow&#34;&gt;Tensorflow&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a conda software environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight env create conda&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Activate the environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ flight env activate conda&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Create a Python environment for tensorflow:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;base&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &amp;lt;conda&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ conda create -n tensorflow python&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;3.6&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Activate the Python environment:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;base&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &amp;lt;conda&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ source activate tensorflow&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Install the tensorflow package:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tensorflow&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &amp;lt;conda&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ pip install tensorflow&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;1.15&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;running-the-job&#34;&gt;Running the Job&lt;/h2&gt;
+&lt;h3 id=&#34;singularity-1&#34;&gt;Singularity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Download the example job models:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;singularity&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ git clone -b v1.13.0 https://github.com/tensorflow/models.git&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Launch the tensorflow docker container with singularity to run the job:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;singularity&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ singularity exec docker://tensorflow/tensorflow:1.15.0 python ./models/tutorials/image/mnist/convolutional.py&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tensorflow-1&#34;&gt;Tensorflow&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Download the example job models:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tensorflow&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &amp;lt;conda&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ git clone -b v1.13.0 https://github.com/tensorflow/models.git&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Execute the job with python:
+
+
+
+
+
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tensorflow&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &amp;lt;conda&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;flight@chead1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;mycluster1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;$ python ./models/tutorials/image/mnist/convolutional.py&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+      <content:encoded><![CDATA[<p>Tensorflow is an open-source machine learning platform. It provides an ecosystem of tools and libraries that allow researchers to build and deploy machine learning applications.</p>
+<blockquote>
+<p>This example uses the flight environment which will need to be activated before the environments can be created so be sure to run <code>flight start</code> or <a href="/knowledge/flight-environment/flight-user-suite/">setup your environment to automatically activate the flight environment</a>.</p></blockquote>
+<h2 id="installing-tensorflow">Installing Tensorflow</h2>
+<h3 id="singularity">Singularity</h3>
+<ul>
+<li>Create a singularity software environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env create singularity</span></span></code></pre></div>
+</li>
+<li>Activate the environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate singularity</span></span></code></pre></div>
+</li>
+</ul>
+<h3 id="tensorflow">Tensorflow</h3>
+<ul>
+<li>Create a conda software environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env create conda</span></span></code></pre></div>
+</li>
+<li>Activate the environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight env activate conda</span></span></code></pre></div>
+</li>
+<li>Create a Python environment for tensorflow:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ conda create -n tensorflow python<span style="color:#f92672">=</span>3.6</span></span></code></pre></div>
+</li>
+<li>Activate the Python environment:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ source activate tensorflow</span></span></code></pre></div>
+</li>
+<li>Install the tensorflow package:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>tensorflow<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ pip install tensorflow<span style="color:#f92672">==</span>1.15</span></span></code></pre></div>
+</li>
+</ul>
+<h2 id="running-the-job">Running the Job</h2>
+<h3 id="singularity-1">Singularity</h3>
+<ul>
+<li>Download the example job models:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ git clone -b v1.13.0 https://github.com/tensorflow/models.git</span></span></code></pre></div>
+</li>
+<li>Launch the tensorflow docker container with singularity to run the job:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;singularity&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ singularity exec docker://tensorflow/tensorflow:1.15.0 python ./models/tutorials/image/mnist/convolutional.py</span></span></code></pre></div>
+</li>
+</ul>
+<h3 id="tensorflow-1">Tensorflow</h3>
+<ul>
+<li>Download the example job models:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>tensorflow<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ git clone -b v1.13.0 https://github.com/tensorflow/models.git</span></span></code></pre></div>
+</li>
+<li>Execute the job with python:
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span>tensorflow<span style="color:#f92672">)</span> &lt;conda&gt; <span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ python ./models/tutorials/image/mnist/convolutional.py</span></span></code></pre></div>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

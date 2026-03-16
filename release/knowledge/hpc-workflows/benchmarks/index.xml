@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-workflows/benchmarks/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-workflows/benchmarks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HPL Benchmark Example</title>
+      <link>https://openflighthpc.org/knowledge/hpc-workflows/benchmarks/hpl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-workflows/benchmarks/hpl/</guid>
+      <description>&lt;p&gt;High Performance Linpack (HPL) is a synthetic benchmark, designed to solve a large mathematical problem on computers - including those with Distributed Memory, such as those within a cluster. It can be run on a single node to check performance and stress only that node. It can also be run over multiple nodes via an interconnect such as Infiniband or Ethernet - some of the steps below are only applicable to certain Interconnects.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>High Performance Linpack (HPL) is a synthetic benchmark, designed to solve a large mathematical problem on computers - including those with Distributed Memory, such as those within a cluster. It can be run on a single node to check performance and stress only that node. It can also be run over multiple nodes via an interconnect such as Infiniband or Ethernet - some of the steps below are only applicable to certain Interconnects.</p>
+<p>It solves the problem in Double-Precision (64bit) arithmetic, which quickly stresses the Floating Point unit of a CPU along with the Memory subsystem and will normally show any hardware problems with a node quite quickly. When run across multiple nodes via an interconnect, it is useful for showing up errors on the fabric as poor performance will be exhibited and often accompanied with reported errors.</p>
+<h2 id="notes-for-running-hpl">Notes for running HPL</h2>
+<ul>
+<li>Ensure that all System Event Logs are clear before commencing running of Memtester - you can use <code>service ipmi start &amp;&amp; ipmitool -c 'sel clear'</code> to clear these logs.</li>
+<li><strong>Infiniband Only</strong> - Ensure that the <code>ibcheckerrors</code> and <code>ibclearerrors</code> commands are used to check for any current errors and clear any previous errors reported on the Fabric.</li>
+<li>Calculate the correct settings for the HPL.dat file with <a href="http://hpl-calculator.sourceforge.net/">the HPL Calculator</a> - Recommended settings are an NB size of 192 and a Memory usage of 88%.</li>
+<li>Use a Grid Shape (PxQ) with as close to &ldquo;square&rdquo; as possible, making Q slightly larger than P.</li>
+<li>For systems using an MPI version of 1.8.x or higher, ensure that the <code>mpirun</code> line includes the &ldquo;&ndash;bind-to-core&rdquo; parameter.</li>
+<li><strong>Infiniband Only</strong> - Use the <code>ibcheckerrors</code> command to ensure that there are no issues with the fabric reported after running the HPL benchmark.</li>
+</ul>
+<h2 id="example-script">Example Script</h2>
+<p>The below example script is for 16 core, 64GB node with no IB Interconnect. The script is designed to be run with <a href="/knowledge/hpc-environment-basics/slurm/">SLURM</a>.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e"># jobscript to run HPL benchmark</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export environment and merge+set output file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#$ -j y -N HPL-1node -o /PATH/TO/JOB_DIR/HPL.$JOB_ID</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>module load mpi/openmpi <span style="color:#75715e"># (1)!</span>
+</span></span><span style="display:flex;"><span>echo $LD_LIBRARY_PATH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ldd xhpl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># change to directory</span>
+</span></span><span style="display:flex;"><span>cd /PATH/TO/JOB_DIR/
+</span></span><span style="display:flex;"><span>mpirun -np <span style="color:#ae81ff">16</span> /PATH/TO/XHPL_INSTALL_DIR/xhpl <span style="color:#75715e"># (2)!</span></span></span></code></pre></div>
+<ol>
+<li>
+<p>This line loads <code>openmpi</code> using <code>modules</code>. It requires both <code>modules</code> and <code>openmpi</code> to be installed on the system. Doing so is outside of the scope of this documentation</p>
+</li>
+<li>
+<p>This line executes <code>xhpl</code>, installation of which is currently outside of scope of this document</p>
+</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>HPLinpack benchmark input file
+</span></span><span style="display:flex;"><span>Innovative Computing Laboratory, University of Tennessee
+</span></span><span style="display:flex;"><span>HPL.out      output file name (if any)
+</span></span><span style="display:flex;"><span>6            device out (6=stdout,7=stderr,file)
+</span></span><span style="display:flex;"><span>2            # of problems sizes (N)
+</span></span><span style="display:flex;"><span>2560 81408   Ns
+</span></span><span style="display:flex;"><span>1            # of NBs
+</span></span><span style="display:flex;"><span>192          NBs
+</span></span><span style="display:flex;"><span>0            PMAP process mapping (0=Row-,1=Column-major)
+</span></span><span style="display:flex;"><span>1            # of process grids (P x Q)
+</span></span><span style="display:flex;"><span>4            Ps
+</span></span><span style="display:flex;"><span>4            Qs
+</span></span><span style="display:flex;"><span>16.0         threshold
+</span></span><span style="display:flex;"><span>1            # of panel fact
+</span></span><span style="display:flex;"><span>1 0 2        PFACTs (0=left, 1=Crout, 2=Right)
+</span></span><span style="display:flex;"><span>1            # of recursive stopping criterium
+</span></span><span style="display:flex;"><span>4 2          NBMINs (&gt;= 1)
+</span></span><span style="display:flex;"><span>1            # of panels in recursion
+</span></span><span style="display:flex;"><span>2            NDIVs
+</span></span><span style="display:flex;"><span>1            # of recursive panel fact.
+</span></span><span style="display:flex;"><span>1 0 2        RFACTs (0=left, 1=Crout, 2=Right)
+</span></span><span style="display:flex;"><span>1            # of broadcast
+</span></span><span style="display:flex;"><span>0            BCASTs (0=1rg,1=1rM,2=2rg,3=2rM,4=Lng,5=LnM)
+</span></span><span style="display:flex;"><span>1            # of lookahead depth
+</span></span><span style="display:flex;"><span>0            DEPTHs (&gt;=0)
+</span></span><span style="display:flex;"><span>2            SWAP (0=bin-exch,1=long,2=mix)
+</span></span><span style="display:flex;"><span>256          swapping threshold
+</span></span><span style="display:flex;"><span>1            L1 in (0=transposed,1=no-transposed) form
+</span></span><span style="display:flex;"><span>1            U  in (0=transposed,1=no-transposed) form
+</span></span><span style="display:flex;"><span>0            Equilibration (0=no,1=yes)
+</span></span><span style="display:flex;"><span>8            memory alignment in double (&gt; 0)</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>IMB Benchmark Example</title>
+      <link>https://openflighthpc.org/knowledge/hpc-workflows/benchmarks/imb/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-workflows/benchmarks/imb/</guid>
+      <description>&lt;h2 id=&#34;install-imb&#34;&gt;Install IMB&lt;/h2&gt;
+&lt;p&gt;Installing IMB is outside of the scope of this documentation. Further information can be found by following installation as described &lt;a href=&#34;https://www.intel.com/content/www/us/en/docs/mpi-library/user-guide-benchmarks/2021-2/building-intel-r-mpi-benchmarks.html#LINUX-OS&#34;&gt;in the Intel documentation&lt;/a&gt;. It requires Intel MPI to be installed which can be obtained by registering a system with Intel.&lt;/p&gt;
+&lt;h2 id=&#34;run-benchmark&#34;&gt;Run Benchmark&lt;/h2&gt;
+&lt;p&gt;To use 64 CPU cores on a &lt;a href=&#34;https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/&#34;&gt;SLURM HPC environment&lt;/a&gt; for a single application, the instruction &lt;code&gt;--ntasks=64&lt;/code&gt; can be used.&lt;/p&gt;
+&lt;p&gt;The following example shows launching the &lt;strong&gt;Intel Message-passing&lt;/strong&gt; MPI benchmark across 64 cores on your research environment. This application is launched via the OpenMPI &lt;code&gt;mpirun&lt;/code&gt; command - the number of threads and list of hosts are automatically assembled by the scheduler and passed to the MPI at runtime. This job script loads the &lt;code&gt;apps/imb&lt;/code&gt; module before launching the application, which automatically loads the module for &lt;strong&gt;OpenMPI&lt;/strong&gt;.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="install-imb">Install IMB</h2>
+<p>Installing IMB is outside of the scope of this documentation. Further information can be found by following installation as described <a href="https://www.intel.com/content/www/us/en/docs/mpi-library/user-guide-benchmarks/2021-2/building-intel-r-mpi-benchmarks.html#LINUX-OS">in the Intel documentation</a>. It requires Intel MPI to be installed which can be obtained by registering a system with Intel.</p>
+<h2 id="run-benchmark">Run Benchmark</h2>
+<p>To use 64 CPU cores on a <a href="/knowledge/hpc-environment-basics/slurm/">SLURM HPC environment</a> for a single application, the instruction <code>--ntasks=64</code> can be used.</p>
+<p>The following example shows launching the <strong>Intel Message-passing</strong> MPI benchmark across 64 cores on your research environment. This application is launched via the OpenMPI <code>mpirun</code> command - the number of threads and list of hosts are automatically assembled by the scheduler and passed to the MPI at runtime. This job script loads the <code>apps/imb</code> module before launching the application, which automatically loads the module for <strong>OpenMPI</strong>.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH -n 64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --job-name=imb</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH -D $HOME/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --output=imb.out.%j</span>
+</span></span><span style="display:flex;"><span>module load apps/imb
+</span></span><span style="display:flex;"><span>mpirun --prefix $MPI_HOME <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>       IMB-MPI1</span></span></code></pre></div>
+<p>We can then submit the IMB job script to the scheduler, which will automatically determine which nodes to use:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ sbatch imb.sh
+</span></span><span style="display:flex;"><span>Submitted batch job <span style="color:#ae81ff">1162</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                           <span style="color:#ae81ff">1162</span>       all      imb    centos  R       0:01      <span style="color:#ae81ff">8</span> ip-10-75-1-<span style="color:#f92672">[</span>42,45,62,67,105,178,233,250<span style="color:#f92672">]</span></span></span></code></pre></div>
+<h2 id="view-results">View Results</h2>
+<p>The results for the benchmark are available in the SLURM output file.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ cat imb.out.1162
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    Intel (R) MPI Benchmarks 4.0, MPI-1 part</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Date                  : Tue Aug 30 10:34:08 2016</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Machine               : x86_64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># System                : Linux</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Release               : 3.10.0-327.28.3.el7.x86_64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Version               : #1 SMP Thu Aug 18 19:05:49 UTC 2016</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MPI Version           : 3.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MPI Thread Environment:</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#---------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Benchmarking PingPong</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># #processes = 2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ( 62 additional processes waiting in MPI_Barrier)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#---------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">#bytes #repetitions      t[usec]   Mbytes/sec</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>         <span style="color:#ae81ff">1000</span>         3.17         0.00
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1000</span>         3.20         0.30
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">1000</span>         3.18         0.60
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">4</span>         <span style="color:#ae81ff">1000</span>         3.19         1.19
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">8</span>         <span style="color:#ae81ff">1000</span>         3.26         2.34
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">16</span>         <span style="color:#ae81ff">1000</span>         3.22         4.74
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">32</span>         <span style="color:#ae81ff">1000</span>         3.22         9.47
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">64</span>         <span style="color:#ae81ff">1000</span>         3.21        19.04
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">128</span>         <span style="color:#ae81ff">1000</span>         3.22        37.92
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">256</span>         <span style="color:#ae81ff">1000</span>         3.30        73.90
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">512</span>         <span style="color:#ae81ff">1000</span>         3.41       143.15
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">1024</span>         <span style="color:#ae81ff">1000</span>         3.55       275.36
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">2048</span>         <span style="color:#ae81ff">1000</span>         3.75       521.04
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">4096</span>         <span style="color:#ae81ff">1000</span>        10.09       387.14
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">8192</span>         <span style="color:#ae81ff">1000</span>        11.12       702.51
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">16384</span>         <span style="color:#ae81ff">1000</span>        12.06      1296.04
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">32768</span>         <span style="color:#ae81ff">1000</span>        14.65      2133.32
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">65536</span>          <span style="color:#ae81ff">640</span>        19.30      3238.72
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">131072</span>          <span style="color:#ae81ff">320</span>        29.50      4236.83
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">262144</span>          <span style="color:#ae81ff">160</span>        48.17      5189.77
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">524288</span>           <span style="color:#ae81ff">80</span>        84.36      5926.88
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1048576</span>           <span style="color:#ae81ff">40</span>       157.40      6353.32
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">2097152</span>           <span style="color:#ae81ff">20</span>       305.00      6557.31
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4194304</span>           <span style="color:#ae81ff">10</span>       675.20</span></span></code></pre></div>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

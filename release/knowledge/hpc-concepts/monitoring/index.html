@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Monitoring&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Monitoring"
+/>
+<meta
+  name="description"
+  content="Considerations for Monitoring the HPC Platform"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-concepts/monitoring/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Monitoring">
+  <meta property="og:description" content="Considerations for Monitoring the HPC Platform">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Monitoring">
+  <meta name="twitter:description" content="Considerations for Monitoring the HPC Platform">
+
+
+
+
+
+  <meta itemprop="name" content="Monitoring">
+  <meta itemprop="description" content="Considerations for Monitoring the HPC Platform">
+  <meta itemprop="wordCount" content="249">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-concepts/">HPC Concepts</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Monitoring</h1>
+
+  <p>Considerations for Monitoring the HPC Platform</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-concepts/">HPC Concepts</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/overview/" >Overview</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/network-and-hardware/" >Network and Hardware</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/infrastructure/" >Infrastructure</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/base-system/" >Base System</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/user-management/" >User Management</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/storage/" >Storage</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/monitoring/" class="current">Monitoring</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/hpc-environment/" >HPC Environment</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/verification/" >Verification</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+    <details>
+      <summary>Table of Contents</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#types-of-monitoring">Types of Monitoring</a></li>
+    <li><a href="#metrics">Metrics</a></li>
+    <li><a href="#additional-considerations-and-questions">Additional Considerations and Questions</a></li>
+  </ul>
+</nav>
+    </details>
+  
+  <content>
+    <h2 id="types-of-monitoring">Types of Monitoring</h2>
+<p>There are 2 types of monitoring that can be implemented into a network; these are:</p>
+<ul>
+<li><strong>Passive</strong> - Passive monitoring tools collect data and store from systems. Usually this data will be displayed in graphs and is accessible either through command-line or web interfaces. This sort of monitoring is useful for historical metrics and live monitoring of systems.</li>
+<li><strong>Active</strong> - Active monitoring collects and checks metrics; it will then send out notifications if certain thresholds or conditions are met. This form of monitoring is beneficial for ensuring the health of systems; for example, email notifications can be sent out when systems start overheating or if a system is no longer responsive.</li>
+</ul>
+<p>Both forms of monitoring are usually necessary in order to ensure that your HPC cluster is running properly, and in full working order.</p>
+<h2 id="metrics">Metrics</h2>
+<p>It is worth considering what metrics for the system will be monitored; a few common ones are listed here:</p>
+<ul>
+<li>CPU
+<ul>
+<li>Load average</li>
+<li>Idle percentage</li>
+<li>Temperature</li>
+</ul>
+</li>
+<li>Memory
+<ul>
+<li>Used</li>
+<li>Free</li>
+<li>Cached</li>
+</ul>
+</li>
+<li>Disk
+<ul>
+<li>Free space</li>
+<li>Used space</li>
+<li>Swap (free/used/total)</li>
+<li>Quotas (if configured)</li>
+</ul>
+</li>
+<li>Network
+<ul>
+<li>Packets in</li>
+<li>Packets out</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Cloud service providers usually have both passive and active monitoring services available through their cloud management front-end.</p></blockquote>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>What metrics should be monitored?</li>
+<li>How frequently should metrics be checked?</li>
+<li>What level of notification is required?
+<ul>
+<li>Escalation upon repeated errors?</li>
+<li>Acknowledgement of long-running outages?</li>
+<li>How do we avoid over-saturation of notifications during major outages?</li>
+<li>What tests will we run to ensure that notifications are working properly?</li>
+</ul>
+</li>
+</ul>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-environment-basics/job-schedulers/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-environment-basics/job-schedulers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Job Scheduler Basics</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/job-schedulers/summary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/job-schedulers/summary/</guid>
+      <description>&lt;h2 id=&#34;what-is-a-job&#34;&gt;What is a Job?&lt;/h2&gt;
+&lt;p&gt;A job can be loosely defined as an automated research task, for example, a bash script that runs various stages in an OpenFoam simulation on a model.&lt;/p&gt;
+&lt;p&gt;Jobs vary in size, resource usage and run time. A job could utilise multiple cores through parallel libraries or simply run on a single core.&lt;/p&gt;
+&lt;h2 id=&#34;what-is-a-scheduler&#34;&gt;What is a Scheduler?&lt;/h2&gt;
+&lt;p&gt;Most existing HPC environments are managed by a job scheduler; also known as the batch scheduler, workload manager, queuing system, or load-balancer. The scheduler allows multiple users to fairly share compute nodes, allowing system administrators to control how resources are made available to different groups of users. All schedulers are designed to perform the following functions:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="what-is-a-job">What is a Job?</h2>
+<p>A job can be loosely defined as an automated research task, for example, a bash script that runs various stages in an OpenFoam simulation on a model.</p>
+<p>Jobs vary in size, resource usage and run time. A job could utilise multiple cores through parallel libraries or simply run on a single core.</p>
+<h2 id="what-is-a-scheduler">What is a Scheduler?</h2>
+<p>Most existing HPC environments are managed by a job scheduler; also known as the batch scheduler, workload manager, queuing system, or load-balancer. The scheduler allows multiple users to fairly share compute nodes, allowing system administrators to control how resources are made available to different groups of users. All schedulers are designed to perform the following functions:</p>
+<ul>
+<li>Allow users to submit new jobs to the research environment</li>
+<li>Allow users to monitor the state of their queued and running jobs</li>
+<li>Allow users and system administrators to control running jobs</li>
+<li>Monitor the status of managed resources including system load, memory available, etc.</li>
+</ul>
+<p>When a new job is submitted by a user, the research environment scheduler software assigns compute cores and memory to satisfy the job requirements. If suitable resources are not available to run the job, the scheduler adds the job to a queue until enough resources are available for the job to run. You can configure the scheduler to control how jobs are selected from the queue and executed on research environment nodes, including automatically preparing nodes to run parallel MPI jobs. Once a job has finished running, the scheduler returns the resources used by the job to the pool of free resources, ready to run another user job.</p>
+<h2 id="why-use-a-scheduler">Why use a Scheduler?</h2>
+<p>Good question. A job-scheduler is often used as a control mechanism to make sure that users don&rsquo;t unfairly monopolise the valuable compute resources. In extreme cases, the scheduler may be wielded by system administrators to force “good behaviour” in a shared environment, and can feel like an imposition to research environment users.</p>
+<p>However, a job-scheduler can still be a useful tool for a research environment rather than just a control mechanism:</p>
+<ol>
+<li>It can help you organise multi-stage work flows, with batch jobs launching subsequent jobs in a defined process.</li>
+<li>It can automate launching of MPI jobs, finding available nodes to run applications on.</li>
+<li>It can help prevent accidentally over-allocating CPUs or memory, which could lead to nodes failing.</li>
+<li>It can help bring discipline to the environment, providing a consistent method to replicate the running of jobs in different environments.</li>
+</ol>
+<p>Your research environment comes with a job-scheduler installed, ready for you to start using. The scheduler uses very few resources when idle, so you can choose to use it if you find it useful, or run jobs manually across your research environment if you prefer.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Types of Compute Job</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/job-schedulers/jobs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/job-schedulers/jobs/</guid>
+      <description>&lt;h2 id=&#34;local-job&#34;&gt;Local Job&lt;/h2&gt;
+&lt;h3 id=&#34;why-run-a-local-job&#34;&gt;Why Run a Local Job?&lt;/h3&gt;
+&lt;p&gt;When using a personal research environment there isn&amp;rsquo;t a need to monitor resource usage as closely as multi-user systems where miscommunication and overloaded resources can negatively impact research progress. With all the resources available to one user it is quicker and easier to run jobs simply through a terminal than using a queue system.&lt;/p&gt;
+&lt;p&gt;Local jobs also have the benefit over schedulers by launching immediately and providing all output through a single terminal.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="local-job">Local Job</h2>
+<h3 id="why-run-a-local-job">Why Run a Local Job?</h3>
+<p>When using a personal research environment there isn&rsquo;t a need to monitor resource usage as closely as multi-user systems where miscommunication and overloaded resources can negatively impact research progress. With all the resources available to one user it is quicker and easier to run jobs simply through a terminal than using a queue system.</p>
+<p>Local jobs also have the benefit over schedulers by launching immediately and providing all output through a single terminal.</p>
+<h3 id="running-a-local-job">Running a Local Job</h3>
+<p>Local job scripts can be written in any language supported within the research environment. In most cases this is likely to be bash as it&rsquo;s a flexible and functional shell scripting language which enables users to intuitively navigate the filesystem, launch applications and manage data output.</p>
+<p>In the event that a job script is executable, contains a shebang(#!) specifying the launch language, and is in the current directory, it&rsquo;s as simple to run as:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 ~<span style="color:#f92672">]</span>$ ./myjob.sh</span></span></code></pre></div>
+<h2 id="scheduler-jobs">Scheduler Jobs</h2>
+<p>Users can run a number of different types of job via the research environment scheduler, including:</p>
+<ul>
+<li><strong>Batch jobs</strong>; single-threaded applications that run only on one compute core</li>
+<li><strong>Array jobs</strong>; two or more similar batch jobs which are submitted together for convenience</li>
+<li><strong>SMP</strong> or <strong>multi-threaded</strong> jobs; multi-threaded applications that run on two or more compute cores on the same compute node</li>
+<li><strong>Parallel jobs</strong>; multi-threaded applications making use of an MPI library to run on multiple cores spread over one or more compute nodes</li>
+</ul>
+<p>The research environment job-scheduler is responsible for finding compute nodes in your research environment to run all these different types of jobs on. It keeps track of the available resources and allocates jobs to individual groups of nodes, making sure not to over-commit CPU and memory. The example below shows how a job-scheduler might allocate jobs of different types to a group of 8-CPU-core compute nodes:</p>
+<p><img src="/images/knowledge/hpc-environment-basics/tetris.jpg" alt=""></p>
+<h3 id="interactive-and-batch-jobs">Interactive and Batch Jobs</h3>
+<p>Users typically interact with research environments by running either interactive or batch (also known as non-interactive) jobs.</p>
+<ul>
+<li>An interactive job is one that the user directly controls, either via a graphical interface or by typing at the command-prompt.</li>
+<li>A batch job is run by writing a list of instructions that are passed to compute nodes to run at some point in the future.</li>
+</ul>
+<p>Both methods of running jobs can be equally as efficient, particularly on a personal, ephemeral research environment. Both classes of job can be of any type - for example, it&rsquo;s possible to run interactive parallel jobs and batch multi-threaded jobs across your research environment. The choice of which class of job-type you want to use will depend on the application you&rsquo;re running, and which method is more convenient for you to use.</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Base System&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Base System"
+/>
+<meta
+  name="description"
+  content="Considerations for Software and Application Deployment"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-concepts/base-system/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Base System">
+  <meta property="og:description" content="Considerations for Software and Application Deployment">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Base System">
+  <meta name="twitter:description" content="Considerations for Software and Application Deployment">
+
+
+
+
+
+  <meta itemprop="name" content="Base System">
+  <meta itemprop="description" content="Considerations for Software and Application Deployment">
+  <meta itemprop="wordCount" content="589">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-concepts/">HPC Concepts</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Base System</h1>
+
+  <p>Considerations for Software and Application Deployment</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-concepts/">HPC Concepts</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/overview/" >Overview</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/network-and-hardware/" >Network and Hardware</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/infrastructure/" >Infrastructure</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/base-system/" class="current">Base System</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/user-management/" >User Management</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/storage/" >Storage</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/monitoring/" >Monitoring</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/hpc-environment/" >HPC Environment</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/verification/" >Verification</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+    <details>
+      <summary>Table of Contents</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#deployment">Deployment</a></li>
+    <li><a href="#operating-system-deployment">Operating System Deployment</a></li>
+    <li><a href="#repository-management">Repository Management</a></li>
+    <li><a href="#additional-considerations-and-questions">Additional Considerations and Questions</a></li>
+  </ul>
+</nav>
+    </details>
+  
+  <content>
+    <p>Before considering <em>how</em> the OS and applications will be deployed it is worth making a few decisions regarding the OS that will be used:</p>
+<ul>
+<li>Will the same OS be used on all systems? (it&rsquo;s strong recommended to do so)</li>
+<li>What software will be used? (and therefore will need to be supported by the OS)</li>
+<li>How stable is the OS? (bleeding edge OSes may have bugs and instabilities that could negatively impact the HPC environment)</li>
+<li>If you are using bare-metal hardware, is the OS supported by your hardware vendor? (running an unsupported OS can lead to issues when attempting to obtain hardware support)</li>
+</ul>
+<h2 id="deployment">Deployment</h2>
+<p>The deployment of the HPC platform can be summarised in two main sections, these being:</p>
+<ul>
+<li>Operating System Deployment</li>
+<li>Software Package Repository Management</li>
+</ul>
+<h2 id="operating-system-deployment">Operating System Deployment</h2>
+<p>When it comes to performing many operating installations across nodes in the network it can be tricky to find a flexible, manageable, automated solution. Performing manual installations of operating systems may be the ideal solution if there are only a few compute nodes, however, there are many other ways of improving the speed of OS deployment:</p>
+<ul>
+<li><strong>Disk Cloning</strong> - A somewhat inelegant solution, disk cloning involves building the operating system once and creating a compressed copy on a hard-drive that can be restored to blank hard-drives.</li>
+<li><strong>Kickstart</strong> - A kickstart file is a template for automating OS installations, the configuration file can be served over the network such that clients can PXE boot the installation. This can allow for easy, distributed deployment over a local network.</li>
+<li><strong>Image Deployment</strong> - Cloud service providers usually deploy systems from template images that set hostnames and other unique system information at boot time. Customised templates can also be created for streamlining the deployment and customisation procedure.</li>
+</ul>
+<p>It is worth considering manual, cloning and kickstart solutions for your OS deployment, any one of them could be the ideal solution depending on the number of machines that are being deployed.</p>
+<h2 id="repository-management">Repository Management</h2>
+<p>It is worth considering how packages, libraries and applications will be installed onto individual nodes and the network as a whole. Operating systems usually have their own package management system installed that uses public repositories for pulling down packages for installation. It is likely that all of the packages required for a system are not in the public repositories so it&rsquo;s worth considering where additional packages will come from (e.g. a 3rd party repository, downloaded directly from the package maintainer or manually compiled).</p>
+<p>Further to managing packages on the local system, the entire network may require applications to be installed; there are a couple of options for achieving this:</p>
+<ul>
+<li><strong>Server Management Tools</strong> - Management tools such as ansible, puppet, chef or pdsh can execute commands across multiple systems in parallel. This saves time instead of having to individually login and run commands on each node in the system.</li>
+<li><strong>Network Package Managers</strong> - Software such as <a href="https://conda.io">Conda</a> and <a href="https://easybuild.io/">EasyBuild</a> can install an application in a centralised storage location, allowing users simply to load the <a href="https://modules.sourceforge.net/">module</a> in order to start using the application.</li>
+</ul>
+<p>For more information regarding network package managers and application deployment, see <a href="/knowledge/hpc-concepts/hpc-environment/#application-deployment">application deployment</a>.</p>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>How will applications outside of the repositories be installed?</li>
+<li>Will the application need to be usable by all nodes in the HPC network? (e.g. an NFS export for apps may solve the issue of multiple installations)</li>
+<li>How will new package versions be installed when the HPC environment being maintained in the future?</li>
+<li>How will you create and maintain a consistent software environment on all nodes over time?</li>
+</ul>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

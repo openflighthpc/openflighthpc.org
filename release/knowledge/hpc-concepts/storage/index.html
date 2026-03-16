@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Storage&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Storage"
+/>
+<meta
+  name="description"
+  content="Considerations for Storage Solution"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-concepts/storage/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Storage">
+  <meta property="og:description" content="Considerations for Storage Solution">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Storage">
+  <meta name="twitter:description" content="Considerations for Storage Solution">
+
+
+
+
+
+  <meta itemprop="name" content="Storage">
+  <meta itemprop="description" content="Considerations for Storage Solution">
+  <meta itemprop="wordCount" content="718">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-concepts/">HPC Concepts</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Storage</h1>
+
+  <p>Considerations for Storage Solution</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-concepts/">HPC Concepts</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/overview/" >Overview</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/network-and-hardware/" >Network and Hardware</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/infrastructure/" >Infrastructure</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/base-system/" >Base System</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/user-management/" >User Management</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/storage/" class="current">Storage</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/monitoring/" >Monitoring</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/hpc-environment/" >HPC Environment</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/verification/" >Verification</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+    <details>
+      <summary>Table of Contents</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#storage-hardware">Storage Hardware</a></li>
+    <li><a href="#type-of-filesystem">Type of filesystem</a></li>
+    <li><a href="#network-storage-solutions">Network Storage Solutions</a>
+      <ul>
+        <li><a href="#single-server-with-nfs">Single server with NFS</a></li>
+        <li><a href="#multiple-servers-with-nfs">Multiple Servers with NFS</a></li>
+        <li><a href="#multiple-servers-with-parallel-filesystem">Multiple Servers with Parallel filesystem</a></li>
+      </ul>
+    </li>
+    <li><a href="#additional-considerations-and-questions">Additional Considerations and Questions</a></li>
+  </ul>
+</nav>
+    </details>
+  
+  <content>
+    <h2 id="storage-hardware">Storage Hardware</h2>
+<p>When selecting the storage solution it is worth considering the size, performance and resilience of the desired storage solution. Usually some sort of storage array will be used; e.g. a collection of disks (otherwise known as JBOD) in the form of an internal or external RAID array.</p>
+<h2 id="type-of-filesystem">Type of filesystem</h2>
+<p>For many requirements, a simple NFS solution can provide sufficient performance and resiliency for data. Application, library and source-code files are often small enough to be stored on an appropriately sized NFS solution; such storage systems can even be grown over time using technologies like LVM and XFS as requirements increase.</p>
+<p>For data-sets that require high capacity (&gt;100TB) or high-performance (&gt;1GB/sec) access, a parallel filesystem may be suitable to store data. Particularly well suited to larger files (e.g. at least 4MB per storage server), a parallel filesystem can provide additional features such as byte-range locking (the ability for multiple nodes to update sections of a large file simultaneously), and MPI-IO (the ability to control data read/written using MPI calls). Parallel filesystems work by aggregating performance and capacity from multiple servers and allowing clients (your cluster compute and login nodes) to mount the filesystem as a single mount-point. Common examples include:</p>
+<ul>
+<li><strong>Lustre</strong> - an open-source kernel-based parallel filesystem for Linux</li>
+<li><strong>GPFS</strong> - a proprietary kernel-based parallel filesystem for Linux</li>
+<li><strong>BeeGFS</strong> - an open-source user-space parallel filesystem for Linux</li>
+</ul>
+<p>Your choice of filesystem will depend on the features you require, and your general familiarity with the technologies involved. As parallel filesystems do not perform well for smaller files, it is very common to deploy a parallel filesystem alongside a simple NFS-based storage solution.</p>
+<p>If your data-set contains a large number of files which need to be kept and searchable for a long time (&gt; 12-months) then an object storage system can also be considered. Accessed using client-agnostic protocols such as HTTPS, an object storage system is ideal for creating data archives which can include extended metadata to assist users to locate and organise their data. Most object storage systems include data redundancy options (e.g. multiple copies, object versioning and tiering), making them an excellent choice for long-term data storage. Examples of object-storage systems include:</p>
+<ul>
+<li><strong>AWS Simple Storage Service (S3)</strong> - a cloud-hosted service with a range of data persistence options</li>
+<li><strong>Swift-stack</strong> - available as both on-premise and cloud-hosted services, the SWIFT protocol is compatible with a wide range of software and services</li>
+<li><strong>Ceph</strong> - an on-premise object storage system with a range of interfaces (block, object, S3, POSIX file)</li>
+</ul>
+<h2 id="network-storage-solutions">Network Storage Solutions</h2>
+<h3 id="single-server-with-nfs">Single server with NFS</h3>
+<p><img src="/images/knowledge/hpc-concepts/SingleServerNFS.png" alt=""></p>
+<p>In this example, a single server is connected to a RAID 6 storage array which it is serving over NFS to the systems on the network. While simple in design and implementation, this design only provides redundancy at the RAID level.</p>
+<h3 id="multiple-servers-with-nfs">Multiple Servers with NFS</h3>
+<p><img src="/images/knowledge/hpc-concepts/MultiServerNFS.png" alt=""></p>
+<p>In addition to the previous example, this setup features multiple storage servers which balance the load of serving the disk over NFS.</p>
+<h3 id="multiple-servers-with-parallel-filesystem">Multiple Servers with Parallel filesystem</h3>
+<p><img src="/images/knowledge/hpc-concepts/MultiServerLustre.png" alt=""></p>
+<p>This setup features multiple RAID sets which are installed externally to the storage servers and are connected to both of them using multipath - this allows for multiple paths to the storage devices to be utilised. Using this storage, a Lustre volume has been configured which consists of a combination of all the external disks. Authorisation of access to the storage volume is managed by the metadata node, which also has dedicated storage.</p>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>What data will need to be centrally stored?</li>
+<li>Where will data be coming from?
+<ul>
+<li>Are source files created within the HPC network or do they exist in the external network?</li>
+<li>Will compute nodes be writing out logs/results from running jobs?</li>
+<li>Where else might data be coming from?</li>
+</ul>
+</li>
+<li>Is scratch space needed?</li>
+<li>What level of redundancy/stability is required for the data?</li>
+<li>How will the data be backed up?
+<ul>
+<li>Will there be off-site backups?</li>
+<li>Should a separate storage medium be used?</li>
+<li>Does all the data need backing up or only certain files?</li>
+<li>For how long will we keep the data, and any backups created?</li>
+</ul>
+</li>
+<li>What are my disaster recovery and business continuity plans?
+<ul>
+<li>If the storage service fails, how will my users continue working?</li>
+<li>How can I recreate the storage service if it fails?</li>
+<li>How long will it take to restore any data from backups?</li>
+</ul>
+</li>
+</ul>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

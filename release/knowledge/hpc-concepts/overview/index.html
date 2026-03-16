@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Overview&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Overview"
+/>
+<meta
+  name="description"
+  content="The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.
+To generalise the entire process, it goes as follows:
+
+Hardware Architecture Design
+Hardware Build
+Software Build
+Platform Delivery
+
+Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-concepts/overview/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Overview">
+  <meta property="og:description" content="The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.
+To generalise the entire process, it goes as follows:
+Hardware Architecture Design Hardware Build Software Build Platform Delivery Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Overview">
+  <meta name="twitter:description" content="The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.
+To generalise the entire process, it goes as follows:
+Hardware Architecture Design Hardware Build Software Build Platform Delivery Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform.">
+
+
+
+
+
+  <meta itemprop="name" content="Overview">
+  <meta itemprop="description" content="The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.
+To generalise the entire process, it goes as follows:
+Hardware Architecture Design Hardware Build Software Build Platform Delivery Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform.">
+  <meta itemprop="wordCount" content="200">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-concepts/">HPC Concepts</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Overview</h1>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-concepts/">HPC Concepts</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/overview/" class="current">Overview</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/network-and-hardware/" >Network and Hardware</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/infrastructure/" >Infrastructure</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/base-system/" >Base System</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/user-management/" >User Management</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/storage/" >Storage</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/monitoring/" >Monitoring</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/hpc-environment/" >HPC Environment</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/verification/" >Verification</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+  <content>
+    <p>The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.</p>
+<p>To generalise the entire process, it goes as follows:</p>
+<ol>
+<li>Hardware Architecture Design</li>
+<li>Hardware Build</li>
+<li>Software Build</li>
+<li>Platform Delivery</li>
+</ol>
+<p>Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform.</p>
+<p>Performing the hardware build before doing any software configuration guarantees that the network and hardware is properly setup. A partially built network during software setup can lead to unforeseen issues with communication and configuration.</p>
+<p>Once the infrastructure has been physically built the software build can proceed. Usually the central servers will be configured first before client and compute nodes are configured.</p>
+<p>Finally, platform delivery includes a range of connectivity, performance and quality tests which ensure that the completed environment is stable, manageable and consistent.</p>
+<blockquote>
+<p>It is recommended to read through all of the documentation before starting to design the HPC platform to understand the scope and considerations.</p></blockquote>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

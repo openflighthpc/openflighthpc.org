@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Dynamic Scheduler Variables&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Dynamic Scheduler Variables"
+/>
+<meta
+  name="description"
+  content="A few commonly used scheduler variables for job outputs"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Dynamic Scheduler Variables">
+  <meta property="og:description" content="A few commonly used scheduler variables for job outputs">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Dynamic Scheduler Variables">
+  <meta name="twitter:description" content="A few commonly used scheduler variables for job outputs">
+
+
+
+
+
+  <meta itemprop="name" content="Dynamic Scheduler Variables">
+  <meta itemprop="description" content="A few commonly used scheduler variables for job outputs">
+  <meta itemprop="wordCount" content="158">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/">HPC Environment Basics</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/">SLURM</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Dynamic Scheduler Variables</h1>
+
+  <p>A few commonly used scheduler variables for job outputs</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/interactive/" >Submitting an Interactive Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/batch/" >Submitting a Batch Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/array/" >Submitting an Array Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/" >Job Configuration</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/" class="current">Dynamic Scheduler Variables</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/" >Requesting More Resources</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+  <content>
+    <p>Your research environment job scheduler automatically creates a number of pseudo environment variables which are available to your job-scripts when they are running on research environment compute nodes, along with standard Linux variables. Useful values include the following:</p>
+<ul>
+<li><code>$HOME</code> The location of your home-directory</li>
+<li><code>%u</code> / <code>$USER</code> The Linux username of the submitting user. The <code>%u</code> substitution should only be used in your job scheduler filename directives.</li>
+<li><code>$HOSTNAME</code> The Linux hostname of the compute node running the job</li>
+<li><code>%a</code> / <code>$SLURM_ARRAY_TASK_ID</code> Job array ID (index) number. The <code>%a</code> substitution should only be used in your job scheduler filename directives<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+<li><code>%A</code> / <code>$SLURM_ARRAY_JOB_ID</code> Job allocation number for an array job. The <code>%A</code> substitution should only be used in your job scheduler filename directives<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+<li><code>%j</code> / <code>$SLURM_JOBID</code> Job allocation number. The <code>%j</code> substitution should only be used in your job scheduler filename directives</li>
+</ul>
+<p><a href="https://slurm.schedmd.com/sbatch.html#SECTION_%3CB%3Efilename-pattern%3C/B%3E">More information on this.</a></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>These relate to task array jobs, which are covered in a <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/array/">previous section</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

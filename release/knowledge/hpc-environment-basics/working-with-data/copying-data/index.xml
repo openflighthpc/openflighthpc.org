@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using the CLI</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/using-cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/using-cli/</guid>
+      <description>&lt;p&gt;Usually a HPC environment will have a &amp;ldquo;login&amp;rdquo; or &amp;ldquo;gateway&amp;rdquo; node which is the entrypoint to the rest of the nodes. From outside of the HPC environment the data will need to be copied to this system (likely to shared storage) to make it available.&lt;/p&gt;
+&lt;h2 id=&#34;linux--mac&#34;&gt;Linux / Mac&lt;/h2&gt;
+&lt;p&gt;Linux and Mac users can use in-built SSH support to copy files. For example, the following will copy the file &lt;code&gt;mydata.zip&lt;/code&gt; to &lt;code&gt;/home/flight/mydata.zip&lt;/code&gt; on host &lt;code&gt;52.48.62.34&lt;/code&gt; authenticating as the user &lt;code&gt;flight&lt;/code&gt;:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Usually a HPC environment will have a &ldquo;login&rdquo; or &ldquo;gateway&rdquo; node which is the entrypoint to the rest of the nodes. From outside of the HPC environment the data will need to be copied to this system (likely to shared storage) to make it available.</p>
+<h2 id="linux--mac">Linux / Mac</h2>
+<p>Linux and Mac users can use in-built SSH support to copy files. For example, the following will copy the file <code>mydata.zip</code> to <code>/home/flight/mydata.zip</code> on host <code>52.48.62.34</code> authenticating as the user <code>flight</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp mydata.zip flight@52.48.62.34:/home/flight/</span></span></code></pre></div>
+<h2 id="windows">Windows</h2>
+<p>Windows users can download and install the <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">pscp</a> command to perform the same operation (you may need your .pem key in .ppk format, see <a href="../../cli-basics/logging-in.md">connecting from Windows with Putty</a>):</p>
+<p>For example, the following will copy the file <code>mydata.zip</code> to <code>/home/flight/mydata.zip</code> on host <code>52.48.62.34</code> authenticating as the user <code>flight</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pscp -i mykeyfile.ppk mydata.zip flight@52.48.62.34:/home/flight/ <span style="color:#75715e"># (1)!</span></span></span></code></pre></div>
+<blockquote>
+<p>Both the <code>scp</code> and the <code>pscp</code> commands take the parameter <code>-r</code> to recursively copy entire directories of files to the research environment.</p></blockquote>
+<p>To retrieve files from the research environment, simply specify the location of the remote file first in the scp command, followed by the location on the local system to put the file.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Using Graphical Client</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/using-graphical-client/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/using-graphical-client/</guid>
+      <description>&lt;p&gt;There are also a number of graphical file-management interfaces available that support the SSH/SCP/SFTP protocols. A graphical interface can make it easier for new users to manage their data, as they provide a simple drag-and-drop interface that helps to visualise where data is being stored. The example below shows how to configure the &lt;a href=&#34;https://winscp.net/eng/download.php&#34;&gt;WinSCP&lt;/a&gt; utility on a Windows client to allow data to be moved to and from a research environment.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>There are also a number of graphical file-management interfaces available that support the SSH/SCP/SFTP protocols. A graphical interface can make it easier for new users to manage their data, as they provide a simple drag-and-drop interface that helps to visualise where data is being stored. The example below shows how to configure the <a href="https://winscp.net/eng/download.php">WinSCP</a> utility on a Windows client to allow data to be moved to and from a research environment.</p>
+<ul>
+<li>On a Windows client, download and install <a href="https://winscp.net/eng/download.php">WinSCP</a></li>
+<li>Start WinSCP; in the <strong>login</strong> configuration box, enter the IP address of your login node in the <code>Host name</code> box</li>
+<li>Enter the username you configured for your research environment in the <code>User name</code> box (e.g. <code>flight</code>)</li>
+<li>Click on the <code>Advanced</code> box and navigate to the <code>SSH</code> sub-menu, and the <code>Authentication</code> item</li>
+<li>In the <code>Private key file</code> box, select your research environment access private key, and click the <code>OK</code> box.</li>
+</ul>
+<p><img src="/images/knowledge/hpc-environment-basics/winscpconfig.png" alt=""></p>
+<ul>
+<li>Optionally click the <code>Save</code> button and give this session a name</li>
+<li>Click the <code>Login</code> button to connect to your research environment</li>
+<li>Accept the warning about adding a new server key to your cache; this message is displayed only once when you first connect to the research environment</li>
+<li>WinSCP will login to your research environment; the window shows your local client machine on the left, and the research environment on the right</li>
+<li>To copy files to the research environment from your client, click and drag them from the left-hand window and drop them on the right-hand window</li>
+<li>To copy files from the research environment to your client, click and drag them from the right-hand window and drop them on the left-hand window</li>
+</ul>
+<p><img src="/images/knowledge/hpc-environment-basics/winscpcopyfiles.png" alt=""></p>
+<p>The amount of time taken to copy data to and from your research environment will depend on a number of factors, including:</p>
+<ul>
+<li>The size of the data being copied</li>
+<li>The speed of your Internet link to the research environment; if you are copying large amounts of data, try to connect using a wired connection rather than wireless</li>
+<li>The type and location of your research environment login node in relation to your client location</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Object Storage for Archiving Data</title>
+      <link>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/object-storage-archiving-data/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-environment-basics/working-with-data/copying-data/object-storage-archiving-data/</guid>
+      <description>&lt;p&gt;As an alternative to copying data back to your client machine, users may prefer to upload their data to a cloud-based object storage service instead. Cloud storage solutions such as &lt;a href=&#34;https://aws.amazon.com/s3/&#34;&gt;AWS S3&lt;/a&gt;, &lt;a href=&#34;https://www.dropbox.com/&#34;&gt;Dropbox&lt;/a&gt; and &lt;a href=&#34;https://wiki.openstack.org/wiki/Swift&#34;&gt;SWIFT&lt;/a&gt; have command-line tools which can be used to connect existing cloud storage to your research environment. Benefits of using an object-based storage service include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data is kept safe and does not have to be independently backed-up&lt;/li&gt;
+&lt;li&gt;Storage is easily scalable, with the ability for data to grow to practically any size&lt;/li&gt;
+&lt;li&gt;You only pay for what you use; you do not need to buy expansion room in advance&lt;/li&gt;
+&lt;li&gt;Storage service providers often have multiple tiers available, helping to reduce the cost of storing data&lt;/li&gt;
+&lt;li&gt;Data storage and retrieval times may be improved, as storage service providers typically have more bandwidth than individual sites&lt;/li&gt;
+&lt;li&gt;Your company, institution or facility may receive some storage capacity for free which you could use&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Object storage is particularly useful for archiving data, as it typically provides a convenient, accessible method of storing data which may need to be shared with a wide group of individuals.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>As an alternative to copying data back to your client machine, users may prefer to upload their data to a cloud-based object storage service instead. Cloud storage solutions such as <a href="https://aws.amazon.com/s3/">AWS S3</a>, <a href="https://www.dropbox.com/">Dropbox</a> and <a href="https://wiki.openstack.org/wiki/Swift">SWIFT</a> have command-line tools which can be used to connect existing cloud storage to your research environment. Benefits of using an object-based storage service include:</p>
+<ul>
+<li>Data is kept safe and does not have to be independently backed-up</li>
+<li>Storage is easily scalable, with the ability for data to grow to practically any size</li>
+<li>You only pay for what you use; you do not need to buy expansion room in advance</li>
+<li>Storage service providers often have multiple tiers available, helping to reduce the cost of storing data</li>
+<li>Data storage and retrieval times may be improved, as storage service providers typically have more bandwidth than individual sites</li>
+<li>Your company, institution or facility may receive some storage capacity for free which you could use</li>
+</ul>
+<p>Object storage is particularly useful for archiving data, as it typically provides a convenient, accessible method of storing data which may need to be shared with a wide group of individuals.</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

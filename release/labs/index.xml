@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/labs/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 01 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://openflighthpc.org/labs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GHPC (Diskless Stack)</title>
+      <link>https://openflighthpc.org/labs/ghpc/</link>
+      <pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/labs/ghpc/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://openflighthpc.org/images/labs/ghpc-how-it-works.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;GHPC is an experimental Rocky 9 stack built around diskless PXE booting and overlayfs to provide a scalable, manageable network of HPC clusters to delivery the HPC service for a single site.&lt;/p&gt;
+&lt;p&gt;GHPC is shipped as 2 VM appliances that you can deploy on your chosen platform (e.g. libvirt, public cloud). These appliances provide the tools needed to create, deploy and manage multiple HPC &amp;amp; AI stacks (&amp;ldquo;clusters&amp;rdquo;). The Director &amp;amp; Domain sit in a &amp;ldquo;Domain Network&amp;rdquo;, the director creates Controllers which, in turn, manage services within a cluster.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p><img src="/images/labs/ghpc-how-it-works.gif" alt=""></p>
+<h2 id="overview">Overview</h2>
+<p>GHPC is an experimental Rocky 9 stack built around diskless PXE booting and overlayfs to provide a scalable, manageable network of HPC clusters to delivery the HPC service for a single site.</p>
+<p>GHPC is shipped as 2 VM appliances that you can deploy on your chosen platform (e.g. libvirt, public cloud). These appliances provide the tools needed to create, deploy and manage multiple HPC &amp; AI stacks (&ldquo;clusters&rdquo;). The Director &amp; Domain sit in a &ldquo;Domain Network&rdquo;, the director creates Controllers which, in turn, manage services within a cluster.</p>
+<p>The goal of this project was to provide a quick-and-easy way of getting an example HPC stack running while also being reflective of what a production HPC stack looks like in Alces deployments. It also experiments with disaster recovery and change management processes - when a node is rebooted it&rsquo;s original state will be restored unless changes are made to the source which allows for experimentation without risk of permanently breaking the host OS.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="diskless-exports">Diskless Exports</h3>
+<p>There are 4 different diskless images that systems can boot from:</p>
+<ul>
+<li>Hunter: If they don&rsquo;t have any assigned identity then they go into the hunter image, this image is used to identify system information (like boot interface and MAC address)</li>
+<li>Controller: The identity for a controller node, containing the SLURM controller daemon amongst other cluster services</li>
+<li>Login: The identity for a login node, containing Flight Web Suite for easy remote access</li>
+<li>Compute: The identity of a compute node, a basic installation prepared for running HPC workloads</li>
+</ul>
+<p>Additionally, each cluster has a &ldquo;shared persistent&rdquo; storage, this allows for layering and sharing of files that need to match across all systems. For example, the <code>/etc/slurm/slurm.conf</code> file is served from here so it only needs to be changed here for all nodes in the cluster to have a matching configuration file.</p>
+<p>Beyond the &ldquo;shared persistent&rdquo; for the cluster, each system itself gets a &ldquo;persistent&rdquo; export for node-specific changes to be made in.</p>
+<p>Due to the diskless nature it should be possible to change host source images to be different configurations (or even OSes) without painful rebuilds of multiple systems.</p>
+<h3 id="cloud-init">Cloud Init</h3>
+<p>The personality information (such as hostname, network IPs, interface names, etc) is injected into the host at boot-time via cloud-init.</p>
+<h3 id="overlayfs">Overlayfs</h3>
+<p>While the shared image is mounted read-only to the host, overlayfs is used to provide a writeable layer over the top so hosts can be modified live.</p>
+<p>A benefit of using overlayfs in this way is that it means where a host diverges from the source image can be found and referenced in <code>/run/upper/data/HOST</code>.</p>
+<h2 id="documentation">Documentation</h2>
+<p>Documentation for this project is kept minimal on the project site and is, instead, mainly shipped within the Director image itself. This ensures it stays in sync and empowers a fully offline setup.</p>
+<p>The <a href="https://github.com/charmbracelet/glow">Glow</a> project is used in conjunction with <a href="https://github.com/alces-flight/ghpc-docs">a simple script</a> to render markdown in a legible and easily navigable manner.</p>
+<p><img src="/images/labs/ghpc-docs.gif" alt=""></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Carbon Leaderboard</title>
+      <link>https://openflighthpc.org/labs/carbon-leaderboard/</link>
+      <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/labs/carbon-leaderboard/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The OpenFlight Carbon Leaderboard was an initiative aiming to provide a simple methodology and clear comparison of Carbon Impact Estimates for a range of servers while adding a light competitive edge. The service helped get an understanding of the impact of resources (both physical and virtual) at various levels of load.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://openflighthpc.org/images/labs/carbon-leaderboard.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To deal with HPC services where multiple systems may have identical specifications the leaderboard groups them. These groups then have some helpful (and somewhat playful) comparisons for their emissions&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
+<p>The OpenFlight Carbon Leaderboard was an initiative aiming to provide a simple methodology and clear comparison of Carbon Impact Estimates for a range of servers while adding a light competitive edge. The service helped get an understanding of the impact of resources (both physical and virtual) at various levels of load.</p>
+<p><img src="/images/labs/carbon-leaderboard.png" alt=""></p>
+<p>To deal with HPC services where multiple systems may have identical specifications the leaderboard groups them. These groups then have some helpful (and somewhat playful) comparisons for their emissions</p>
+<p><img src="/images/labs/carbon-leaderboard-asset.png" alt=""></p>
+<h2 id="client-carbon-data">Client Carbon Data</h2>
+<p>To gather the data a <a href="https://github.com/openflighthpc/carbon-leaderboard/tree/main/carbon-client">helper script</a> is provided which collates anonymous server data, allows for user input of some data points which affect estimates (e.g. location) and submit that data to the leaderboard.</p>
+<p>The project utilises the <a href="https://doc.api.boavizta.org/">Boavizta API</a> for performing calculations based off of system specifications and collected carbon
+impact reports (from manufacturers).</p>
+<p>This project uses the <em>Global Warming Potential (GWP)</em> metric to identify the
+<em>Carbon Equivalent</em> of the system specifications at run time (this means that
+estimations of impact of hardware manufacture are <strong>not</strong> included in the value).
+This value is provided in grams of CO2 equivalent per hour (gCO2eq/hr).</p>
+<h2 id="how-are-virtual-devices-estimated">How Are Virtual Devices Estimated?</h2>
+<p>The estimation of virtual devices is still in early estimation and will improve over time. One of the main complexities in estimating the impact of virtual resources is through knowing the hardware that hosts the virtual system.</p>
+<p>Some initial understanding of the hardware backing AWS instances is implemented in the underlying API which allows for a better estimation in the impact of those resources.</p>
+<p>For other platforms (e.g. Azure, GCP, OpenStack), the underlying hardware is not known or is bespoke as is the case with private cloud solutions, such as OpenStack.</p>
+<p>For example, it has been observed that estimations for virtual resources on OpenStack have seemed higher than expected because OpenStack will, by default, provide very little CPU layout information to instances. This leads to each core that a VM has being seen as a separate physical CPU. With more physical CPUs this will largely inflate the carbon estimates for the virtual system. It is possible to address this issue on an OpenStack deployment by defining the CPU topology.</p>
+<h2 id="are-values-accurate">Are Values Accurate?</h2>
+<p>Calculating carbon equivalent impacts is not a simple procedure and takes in multiple factors:</p>
+<ul>
+<li>Manufacturer&rsquo;s reports on hardware</li>
+<li>Cleanliness of the power to a country</li>
+<li>Available information on the reported hardware</li>
+</ul>
+<p>Therefore, the values are merely estimates to the best of the ability of the Boavizta service (which has put considerable effort and transparency into their methodology), which can be read about on their website .</p>
+<p>Things that are not currently considered by the leaderboard:</p>
+<ul>
+<li>The cleanliness of the power source to the data-centre housing the servers</li>
+<li>Impact of the manufacture of the hardware</li>
+<li>Any initiatives taken to offset carbon</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Flight Warehouse</title>
+      <link>https://openflighthpc.org/labs/flight-warehouse/</link>
+      <pubDate>Fri, 03 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/labs/flight-warehouse/</guid>
+      <description>&lt;p&gt;Flight Warehouse aimed to provide private cloud templates and documentation to quickly create HPC environments.&lt;/p&gt;
+&lt;p&gt;This provides admin users with a way of creating environments to test and demo HPC functionality. It also provides non-admin users methods to spin up their own environments within the private cloud space for personal use.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ephemeral&lt;/li&gt;
+&lt;li&gt;make people consider lifetime, usage patterns, requirements&lt;/li&gt;
+&lt;li&gt;Flight Solo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://openflighthpc.org/images/labs/warehouse-1.png&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://openflighthpc.org/images/labs/warehouse-2.png&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://openflighthpc.org/images/labs/warehouse-3.png&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://openflighthpc.org/images/labs/warehouse-4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Flight Warehouse aimed to provide private cloud templates and documentation to quickly create HPC environments.</p>
+<p>This provides admin users with a way of creating environments to test and demo HPC functionality. It also provides non-admin users methods to spin up their own environments within the private cloud space for personal use.</p>
+<ul>
+<li>ephemeral</li>
+<li>make people consider lifetime, usage patterns, requirements</li>
+<li>Flight Solo</li>
+</ul>
+<p><img src="/images/labs/warehouse-1.png" alt="">
+<img src="/images/labs/warehouse-2.png" alt="">
+<img src="/images/labs/warehouse-3.png" alt="">
+<img src="/images/labs/warehouse-4.png" alt=""></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Flight Environment</title>
+      <link>https://openflighthpc.org/labs/flight-environment/</link>
+      <pubDate>Thu, 01 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/labs/flight-environment/</guid>
+      <description>&lt;h2 id=&#34;what-is-the-flight-environment&#34;&gt;What is the Flight Environment?&lt;/h2&gt;
+&lt;p&gt;The Flight Environment generally encompasses the tools in the OpenFlight project.&lt;/p&gt;
+&lt;p&gt;The tools developed by OpenFlight are designed to work independently but are more powerful when used in conjunction with one another as they each aim to address small areas of HPC environment usage.&lt;/p&gt;
+&lt;p&gt;The Flight Environment broadly consists of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Flight User Suite&lt;/strong&gt; - A collection of CLI tools aimed to improve general HPC environment access by streamlining common workflow tasks. Things like launching desktop sessions, adding software ecosystems and managing object storage.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flight Web Suite&lt;/strong&gt; - A web front-end aimed at HPC end-users to get them accessing their HPC environment as easily as possible. This is done by providing a web experience that gives them access to terminals, desktops and files on the system.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flight Admin Tools&lt;/strong&gt; - A collection of CLI tools aimed at admins to aid with common HPC environment configuration, such as, gathering system information, building an inventory of systems and applying configuration to the cluster.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;who-is-it-for&#34;&gt;Who is it for?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;The Flight User Suite is designed for use by end-users&lt;/strong&gt; - that&amp;rsquo;s the scientists, researchers, engineers and software developers who actually run compute workloads and process data. This documentation is designed to help these people to get the best out this environment, without needing assistance from teams of IT professionals. Flight provides tools which enable users to service themselves - it&amp;rsquo;s very configurable, and can be expanded by individual users to deliver a scalable platform for computational workloads.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="what-is-the-flight-environment">What is the Flight Environment?</h2>
+<p>The Flight Environment generally encompasses the tools in the OpenFlight project.</p>
+<p>The tools developed by OpenFlight are designed to work independently but are more powerful when used in conjunction with one another as they each aim to address small areas of HPC environment usage.</p>
+<p>The Flight Environment broadly consists of:</p>
+<ul>
+<li><strong>Flight User Suite</strong> - A collection of CLI tools aimed to improve general HPC environment access by streamlining common workflow tasks. Things like launching desktop sessions, adding software ecosystems and managing object storage.</li>
+<li><strong>Flight Web Suite</strong> - A web front-end aimed at HPC end-users to get them accessing their HPC environment as easily as possible. This is done by providing a web experience that gives them access to terminals, desktops and files on the system.</li>
+<li><strong>Flight Admin Tools</strong> - A collection of CLI tools aimed at admins to aid with common HPC environment configuration, such as, gathering system information, building an inventory of systems and applying configuration to the cluster.</li>
+</ul>
+<h3 id="who-is-it-for">Who is it for?</h3>
+<p><strong>The Flight User Suite is designed for use by end-users</strong> - that&rsquo;s the scientists, researchers, engineers and software developers who actually run compute workloads and process data. This documentation is designed to help these people to get the best out this environment, without needing assistance from teams of IT professionals. Flight provides tools which enable users to service themselves - it&rsquo;s very configurable, and can be expanded by individual users to deliver a scalable platform for computational workloads.</p>
+<h3 id="flight-user-suite">Flight User Suite</h3>
+<p>The Flight User Suite sits unobtrusively on the research environment by default, the tools will not be accessible until the <a href="/knowledge/flight-environment/basics/">environment is activated</a>.</p>
+<p>The Flight User Suite consists of:</p>
+<ul>
+<li><strong>Runway</strong> - A self-contained Ruby environment and an entrypoint for accessing the other flight tools</li>
+<li><strong>Starter</strong> - Profile scripts for integrating the user suite into the shell environment, giving easy access to all Flight Environment tools</li>
+<li><strong>Desktop</strong> - An intuitive tool for launching VNC-ready virtual desktops of many different desktop environments (gnome, xterm, kde, etc)</li>
+<li><strong>Env</strong> - Access to, and management of, various software managers to ensure access to a wide variety of HPC applications</li>
+<li><strong>Silo</strong> - Management of object-based storage for managing files and software, providing a simple interface to user data</li>
+<li><strong>Job</strong> - Create and manage customized job scripts from predefined templates, launch jobs and monitor their activity</li>
+</ul>
+<h3 id="flight-web-suite">Flight Web Suite</h3>
+<p>The Flight Web Suite consists of:</p>
+<ul>
+<li><strong>WWW</strong> - A self-contained web-server for accessing Web Suite applications</li>
+<li><strong>Login</strong> - User access management, integrated with system authentication to allow users to securely access the Web Suite</li>
+<li><strong>Console</strong> - A web-based terminal giving CLI access to the system running the Web Suite</li>
+<li><strong>Desktop</strong> - Create and manage remote desktop sessions on the HPC environment</li>
+<li><strong>File Manager</strong> - Access to user files, providing a simple way to upload and download data directly into the user environment</li>
+<li><strong>Job</strong> - Create and manage customized job scripts and their execution</li>
+</ul>
+<h3 id="flight-admin-tools">Flight Admin Tools</h3>
+<p>The Flight Admin Tools are:</p>
+<ul>
+<li><strong>Gather</strong> - Collect and store system information</li>
+<li><strong>Hunter</strong> - Send system information and manage a host inventory over the network</li>
+<li><strong>Profile</strong> - Apply configuration identities to hosts in a HPC environment</li>
+<li><strong>PDSH</strong> - OpenFlight&rsquo;s build of PDSH</li>
+</ul>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

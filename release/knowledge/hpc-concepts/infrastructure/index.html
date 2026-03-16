@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Infrastructure&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Infrastructure"
+/>
+<meta
+  name="description"
+  content="Considerations for Infrastructure Design"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-concepts/infrastructure/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Infrastructure">
+  <meta property="og:description" content="Considerations for Infrastructure Design">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Infrastructure">
+  <meta name="twitter:description" content="Considerations for Infrastructure Design">
+
+
+
+
+
+  <meta itemprop="name" content="Infrastructure">
+  <meta itemprop="description" content="Considerations for Infrastructure Design">
+  <meta itemprop="wordCount" content="812">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-concepts/">HPC Concepts</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Infrastructure</h1>
+
+  <p>Considerations for Infrastructure Design</p>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-concepts/">HPC Concepts</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/overview/" >Overview</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/network-and-hardware/" >Network and Hardware</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/infrastructure/" class="current">Infrastructure</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/base-system/" >Base System</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/user-management/" >User Management</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/storage/" >Storage</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/monitoring/" >Monitoring</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/hpc-environment/" >HPC Environment</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-concepts/verification/" >Verification</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+    <details>
+      <summary>Table of Contents</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#infrastructure-service-availability">Infrastructure Service Availability</a>
+      <ul>
+        <li><a href="#all-in-one">All-in-one</a></li>
+        <li><a href="#vm-platform">VM Platform</a></li>
+        <li><a href="#high-availability-vm-platform">High Availability VM Platform</a></li>
+      </ul>
+    </li>
+    <li><a href="#node-network-configuration">Node Network Configuration</a></li>
+    <li><a href="#additional-considerations-and-questions">Additional Considerations and Questions</a></li>
+    <li><a href="#recommendations-for-infrastructure-design">Recommendations for Infrastructure Design</a>
+      <ul>
+        <li><a href="#simple-infrastructure">Simple Infrastructure</a></li>
+        <li><a href="#virtual-machine-infrastructure">Virtual Machine Infrastructure</a></li>
+        <li><a href="#channel-bonded-infrastructure">Channel Bonded Infrastructure</a></li>
+        <li><a href="#vlan-infrastructure">VLAN Infrastructure</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </details>
+  
+  <content>
+    <p>Infrastructure design largely relates to the considerations made for the <a href="/knowledge/hpc-concepts/network-and-hardware/#hardware-recommendations">cluster architecture</a>. Depending on the design being used, some of the infrastructure decisions may have already been made.</p>
+<h2 id="infrastructure-service-availability">Infrastructure Service Availability</h2>
+<p>There are typically 3 possible service availability options to choose from, these are:</p>
+<ul>
+<li>All-in-one</li>
+<li>VM Platform</li>
+<li>High Availability VM Platform</li>
+</ul>
+<p>These are covered in more detail below.</p>
+<blockquote>
+<p>If using a Cloud Platform then the service availability will be handled by the cloud provider. The only additional considerations are how services will be provided in terms of native running services or containerised.</p></blockquote>
+<h3 id="all-in-one">All-in-one</h3>
+<p>This is the most common solution, an all-in-one approach loads services onto a single machine which serves the network. It is the simplest solution as a single OS install is required and no additional configuration of virtual machine services is needed.</p>
+<p>This solution, while quick and relatively easy to implement, is not a recommended approach. Due to the lack of redundancy options and the lack of service isolation there is a higher risk of an issue effecting one service (or the machine) to have an effect on other services.</p>
+<h3 id="vm-platform">VM Platform</h3>
+<p>A VM platform provides an additional layer of isolation between services. This can allow for services to be configured, migrated and modified without potentially effecting other services.</p>
+<p>There are a number of solutions for hosting virtual machines, including:</p>
+<ul>
+<li>Open-source solutions (e.g. VirtualBox, KVM, Xen)</li>
+<li>Commercial solutions (e.g. VMware)</li>
+</ul>
+<p>The above software solutions provide similar functionality and can all be used as a valid virtualisation platform. Further investigation into the ease of use, flexibility and features of the software is recommended to identify the ideal solution for your HPC platform.</p>
+<h3 id="high-availability-vm-platform">High Availability VM Platform</h3>
+<p>For further redundancy, the virtualisation platform can utilise a resource pool. The service will be spread across multiple machines which allows for VMs to migrate between the hosts whilst still active. This live migration can allow for one of the hosts to be taken off of the network for maintenance without impacting the availability of the service VMs.</p>
+<h2 id="node-network-configuration">Node Network Configuration</h2>
+<p>In addition to the availability of services, the network configuration on the node can provide better performance and redundancy. Some of the network configuration options that can improve the infrastructure are:</p>
+<ul>
+<li><strong>Channel Bonding</strong> - Bonding interfaces allows for traffic to be shared between 2 network interfaces. If the bonded interfaces are connected to separate network switches then this solution</li>
+<li><strong>Interface Bridging</strong> - Network bridges are used by interfaces on virtual machines to connect to the rest of the network. A bridge can sit on top of a channel bond such that the VM service network connection is constantly available.</li>
+<li><strong>VLAN Interface Tagging</strong> - VLAN management can be performed both on a managed switch and on the node. The node is able to create subdivisions of network interfaces to add VLAN tags to packets. This will create separate interfaces that can be seen by the operating system (e.g. eth0.1 and eth0.2) which can individually have IP addresses set.</li>
+</ul>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>Could containerised solutions be used instead of VMs?
+<ul>
+<li><em>Docker</em> or <em>Singularity</em> containerised services can provide similar levels of isolation between services as VMs without the additional performance overhead.</li>
+</ul>
+</li>
+</ul>
+<h2 id="recommendations-for-infrastructure-design">Recommendations for Infrastructure Design</h2>
+<p>The example configurations here combine elements of the <a href="/knowledge/hpc-concepts/network-and-hardware/">network and hardware guide</a> as well as the different infrastructure solutions from these infrastructure considerations. These focus on the internal configuration of the master node but these examples can be extrapolated for configuring login, storage, compute or any other nodes that are part of the HPC environment.</p>
+<h3 id="simple-infrastructure">Simple Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign1.png" alt=""></p>
+<p>The simplest infrastructure configuration uses the all-in-one approach where services are configured on the master node&rsquo;s operating system.</p>
+<h3 id="virtual-machine-infrastructure">Virtual Machine Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign2.png" alt=""></p>
+<p>This solution separates the services into VMs running on the master node. In order for these VMs to be able to connect to the primary network a network bridge is created that allows the VM interfaces to send traffic over the eth0 interface.</p>
+<h3 id="channel-bonded-infrastructure">Channel Bonded Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign3.png" alt=""></p>
+<p>This example adds a layer of redundancy over the <em>VM Infrastructure</em> design by bonding the eth0 and eth3 interfaces. These interfaces are connected to separate network switches (the switches will be bridged together as well) which provides redundancy should a switch or network interface fail. Bonding of the two interfaces creates a new <em>bond</em> interface that the bridge for the virtual machines connects to.</p>
+<h3 id="vlan-infrastructure">VLAN Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign4.png" alt=""></p>
+<p>The above solution implements the channel bonded infrastructure in a network with VLANs. The VLANs have bond and bridge interfaces created for them. This allows some additional flexibility for VM bridging as virtual interfaces can be bridged onto specific VLANs whilst maintaining the redundancy provided by the bond. This adds additional security to the network as the master node can be left without an IP on certain VLAN bond interfaces which prevents that network from accessing the master node whilst VMs on the master node are able to reach that VLAN.</p>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Requesting More Resources&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Requesting More Resources"
+/>
+<meta
+  name="description"
+  content="By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.
+Running Multi-Threaded Jobs
+If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the -n or --ntasks=&lt;number&gt; option in either your submission command or the scheduler directives in your job script. The --ntasks option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default --ntasks=1 is assumed. You could specify the option -n 4 to request 4 CPU cores for your job. Besides the number of tasks, you will need to add --nodes=1 to your scheduler command or at the top of your job script with #SBATCH --nodes=1, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Requesting More Resources">
+  <meta property="og:description" content="By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.
+Running Multi-Threaded Jobs If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the -n or --ntasks=&lt;number&gt; option in either your submission command or the scheduler directives in your job script. The --ntasks option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default --ntasks=1 is assumed. You could specify the option -n 4 to request 4 CPU cores for your job. Besides the number of tasks, you will need to add --nodes=1 to your scheduler command or at the top of your job script with #SBATCH --nodes=1, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Requesting More Resources">
+  <meta name="twitter:description" content="By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.
+Running Multi-Threaded Jobs If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the -n or --ntasks=&lt;number&gt; option in either your submission command or the scheduler directives in your job script. The --ntasks option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default --ntasks=1 is assumed. You could specify the option -n 4 to request 4 CPU cores for your job. Besides the number of tasks, you will need to add --nodes=1 to your scheduler command or at the top of your job script with #SBATCH --nodes=1, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes.">
+
+
+
+
+
+  <meta itemprop="name" content="Requesting More Resources">
+  <meta itemprop="description" content="By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.
+Running Multi-Threaded Jobs If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the -n or --ntasks=&lt;number&gt; option in either your submission command or the scheduler directives in your job script. The --ntasks option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default --ntasks=1 is assumed. You could specify the option -n 4 to request 4 CPU cores for your job. Besides the number of tasks, you will need to add --nodes=1 to your scheduler command or at the top of your job script with #SBATCH --nodes=1, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes.">
+  <meta itemprop="wordCount" content="724">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/">HPC Environment Basics</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/">SLURM</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Requesting More Resources</h1>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/hpc-environment-basics/slurm/running-jobs/">Running Jobs</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/interactive/" >Submitting an Interactive Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/batch/" >Submitting a Batch Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/array/" >Submitting an Array Job</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/job-configuration/" >Job Configuration</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/dynamic-vars/" >Dynamic Scheduler Variables</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/hpc-environment-basics/slurm/running-jobs/requesting-resources/" class="current">Requesting More Resources</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+  <content>
+    <p>By default, jobs are constrained to the default set of resources - users can use scheduler instructions to request more resources for their jobs. The following documentation shows how these requests can be made.</p>
+<h2 id="running-multi-threaded-jobs">Running Multi-Threaded Jobs</h2>
+<p>If users want to use multiple cores on a compute node to run a multi-threaded application, they need to inform the scheduler - this allows jobs to use multiple cores without needing to rely on any interconnect. Using multiple CPU cores is achieved by specifying the <code>-n</code> or <code>--ntasks=&lt;number&gt;</code> option in either your submission command or the scheduler directives in your job script. The <code>--ntasks</code> option informs the scheduler of the number of cores you wish to reserve for use. If the parameter is omitted, the default <code>--ntasks=1</code> is assumed. You could specify the option <code>-n 4</code> to request 4 CPU cores for your job. Besides the number of tasks, you will need to add <code>--nodes=1</code> to your scheduler command or at the top of your job script with <code>#SBATCH --nodes=1</code>, this will set the maximum number of nodes to be used to 1 and prevent the job selecting cores from multiple nodes.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --nodes=2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --ntasks=2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --mem=200</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Example asking for 2 CPU cores and 2 nodes&#34;</span></span></span></code></pre></div>
+<blockquote>
+<p>If you request more cores than are available on a node in your research environment, the job will not run until a node capable of fulfilling your request becomes available. The scheduler will display the error in the output of the <code>squeue</code> command</p></blockquote>
+<h2 id="running-parallel-mpi-jobs">Running Parallel (MPI) Jobs</h2>
+<p>If users want to run parallel jobs via a messaging passing interface (MPI), they need to inform the scheduler - this allows jobs to be efficiently spread over compute nodes to get the best possible performance. Using multiple CPU cores across multiple nodes is achieved by specifying the <code>-N</code> or <code>--nodes=&lt;minnodes[-maxnodes]&gt;</code> option - which requests a minimum (and optional maximum) number of nodes to allocate to the submitted job. If <em>only</em> the <code>minnodes</code> count is specified - then this is used for both the minimum <em>and</em> maximum node count for the job.</p>
+<ul>
+<li>Example of how to request a minimum of 1 node and maximum of 4.
+
+
+
+
+
+
+<pre tabindex="0"><code>--nodes=1-4</code></pre>
+</li>
+</ul>
+<p>You can request multiple cores over multiple nodes using a combination of scheduler directives either in your job submission command or within your job script. Some of the following examples demonstrate how you can obtain cores across different resources:</p>
+<ul>
+<li>Request 16 cores across 2 compute nodes
+
+
+
+
+
+
+<pre tabindex="0"><code>--nodes=2 --ntasks=16</code></pre>
+</li>
+<li>Request all available cores of 2 compute nodes
+
+
+
+
+
+
+<pre tabindex="0"><code>--nodes=2</code></pre>
+</li>
+<li>Request 16 cores across any available compute nodes
+
+
+
+
+
+
+<pre tabindex="0"><code>--ntasks=16</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>If you request more CPU cores than your research environment can accommodate, your job will wait in the queue.</p></blockquote>
+<h2 id="requesting-more-memory">Requesting More Memory</h2>
+<p>In order to promote best use of the research environment scheduler - particularly in a shared environment, it is recommended to inform the scheduler the maximum required memory per submitted job. This helps the scheduler appropriately place jobs on the available nodes in the research environment.</p>
+<p>You can specify the maximum amount of memory required per submitted job with the <code>--mem=&lt;MB&gt;</code> option. This informs the scheduler of the memory required for the submitted job. Optionally - you can also request an amount of memory <em>per CPU core</em> rather than a total amount of memory required per job. To specify an amount of memory to allocate <em>per core</em>, use the <code>--mem-per-cpu=&lt;MB&gt;</code> option.</p>
+<p>Examples:</p>
+<ul>
+<li><code>--mem=200</code> - Requesting 200MB of memory.</li>
+<li><code>--mem-per-cpu=10</code> - Requesting 10MB of memory per CPU.</li>
+</ul>
+<blockquote>
+<p>When running a job across multiple compute hosts, the <code>--mem=&lt;MB&gt;</code> option informs the scheduler of the required memory per node</p></blockquote>
+<h2 id="requesting-a-longer-runtime">Requesting a Longer Runtime</h2>
+<p>In order to promote best-use of the research environment scheduler, particularly in a shared environment, it is recommend to inform the scheduler the amount of time the submitted job is expected to take. You can inform the research environment scheduler of the expected runtime using the <code>-t, --time=&lt;time&gt;</code> option. For example - to submit a job that runs for 2 hours, the following example job script could be used:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash -l
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#SBATCH --job-name=sleep</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH -D $HOME/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#SBATCH --time=0-2:00</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">7200</span></span></span></code></pre></div>
+<p>You can then see any time limits assigned to running jobs using the command <code>squeue --long</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ squeue --long
+</span></span><span style="display:flex;"><span>Tue Aug <span style="color:#ae81ff">30</span> 10:55:55 <span style="color:#ae81ff">2016</span>
+</span></span><span style="display:flex;"><span>             JOBID PARTITION     NAME     USER    STATE       TIME TIME_LIMI  NODES NODELIST<span style="color:#f92672">(</span>REASON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">1163</span>       all    sleep    centos  RUNNING       0:07   2:00:00      <span style="color:#ae81ff">1</span> ip-10-75-1-42</span></span></code></pre></div>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/images/openflight-icon.svg" />
+
+<title>Flight Desktop&nbsp;|&nbsp;OpenFlightHPC</title>
+<meta
+  name="title"
+  content="Flight Desktop"
+/>
+<meta
+  name="description"
+  content="
+  This documentation is for an OpenFlight Labs Project which is in maintenance mode
+
+
+Overview
+Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+
+
+
+
+<meta property="og:url" content="https://openflighthpc.org/knowledge/flight-environment/flight-user-suite/flight-desktop/">
+  <meta property="og:site_name" content="OpenFlightHPC">
+  <meta property="og:title" content="Flight Desktop">
+  <meta property="og:description" content="This documentation is for an OpenFlight Labs Project which is in maintenance mode Overview Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="knowledge">
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Flight Desktop">
+  <meta name="twitter:description" content="This documentation is for an OpenFlight Labs Project which is in maintenance mode Overview Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool.">
+
+
+
+
+
+  <meta itemprop="name" content="Flight Desktop">
+  <meta itemprop="description" content="This documentation is for an OpenFlight Labs Project which is in maintenance mode Overview Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool.">
+  <meta itemprop="wordCount" content="1728">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+    
+    
+    
+    <link href="/bundle.min.css" rel="stylesheet" />
+
+    
+
+    
+
+
+    
+
+<link href="/openflight.min.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <header>
+      <nav>
+  <a
+    href="/"
+    
+    >Home</a
+  >
+
+  <a
+    href="/labs/"
+    
+    >Labs</a
+  >
+
+  <a
+    href="/knowledge/"
+    
+    >Knowledge</a
+  >
+
+
+</nav>
+<ul>
+
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/">OpenFlight Knowledge</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/flight-environment/">Flight Environment</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+    
+      <li style="display: inline">
+        <a href="/knowledge/flight-environment/flight-user-suite/">Flight User Suite</a>
+        <span class="" aria-hidden="true">»</span>
+      </li>
+    
+
+<li style="display: inline">
+</li>
+</ul>
+    <h1>Flight Desktop</h1>
+
+
+
+
+
+
+
+
+<hr />
+<strong>Part of the <a href="/knowledge/flight-environment/flight-user-suite/">Flight User Suite</a> series</strong>
+<nav id="TableOfContents">
+<ul style="display: inline">
+    
+        <li style="display: inline"><a href="/knowledge/flight-environment/flight-user-suite/flight-desktop/" class="current">Flight Desktop</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/flight-environment/flight-user-suite/flight-env/" >Flight Env</a></li>
+    
+        <li style="display: inline"><a href="/knowledge/flight-environment/flight-user-suite/flight-silo/" >Flight Silo</a></li>
+    
+</ul>
+</nav>
+
+
+
+
+
+    </header>
+    <main>
+      
+  
+  
+  
+    <details>
+      <summary>Table of Contents</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#preparing-a-desktop-type">Preparing a Desktop Type</a>
+      <ul>
+        <li><a href="#view-available-types">View Available Types</a></li>
+        <li><a href="#preparing-a-type">Preparing a Type</a></li>
+        <li><a href="#using-sudo-to-prepare">Using sudo to prepare</a></li>
+      </ul>
+    </li>
+    <li><a href="#launch-a-desktop-session">Launch a Desktop Session</a></li>
+    <li><a href="#port-forwarding-a-desktop-session">Port Forwarding a Desktop Session</a>
+      <ul>
+        <li><a href="#windows">Windows</a></li>
+        <li><a href="#linuxmac">Linux/Mac</a></li>
+      </ul>
+    </li>
+    <li><a href="#resizing-a-desktop-session">Resizing a Desktop Session</a></li>
+    <li><a href="#viewing-and-terminating-sessions">Viewing and Terminating Sessions</a></li>
+    <li><a href="#securing-your-desktop-session">Securing your Desktop Session</a></li>
+  </ul>
+</nav>
+    </details>
+  
+  <content>
+    <p class="notice">
+  This documentation is for an <a href="/labs/flight-environment/">OpenFlight Labs Project</a> which is in maintenance mode
+</p>
+
+<h2 id="overview">Overview</h2>
+<p>Flight Desktop enables systems to launch graphical desktop sessions to support users who want to run interactive applications across the research environment. The system can support a number of different sessions simultaneously, and allow multiple remote participants to connect to the same session to support training and collaborative activities. This section of the documentation describes how to setup and use this tool.</p>
+<h2 id="preparing-a-desktop-type">Preparing a Desktop Type</h2>
+<h3 id="view-available-types">View Available Types</h3>
+<p>Your research environment supports many types of graphical session designed to provide interactive applications directly to users. To view the available types of session, use the command <code>flight desktop avail</code>:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop avail
+</span></span><span style="display:flex;"><span>┌───────┬──────────────────────────────────────────────────┬────────────┐
+</span></span><span style="display:flex;"><span>│ Name  │ Summary                                          │ State      │
+</span></span><span style="display:flex;"><span>├───────┼──────────────────────────────────────────────────┼────────────┤
+</span></span><span style="display:flex;"><span>│ gnome │ GNOME v3, a free and open-source desktop         │ Unverified │
+</span></span><span style="display:flex;"><span>│       │ environment <span style="color:#66d9ef">for</span> Unix-like operating systems.     │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│       │  &gt; https://www.gnome.org/                        │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│ kde   │ KDE Plasma Desktop <span style="color:#f92672">(</span>KDE 4<span style="color:#f92672">)</span>. Plasma is KDE<span style="color:#960050;background-color:#1e0010">&#39;</span>s      │ Unverified │
+</span></span><span style="display:flex;"><span>│       │ desktop environment. Simple by default, powerful │            │
+</span></span><span style="display:flex;"><span>│       │ when needed.                                     │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│       │  &gt; https://kde.org/                              │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│ xfce  │ Xfce is a lightweight desktop environment        │ Unverified │
+</span></span><span style="display:flex;"><span>│       │ <span style="color:#66d9ef">for</span> UNIX-like operating systems. It aims to be   │            │
+</span></span><span style="display:flex;"><span>│       │ fast and low on system resources, <span style="color:#66d9ef">while</span> still    │            │
+</span></span><span style="display:flex;"><span>│       │ being visually appealing and user friendly.      │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>│       │  &gt; https://xfce.org/                             │            │
+</span></span><span style="display:flex;"><span>│       │                                                  │            │
+</span></span><span style="display:flex;"><span>└───────┴──────────────────────────────────────────────────┴────────────┘
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$</span></span></code></pre></div>
+<p>Application types that are <code>unverified</code> need to be prepared before they can be started.</p>
+<h3 id="preparing-a-type">Preparing a Type</h3>
+<p>To prepare a new session type, use the command <code>flight desktop prepare &lt;type&gt;</code> (preparing will automatically install any required application and support files, if these dependencies have been installed manually then a desktop session can be checked for verification with <code>flight desktop verify &lt;type&gt;</code>). Once enabled, users can start a new session using the command <code>flight desktop start &lt;type&gt;</code>.</p>
+<blockquote>
+<p>The <code>prepare</code> command is only available to the <code>root</code> user as it requires installation of packages</p></blockquote>
+<blockquote>
+<p>Preparing a new session type only enables it for the machine that you run the command from, any other nodes will need to have the type enabled too.</p></blockquote>
+<h3 id="using-sudo-to-prepare">Using sudo to prepare</h3>
+<p>Since only the root user can use <code>prepare</code>, you also cannot use <code>sudo</code> to run <code>prepare</code>.</p>
+<p>Instead the user must become <a href="/knowledge/hpc-environment-basics/cli-basics/becoming-root/">the root user</a> and enable the <a href="/knowledge/flight-environment/basics/">Flight system</a> then run <code>prepare</code>.</p>
+<h2 id="launch-a-desktop-session">Launch a Desktop Session</h2>
+<p>Users can launch a new session by using the <code>flight desktop start gnome</code> command. After launching the desktop, a message will be printed with connection details to access the new session:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Starting a <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Starting session
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session has been started.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: 4549eae1-6f8b-4983-8057-99b378afcdd3
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 51.104.217.61
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5901</span>
+</span></span><span style="display:flex;"><span>   Display: :1
+</span></span><span style="display:flex;"><span>  Password: mkO3Zxjl
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Refer to <span style="color:#e6db74">&#39;flight desktop show 4549eae1&#39;</span> <span style="color:#66d9ef">for</span> more details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: mkO3Zxjl</span></span></code></pre></div>
+<p>Users need a VNC client to connect to the graphical desktop session.</p>
+<p>Users with Mac clients can use the URL provided in the command output to connect to the session; e.g. from the above example, simply enter <code>vnc://flight:mkO3Zxjl@51.104.217.61:5901</code> into the Safari address bar.</p>
+<p>Linux and Windows users should enter the IP address and port number shown into their VNC client in the format <code>IP:port</code>. For example - for the output above, Linux and Windows client users would enter <code>51.104.217.61:5901</code> into their VNC client:</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/vncclient.png" alt=""></p>
+<p>A one-time randomized password is automatically generated by the flight system when a new session is started. Linux and Windows users may be prompted to enter this password when they connect to the desktop session.</p>
+<p>Once connected to the graphical desktop, users can use the session as they would a local Linux machine:</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/vncdesktop.png" alt=""></p>
+<h2 id="port-forwarding-a-desktop-session">Port Forwarding a Desktop Session</h2>
+<p>Depending on your connection to the HPC you may see this message when starting a desktop session:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>.</span></span></code></pre></div>
+<p>For example in the following:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop start gnome
+</span></span><span style="display:flex;"><span>Starting a <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   &gt; ✅ Starting session
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#e6db74">&#39;gnome&#39;</span> desktop session has been started.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: dd8acf76-1494-4c88-adb1-a8bbd405d965
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 20.68.202.163
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5903</span>
+</span></span><span style="display:flex;"><span>   Display: :3
+</span></span><span style="display:flex;"><span>  Password: WB3gUQMW
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Refer to <span style="color:#e6db74">&#39;flight desktop show dd8acf76&#39;</span> <span style="color:#66d9ef">for</span> more details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: WB3gUQMW</span></span></code></pre></div>
+<p>By running the command <code>flight desktop show &lt;name&gt;</code> we can see more information</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop show dd8acf76
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: dd8acf76-1494-4c88-adb1-a8bbd405d965
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 20.68.202.163
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5903</span>
+</span></span><span style="display:flex;"><span>   Display: :3
+</span></span><span style="display:flex;"><span>  Password: WB3gUQMW
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ssh -L 5903:20.68.202.163:5903 flight@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Once the ssh connection has been established, depending on your
+</span></span><span style="display:flex;"><span>client, you can connect to the session using one of:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  vnc://flight:WB3gUQMW@localhost:5903
+</span></span><span style="display:flex;"><span>  localhost:5903
+</span></span><span style="display:flex;"><span>  localhost:3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If, when connecting, you receive a warning as follows, try again with
+</span></span><span style="display:flex;"><span>a different port number, e.g. 5904, <span style="color:#ae81ff">5905</span> etc.:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  channel_setup_fwd_listener_tcpip: cannot listen to port: <span style="color:#ae81ff">5903</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: WB3gUQMW</span></span></code></pre></div>
+<h3 id="windows">Windows</h3>
+<p>On Windows, the desktop environment can still be connected like so:</p>
+<ol>
+<li>
+<p>Begin your environment as demonstrated on the previous page.</p>
+</li>
+<li>
+<p>Note down the IP address, port number and password.</p>
+</li>
+<li>
+<p>Open PuTTy</p>
+</li>
+<li>
+<p>Load one of your saved sessions or save a new session with your log in details.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/putty_load_session.png" alt=""></p>
+</li>
+<li>
+<p>Find the &ldquo;Category:&rdquo; section on the left of the window</p>
+<ol>
+<li>
+<p>Scroll down to &ldquo;Connection&rdquo; and expand it.</p>
+</li>
+<li>
+<p>Scroll down to &ldquo;SSH&rdquo; and expand it.</p>
+</li>
+<li>
+<p>Click on the &ldquo;Tunnels page.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/tunnels_page.png" alt=""></p>
+</li>
+</ol>
+</li>
+<li>
+<p>Input the source port (a local port) and destination which is <code>IP address:port number</code> of the desktop environment that was started.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/source_and_destination.png" alt=""></p>
+</li>
+<li>
+<p>After inputting the information, click &ldquo;Add&rdquo; and the details will move to a box above.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/tunnels_add_button.png" alt=""></p>
+</li>
+<li>
+<p>Scroll back to the top of the &ldquo;Category:&rdquo; section, and click on &ldquo;Session&rdquo;</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/save_session.png" alt=""></p>
+</li>
+<li>
+<p>Save the session and then click open to run the command line interface and log in.</p>
+</li>
+<li>
+<p>Open your VNC client, and type <code>localhost:XXXXX</code> where <code>XXXX</code> is the source port number you entered earlier.</p>
+<p><img src="/images/knowledge/flight-environment/flight-user-suite/vnc_client_local.png" alt=""></p>
+</li>
+<li>
+<p>Click &ldquo;Connect&rdquo;, and if prompted enter the password you noted down.</p>
+</li>
+</ol>
+<h3 id="linuxmac">Linux/Mac</h3>
+<p>The steps for connecting with Linux/Mac are outlined in the output of the <code>flight desktop show</code> command above.</p>
+<h2 id="resizing-a-desktop-session">Resizing a Desktop Session</h2>
+<p>When launching a graphical desktop session using the <code>flight desktop</code> utility, a session resolution can be specified using the <code>--geometry &lt;size&gt;</code> option. For example, to launch a <code>gnome</code> desktop session with a resolution of 1920x1080 pixels, use the command:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>flight desktop start --geometry 1920x1080 gnome</code></pre>
+<p>By default, your graphical desktop session will launch with a compatibility resolution of 1024x768. For example, to change the default resolution to 1920x1080 pixels, use the command:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>flight desktop set geometry 1920x1080</code></pre>
+<p>Users can resize the desktop to fit their screens using the command <code>flight desktop resize &lt;session id&gt; &lt;resolution&gt;</code>. For example:</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>flight desktop resize 4549eae1 1920x1080</code></pre>
+<p>Your graphical desktop session will automatically resize to the new resolution requested. Use your local VNC client application to adjust the compression ratio, colour depth and frame-rate sessions in order to achieve the best user-experience for the desktop session.</p>
+<h2 id="viewing-and-terminating-sessions">Viewing and Terminating Sessions</h2>
+<p>Users can view a list of the currently running sessions by using the command <code>flight desktop list</code>.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop list
+</span></span><span style="display:flex;"><span>┌──────┬──────────┬───────┬───────────┬───────────────┬────────────────┬──────────┬────────┐
+</span></span><span style="display:flex;"><span>│ Name │ Identity │ Type  │ Host name │ IP address    │ Display <span style="color:#f92672">(</span>Port<span style="color:#f92672">)</span> │ Password │ State  │
+</span></span><span style="display:flex;"><span>├──────┼──────────┼───────┼───────────┼───────────────┼────────────────┼──────────┼────────┤
+</span></span><span style="display:flex;"><span>│      │ 4549eae1 │ gnome │ chead1    │ 20.68.202.163 │ :1 <span style="color:#f92672">(</span>5901<span style="color:#f92672">)</span>      │ mkO3Zxjl │ Active │
+</span></span><span style="display:flex;"><span>│      │ 52e44bdd │ gnome │ chead1    │ 20.68.202.163 │ :3 <span style="color:#f92672">(</span>5903<span style="color:#f92672">)</span>      │ 5eAlaST0 │ Active │
+</span></span><span style="display:flex;"><span>│      │ abbbe30b │ gnome │ chead1    │ 20.68.202.163 │ :2 <span style="color:#f92672">(</span>5902<span style="color:#f92672">)</span>      │ XLH7bV30 │ Active │
+</span></span><span style="display:flex;"><span>└──────┴──────────┴───────┴───────────┴───────────────┴────────────────┴──────────┴────────┘</span></span></code></pre></div>
+<p>To display connection information for an existing session, use the command <code>flight desktop show &lt;session-ID&gt;</code>. This command allows users to review the IP-address, port number and one-time password settings for an existing session.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>flight@chead1 <span style="color:#f92672">(</span>mycluster1<span style="color:#f92672">)</span> ~<span style="color:#f92672">]</span>$ flight desktop show 4549eae1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span> Session details <span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>      Name:
+</span></span><span style="display:flex;"><span>  Identity: 4549eae1-6f8b-4983-8057-99b378afcdd3
+</span></span><span style="display:flex;"><span>      Type: gnome
+</span></span><span style="display:flex;"><span>   Host IP: 20.68.202.163
+</span></span><span style="display:flex;"><span>  Hostname: chead1
+</span></span><span style="display:flex;"><span>      Port: <span style="color:#ae81ff">5901</span>
+</span></span><span style="display:flex;"><span>   Display: :1
+</span></span><span style="display:flex;"><span>  Password: mkO3Zxjl
+</span></span><span style="display:flex;"><span>  Geometry: 1024x768
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This desktop session is not directly accessible from outside of your
+</span></span><span style="display:flex;"><span>cluster as it is running on a machine that only provides internal
+</span></span><span style="display:flex;"><span>cluster access.  In order to access your desktop session you will need
+</span></span><span style="display:flex;"><span>to perform port forwarding using <span style="color:#e6db74">&#39;ssh&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ssh -L 5901:20.68.202.163:5901 flight@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Once the ssh connection has been established, depending on your
+</span></span><span style="display:flex;"><span>client, you can connect to the session using one of:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  vnc://flight:mkO3Zxjl@localhost:5901
+</span></span><span style="display:flex;"><span>  localhost:5901
+</span></span><span style="display:flex;"><span>  localhost:1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If, when connecting, you receive a warning as follows, try again with
+</span></span><span style="display:flex;"><span>a different port number, e.g. 5902, <span style="color:#ae81ff">5903</span> etc.:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  channel_setup_fwd_listener_tcpip: cannot listen to port: <span style="color:#ae81ff">5901</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If prompted, you should supply the following password: mkO3Zxjl</span></span></code></pre></div>
+<p>Users can terminate a running session by ending their graphical application (e.g. by logging out of a Gnome session, or exiting a terminal session), or by using the <code>flight desktop kill &lt;session-ID&gt;</code> command. A terminated session will be immediately stopped, disconnecting any users.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flight desktop kill 4549eae1</span></span></code></pre></div>
+<h2 id="securing-your-desktop-session">Securing your Desktop Session</h2>
+<p>As the VNC protocol does not natively provide support for security protocols such as SSL, you may wish to take steps to secure access to your VNC sessions.</p>
+<p>Several third party tools exist to help you secure your VNC connections.  One option is <em>ssvnc</em>, available <a href="http://ssvnc.sourceforge.net/">here</a>.</p>
+<p>Alternatively, you could use an SSH tunnel to access your session. Refer to online guides for setup instructions.</p>
+
+  </content>
+  
+
+    </main>
+    <footer>
+      
+
+      
+
+  <span>
+    
+    Made with
+    <a href="https://github.com/maolonglong/hugo-simple/">Hugo ʕ•ᴥ•ʔ Simple</a>
+  </span>
+
+
+    </footer>
+
+    
+</body>
+</html>

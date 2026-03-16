@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenFlightHPC</title>
+    <link>https://openflighthpc.org/knowledge/hpc-concepts/</link>
+    <description>Recent content on OpenFlightHPC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 01 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://openflighthpc.org/knowledge/hpc-concepts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Overview</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/overview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/overview/</guid>
+      <description>&lt;p&gt;The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.&lt;/p&gt;
+&lt;p&gt;To generalise the entire process, it goes as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hardware Architecture Design&lt;/li&gt;
+&lt;li&gt;Hardware Build&lt;/li&gt;
+&lt;li&gt;Software Build&lt;/li&gt;
+&lt;li&gt;Platform Delivery&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>The purpose of this documentation is to provide a list of considerations and guidelines for the development of a HPC environment. This documentation should be followed through in order to properly understand the structure of the environment and that certain considerations are not missed out along the way.</p>
+<p>To generalise the entire process, it goes as follows:</p>
+<ol>
+<li>Hardware Architecture Design</li>
+<li>Hardware Build</li>
+<li>Software Build</li>
+<li>Platform Delivery</li>
+</ol>
+<p>Ensuring that a suitable hardware and network architecture is designed before the build process begins will allow you to create a stable base for your HPC platform.</p>
+<p>Performing the hardware build before doing any software configuration guarantees that the network and hardware is properly setup. A partially built network during software setup can lead to unforeseen issues with communication and configuration.</p>
+<p>Once the infrastructure has been physically built the software build can proceed. Usually the central servers will be configured first before client and compute nodes are configured.</p>
+<p>Finally, platform delivery includes a range of connectivity, performance and quality tests which ensure that the completed environment is stable, manageable and consistent.</p>
+<blockquote>
+<p>It is recommended to read through all of the documentation before starting to design the HPC platform to understand the scope and considerations.</p></blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Network and Hardware</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/network-and-hardware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/network-and-hardware/</guid>
+      <description>&lt;p&gt;In general, the things to consider when designing the hardware and network solution for a HPC platform are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The hardware environment&lt;/li&gt;
+&lt;li&gt;The types of nodes required in the network&lt;/li&gt;
+&lt;li&gt;The different networks to be used by the network&lt;/li&gt;
+&lt;li&gt;The level of resilience desired&lt;/li&gt;
+&lt;li&gt;The hostname and domain naming convention&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These topics are covered in more detail below.&lt;/p&gt;
+&lt;h2 id=&#34;hardware-environment&#34;&gt;Hardware Environment&lt;/h2&gt;
+&lt;p&gt;The hardware environment will generally be one of two setups, metal or cloud.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>In general, the things to consider when designing the hardware and network solution for a HPC platform are:</p>
+<ul>
+<li>The hardware environment</li>
+<li>The types of nodes required in the network</li>
+<li>The different networks to be used by the network</li>
+<li>The level of resilience desired</li>
+<li>The hostname and domain naming convention</li>
+</ul>
+<p>These topics are covered in more detail below.</p>
+<h2 id="hardware-environment">Hardware Environment</h2>
+<p>The hardware environment will generally be one of two setups, metal or cloud.</p>
+<ul>
+<li><strong>Metal</strong> - Metal environments are those which are composed of on-site systems in a data center which are usually running 24/7.</li>
+<li><strong>Cloud</strong> - Cloud environments are systems hosted in a third-party data center (or on-premise private cloud) and are usually ephemeral systems that are being created and destroyed on demand.</li>
+<li><strong>Metal/Cloud Hybrid</strong> - A hybrid environment usually consists of a core metal configuration that uses cloud as an overflow for additional capacity at times of high utilisation.</li>
+</ul>
+<p>A hardware environment is mainly focussed on the location, capacity and permanence of the HPC platform and does not directly determine the hardware that will be used in the various systems.</p>
+<h2 id="node-types">Node Types</h2>
+<p>A complete HPC platform will be comprised of systems that serve different purposes within the network. Ideas of node types along with the services and purpose of those nodes can be seen below.</p>
+<ul>
+<li><strong>Login Node</strong> - A login node will usually provide access to the HPC platform and will be the central system that users access to run applications. How users will access the system should be considered, usually this will be SSH and some graphical login service, such as, VNC.</li>
+<li><strong>Master Node</strong> - A master node will usually run services for the HPC platform. Such as, the master process for a job scheduler, monitoring software and user management services.</li>
+<li><strong>Compute Node</strong> - Compute nodes are usually used for running HPC applications that are queued through a job scheduler. Additionally, these can be used for VM deployments (via software like OpenStack) or other computational uses. Compute nodes usually have large amounts of cores and memory as well as high bandwidth interconnect (like Infiniband).</li>
+<li><strong>Special-purpose Node</strong> - Some compute nodes may feature a particular specification to be used for a particular job, or stage in your workflow. Examples may include nodes with more memory, larger amounts of local scratch storage, or GPU/FPGA devices installed.</li>
+<li><strong>Storage Node</strong> - The storage node will serve network storage solutions to systems on the network. It would have some sort of storage array connected to it which would provide large and resilient storage.</li>
+</ul>
+<p>The above types are not strict. Services can be mixed, matched and moved around to create the desired balance and distribution of services and functions for the platform.</p>
+<h2 id="different-networks">Different Networks</h2>
+<p>The network in the system will most likely be broken up (physically or virtually with VLANs) into separate networks to serve different usages and isolate traffic. Potential networks that may be in the HPC platform are:</p>
+<ul>
+<li><strong>Primary Network</strong> - The main network that all systems are connected to.</li>
+<li><strong>Out-of-Band Network</strong> - A separate network for management traffic. This could contain on-board BMCs, switch management ports and disk array management ports. Typically this network would only be accessible by system administrators from within the HPC network.</li>
+<li><strong>High Performance Network</strong> - Usually built on an Infiniband fabric, the high performance network would be used by the compute nodes for running large parallel jobs over MPI. This network can also be used for storage servers to provide performance improvements to data access.</li>
+<li><strong>External Networks</strong> - The network outside of the HPC environment that nodes may need to access. For example, the <em>Master Node</em> could be connected to an <em>Active Directory</em> server on the external network and behave as a slave to relay user information to the rest of the HPC environment.</li>
+<li><strong>Build Network</strong> - This network can host a DHCP server for deploying operating systems via PXE boot kickstart installations. It allows for systems that require a new build or rebuild to be flipped over and provisioned without disturbing the rest of the network.</li>
+<li><strong>DMZ</strong> - A demilitarised zone would contain any externally-facing services, this could be setup in conjunction with the external networks access depending on the services and traffic passing through.</li>
+</ul>
+<p>The above networks could be physically or virtually separated from one another. In a physical separation scenario there will be a separate network switch for each one, preventing any sort of cross-communication. In a virtually separated network there will be multiple bridged switches that separate traffic by dedicating ports (or tagging traffic) to different VLANs. The benefit of the VLAN solution is that the bridged switches (along with bonded network interfaces) provides additional network redundancy.</p>
+<blockquote>
+<p>If a cloud environment is being used then it is most likely that all systems will reside on the primary network and no others. This is due to the network configuration from the cloud providers.</p></blockquote>
+<h2 id="resilience">Resilience</h2>
+<p>How well a system can cope with failures is crucial when delivering a HPC platform. Adequate resilience can allow for maximum system availability with a minimal chance of failures disrupting the user. System resilience can be improved with many hardware and software solutions, such as:</p>
+<ul>
+<li><strong>RAID Arrays</strong> - A RAID array is a collection of disks configured in such a way that they become a single storage device. There are different RAID levels which improve data redundancy or storage performance (and maybe even both). Depending on the RAID level used, a disk in the array can fail without disrupting the access to data and can be hot swapped to rebuild the array back to full functionality. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+<li><strong>Service Redundancy</strong> - Many software services have the option to configure a failover server that can take over the service management should the master process be unreachable. Having a secondary server that mirrors critical network services would provide suitable resilience to master node failure.</li>
+<li><strong>Failover Hardware</strong> - For many types of hardware there is the possibility of setting up failover devices. For example, in the event of a power failure (either on the circuit or in a power supply itself) a redundant power supply will continue to provide power to the server without any downtime occurring.</li>
+</ul>
+<p>There are many more options than the examples above for improving the resilience of the HPC platform, it is worth exploring and considering available solutions during design.</p>
+<blockquote>
+<p>Cloud providers are most likely to implement all of the above resilience procedures and more to ensure that their service is available 99.99% of the time.</p></blockquote>
+<h2 id="hostname-and-domain-names">Hostname and Domain Names</h2>
+<p>Using proper domain naming conventions during design of the HPC platform is best practice for ensuring a clear, logical and manageable network. Take the below fully qualified domain name::</p>
+
+
+
+
+
+
+<pre tabindex="0"><code>node01.pri.cluster1.compute.estate</code></pre>
+<p>Which can be broken down as follows:</p>
+<ul>
+<li><code>node01</code> - The hostname of the system</li>
+<li><code>pri</code> - The network that the interface of the system is sat on (in this case, <code>pri</code> = primary)</li>
+<li><code>cluster1</code> - The cluster that <code>node01</code> is a part of</li>
+<li><code>compute</code> - The subdomain of the greater network that <code>cluster1</code> is a part of</li>
+<li><code>estate</code> - The top level domain</li>
+</ul>
+<h2 id="security">Security</h2>
+<p>Network security is key for both the internal and external connections of the HPC environment. Without proper security control the system configuration and data is at risk to attack or destruction from user error. Some tips for improving network security are below:</p>
+<ul>
+<li>Restrict external access points where possible. This will reduce the quantity of points of entry, minimising the attack surface from external sources.</li>
+<li>Limit areas that users have access to. In general, there are certain systems that users would never (and should never) have access to so preventing them from reaching these places will circumvent any potential user error risks.</li>
+<li>Implement firewalls to limit the types of traffic allowed in/out of systems.</li>
+</ul>
+<p>It is also worth considering the performance and usability impacts of security measures.</p>
+<p>Much like with resilience, a Cloud provider will most likely implement the above security features - it is worth knowing what security features and limitations are in place when selecting a cloud environment.</p>
+<blockquote>
+<p>Non-Ethernet networks usually cannot usually be secured to the same level as Ethernet so be aware of what the security drawbacks are for the chosen network technology.</p></blockquote>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<p>The below questions should be considered when designing the network and hardware solution for the HPC platform.</p>
+<ul>
+<li>How much power will the systems draw?
+<ul>
+<li>Think about the power draw of the selected hardware, it may be drawing a large amount of amps so sufficient power sources must be available.</li>
+</ul>
+</li>
+<li>How many users are going to be accessing the system?
+<ul>
+<li>A complex, distributed service network would most likely be overkill and a centralised login/master node would be more appropriate.</li>
+</ul>
+</li>
+<li>What network interconnect will be used?
+<ul>
+<li>It&rsquo;s most likely that different network technologies will be used for <a href="#different-networks">different-networks</a>. For example, the high performance network could benefit from using Infiniband as the interconnect.</li>
+</ul>
+</li>
+<li>How could the hardware be optimised?
+<ul>
+<li>BIOS settings could be tweaked on the motherboard to give additional performance and stability improvements.</li>
+<li>Network switch configurations could be optimised for different types of traffic</li>
+</ul>
+</li>
+<li>What <a href="#node-types">types of nodes</a> will be in the system?</li>
+<li>What applications are going to be run on the system?
+<ul>
+<li>Are they memory intensive?</li>
+<li>Is interconnect heavily relied upon for computations?</li>
+</ul>
+</li>
+</ul>
+<h2 id="recommendations">Recommendations</h2>
+<p>Below are some different recommendations for hardware and network design. These can vary depending on the number of users and quantity of systems within the HPC platform.</p>
+<h3 id="hardware-recommendations">Hardware Recommendations</h3>
+<p>Useful recommendations for blades, network switches and storage technologies can be found in the <a href="https://github.com/alces-software/knowledgebase/wiki">Alces Software knowledgebase</a></p>
+<p>With the above in mind, diagrams of different architectures are below. They increase in complexity and redundancy as the list goes on.</p>
+<h4 id="example-1---standalone">Example 1 - Standalone</h4>
+<p><img src="/images/knowledge/hpc-concepts/NodeTypes1.jpg" alt=""></p>
+<p>The above architecture consists of master, login and compute nodes. The services provided by the master &amp; login nodes can be seen to the right of each node type. This architecture only separates the services for users and admins.</p>
+<h4 id="example-2---high-availability">Example 2 - High Availability</h4>
+<p><img src="/images/knowledge/hpc-concepts/NodeTypes2.jpg" alt=""></p>
+<p>This architecture provides additional redundancy to the services running on the master node. For example, the disk array is connected to both master nodes which use multipath to ensure the higher availability of the storage device.</p>
+<h4 id="example-3---ha-vms">Example 3 - HA VMs</h4>
+<p><img src="/images/knowledge/hpc-concepts/NodeTypes3.jpg" alt=""></p>
+<p>This architecture puts services inside of VMs to improve the ability to migrate and modify services with little impact to the other services and systems on the architecture. Virtual machines can be moved between VM hosts live without service disruption allowing for hardware replacements to take place on servers.</p>
+<h3 id="network-designs">Network Designs</h3>
+<p>The above architectures can be implemented with any of the below network designs.</p>
+<h4 id="example-1--simple">Example 1- Simple</h4>
+<p><img src="/images/knowledge/hpc-concepts/NetworkDesign1.png" alt=""></p>
+<p>The above design contains the minimum recommended internal networks. A primary network (for general logins and navigating the system), a management network (for BMC management of nodes and switches) and a high performance Infiniband network (connected to the nodes). The master and login nodes have access to the external network for user and admin access to the HPC network.</p>
+<blockquote>
+<p>The master node could additionally be connected to the high performance network so that compute nodes have a faster network connection to storage.</p></blockquote>
+<h4 id="example-2---vlans">Example 2 - VLANs</h4>
+<p><img src="/images/knowledge/hpc-concepts/NetworkDesign2.png" alt=""></p>
+<p>The above network design has a few additions to the first example. The main change is the inclusion of VLANs for the primary, management and build networks (with the build network being a new addition to this design). The build network allows for systems to be toggled over to a DHCP system that uses PXE booting to kickstart an OS installation.</p>
+<h3 id="other-recommendations">Other Recommendations</h3>
+<h4 id="bios-settings">BIOS Settings</h4>
+<p>It&rsquo;s recommended to ensure that the BIOS settings are reset to default and the latest BIOS version is installed before optimising the settings. This can ensure that any issues that may be present in the configuration before proceeding have been removed.</p>
+<p>When it comes to optimising the BIOS settings on a system in the network, the following changes are recommended:</p>
+<ul>
+<li>Setting the power management to maximum performance</li>
+<li>Disabling CPU CStates</li>
+<li>Disabling Hyperthreading</li>
+<li>Enabling turbo mode</li>
+<li>Disabling quiet boot</li>
+<li>Setting BMC to use the dedicated port for BMC traffic</li>
+<li>Setting the node to stay off when power is restored after AC power loss</li>
+</ul>
+<blockquote>
+<p>The wordings for settings above may differ depending on the hardware that is being used. Look for similar settings that can be configured to achieve the same result.</p></blockquote>
+<p>For hardware-specific BIOS configuration settings see the <a href="https://github.com/alces-software/knowledgebase/wiki#servers">Alces Software knowledgebase</a> which has many recommendations based on their experience with integrating HPC environments.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>For more information on RAID arrays see <a href="https://en.wikipedia.org/wiki/RAID">the Wikipedia page</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/infrastructure/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/infrastructure/</guid>
+      <description>&lt;p&gt;Infrastructure design largely relates to the considerations made for the &lt;a href=&#34;https://openflighthpc.org/knowledge/hpc-concepts/network-and-hardware/#hardware-recommendations&#34;&gt;cluster architecture&lt;/a&gt;. Depending on the design being used, some of the infrastructure decisions may have already been made.&lt;/p&gt;
+&lt;h2 id=&#34;infrastructure-service-availability&#34;&gt;Infrastructure Service Availability&lt;/h2&gt;
+&lt;p&gt;There are typically 3 possible service availability options to choose from, these are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All-in-one&lt;/li&gt;
+&lt;li&gt;VM Platform&lt;/li&gt;
+&lt;li&gt;High Availability VM Platform&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These are covered in more detail below.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If using a Cloud Platform then the service availability will be handled by the cloud provider. The only additional considerations are how services will be provided in terms of native running services or containerised.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Infrastructure design largely relates to the considerations made for the <a href="/knowledge/hpc-concepts/network-and-hardware/#hardware-recommendations">cluster architecture</a>. Depending on the design being used, some of the infrastructure decisions may have already been made.</p>
+<h2 id="infrastructure-service-availability">Infrastructure Service Availability</h2>
+<p>There are typically 3 possible service availability options to choose from, these are:</p>
+<ul>
+<li>All-in-one</li>
+<li>VM Platform</li>
+<li>High Availability VM Platform</li>
+</ul>
+<p>These are covered in more detail below.</p>
+<blockquote>
+<p>If using a Cloud Platform then the service availability will be handled by the cloud provider. The only additional considerations are how services will be provided in terms of native running services or containerised.</p></blockquote>
+<h3 id="all-in-one">All-in-one</h3>
+<p>This is the most common solution, an all-in-one approach loads services onto a single machine which serves the network. It is the simplest solution as a single OS install is required and no additional configuration of virtual machine services is needed.</p>
+<p>This solution, while quick and relatively easy to implement, is not a recommended approach. Due to the lack of redundancy options and the lack of service isolation there is a higher risk of an issue effecting one service (or the machine) to have an effect on other services.</p>
+<h3 id="vm-platform">VM Platform</h3>
+<p>A VM platform provides an additional layer of isolation between services. This can allow for services to be configured, migrated and modified without potentially effecting other services.</p>
+<p>There are a number of solutions for hosting virtual machines, including:</p>
+<ul>
+<li>Open-source solutions (e.g. VirtualBox, KVM, Xen)</li>
+<li>Commercial solutions (e.g. VMware)</li>
+</ul>
+<p>The above software solutions provide similar functionality and can all be used as a valid virtualisation platform. Further investigation into the ease of use, flexibility and features of the software is recommended to identify the ideal solution for your HPC platform.</p>
+<h3 id="high-availability-vm-platform">High Availability VM Platform</h3>
+<p>For further redundancy, the virtualisation platform can utilise a resource pool. The service will be spread across multiple machines which allows for VMs to migrate between the hosts whilst still active. This live migration can allow for one of the hosts to be taken off of the network for maintenance without impacting the availability of the service VMs.</p>
+<h2 id="node-network-configuration">Node Network Configuration</h2>
+<p>In addition to the availability of services, the network configuration on the node can provide better performance and redundancy. Some of the network configuration options that can improve the infrastructure are:</p>
+<ul>
+<li><strong>Channel Bonding</strong> - Bonding interfaces allows for traffic to be shared between 2 network interfaces. If the bonded interfaces are connected to separate network switches then this solution</li>
+<li><strong>Interface Bridging</strong> - Network bridges are used by interfaces on virtual machines to connect to the rest of the network. A bridge can sit on top of a channel bond such that the VM service network connection is constantly available.</li>
+<li><strong>VLAN Interface Tagging</strong> - VLAN management can be performed both on a managed switch and on the node. The node is able to create subdivisions of network interfaces to add VLAN tags to packets. This will create separate interfaces that can be seen by the operating system (e.g. eth0.1 and eth0.2) which can individually have IP addresses set.</li>
+</ul>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>Could containerised solutions be used instead of VMs?
+<ul>
+<li><em>Docker</em> or <em>Singularity</em> containerised services can provide similar levels of isolation between services as VMs without the additional performance overhead.</li>
+</ul>
+</li>
+</ul>
+<h2 id="recommendations-for-infrastructure-design">Recommendations for Infrastructure Design</h2>
+<p>The example configurations here combine elements of the <a href="/knowledge/hpc-concepts/network-and-hardware/">network and hardware guide</a> as well as the different infrastructure solutions from these infrastructure considerations. These focus on the internal configuration of the master node but these examples can be extrapolated for configuring login, storage, compute or any other nodes that are part of the HPC environment.</p>
+<h3 id="simple-infrastructure">Simple Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign1.png" alt=""></p>
+<p>The simplest infrastructure configuration uses the all-in-one approach where services are configured on the master node&rsquo;s operating system.</p>
+<h3 id="virtual-machine-infrastructure">Virtual Machine Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign2.png" alt=""></p>
+<p>This solution separates the services into VMs running on the master node. In order for these VMs to be able to connect to the primary network a network bridge is created that allows the VM interfaces to send traffic over the eth0 interface.</p>
+<h3 id="channel-bonded-infrastructure">Channel Bonded Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign3.png" alt=""></p>
+<p>This example adds a layer of redundancy over the <em>VM Infrastructure</em> design by bonding the eth0 and eth3 interfaces. These interfaces are connected to separate network switches (the switches will be bridged together as well) which provides redundancy should a switch or network interface fail. Bonding of the two interfaces creates a new <em>bond</em> interface that the bridge for the virtual machines connects to.</p>
+<h3 id="vlan-infrastructure">VLAN Infrastructure</h3>
+<p><img src="/images/knowledge/hpc-concepts/InfrastructureDesign4.png" alt=""></p>
+<p>The above solution implements the channel bonded infrastructure in a network with VLANs. The VLANs have bond and bridge interfaces created for them. This allows some additional flexibility for VM bridging as virtual interfaces can be bridged onto specific VLANs whilst maintaining the redundancy provided by the bond. This adds additional security to the network as the master node can be left without an IP on certain VLAN bond interfaces which prevents that network from accessing the master node whilst VMs on the master node are able to reach that VLAN.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Base System</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/base-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/base-system/</guid>
+      <description>&lt;p&gt;Before considering &lt;em&gt;how&lt;/em&gt; the OS and applications will be deployed it is worth making a few decisions regarding the OS that will be used:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Will the same OS be used on all systems? (it&amp;rsquo;s strong recommended to do so)&lt;/li&gt;
+&lt;li&gt;What software will be used? (and therefore will need to be supported by the OS)&lt;/li&gt;
+&lt;li&gt;How stable is the OS? (bleeding edge OSes may have bugs and instabilities that could negatively impact the HPC environment)&lt;/li&gt;
+&lt;li&gt;If you are using bare-metal hardware, is the OS supported by your hardware vendor? (running an unsupported OS can lead to issues when attempting to obtain hardware support)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;deployment&#34;&gt;Deployment&lt;/h2&gt;
+&lt;p&gt;The deployment of the HPC platform can be summarised in two main sections, these being:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Before considering <em>how</em> the OS and applications will be deployed it is worth making a few decisions regarding the OS that will be used:</p>
+<ul>
+<li>Will the same OS be used on all systems? (it&rsquo;s strong recommended to do so)</li>
+<li>What software will be used? (and therefore will need to be supported by the OS)</li>
+<li>How stable is the OS? (bleeding edge OSes may have bugs and instabilities that could negatively impact the HPC environment)</li>
+<li>If you are using bare-metal hardware, is the OS supported by your hardware vendor? (running an unsupported OS can lead to issues when attempting to obtain hardware support)</li>
+</ul>
+<h2 id="deployment">Deployment</h2>
+<p>The deployment of the HPC platform can be summarised in two main sections, these being:</p>
+<ul>
+<li>Operating System Deployment</li>
+<li>Software Package Repository Management</li>
+</ul>
+<h2 id="operating-system-deployment">Operating System Deployment</h2>
+<p>When it comes to performing many operating installations across nodes in the network it can be tricky to find a flexible, manageable, automated solution. Performing manual installations of operating systems may be the ideal solution if there are only a few compute nodes, however, there are many other ways of improving the speed of OS deployment:</p>
+<ul>
+<li><strong>Disk Cloning</strong> - A somewhat inelegant solution, disk cloning involves building the operating system once and creating a compressed copy on a hard-drive that can be restored to blank hard-drives.</li>
+<li><strong>Kickstart</strong> - A kickstart file is a template for automating OS installations, the configuration file can be served over the network such that clients can PXE boot the installation. This can allow for easy, distributed deployment over a local network.</li>
+<li><strong>Image Deployment</strong> - Cloud service providers usually deploy systems from template images that set hostnames and other unique system information at boot time. Customised templates can also be created for streamlining the deployment and customisation procedure.</li>
+</ul>
+<p>It is worth considering manual, cloning and kickstart solutions for your OS deployment, any one of them could be the ideal solution depending on the number of machines that are being deployed.</p>
+<h2 id="repository-management">Repository Management</h2>
+<p>It is worth considering how packages, libraries and applications will be installed onto individual nodes and the network as a whole. Operating systems usually have their own package management system installed that uses public repositories for pulling down packages for installation. It is likely that all of the packages required for a system are not in the public repositories so it&rsquo;s worth considering where additional packages will come from (e.g. a 3rd party repository, downloaded directly from the package maintainer or manually compiled).</p>
+<p>Further to managing packages on the local system, the entire network may require applications to be installed; there are a couple of options for achieving this:</p>
+<ul>
+<li><strong>Server Management Tools</strong> - Management tools such as ansible, puppet, chef or pdsh can execute commands across multiple systems in parallel. This saves time instead of having to individually login and run commands on each node in the system.</li>
+<li><strong>Network Package Managers</strong> - Software such as <a href="https://conda.io">Conda</a> and <a href="https://easybuild.io/">EasyBuild</a> can install an application in a centralised storage location, allowing users simply to load the <a href="https://modules.sourceforge.net/">module</a> in order to start using the application.</li>
+</ul>
+<p>For more information regarding network package managers and application deployment, see <a href="/knowledge/hpc-concepts/hpc-environment/#application-deployment">application deployment</a>.</p>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>How will applications outside of the repositories be installed?</li>
+<li>Will the application need to be usable by all nodes in the HPC network? (e.g. an NFS export for apps may solve the issue of multiple installations)</li>
+<li>How will new package versions be installed when the HPC environment being maintained in the future?</li>
+<li>How will you create and maintain a consistent software environment on all nodes over time?</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>User Management</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/user-management/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/user-management/</guid>
+      <description>&lt;h2 id=&#34;user-authentication&#34;&gt;User Authentication&lt;/h2&gt;
+&lt;p&gt;User authentication is usually performed in a server/client setup inside the HPC environment due to the unnecessary overhead of manually maintaining &lt;code&gt;/etc/passwd&lt;/code&gt; on a network of nodes. A few options for network user management are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;NIS&lt;/strong&gt; - NIS is a directory service that enables the sharing of user and host information across a network.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FreeIPA&lt;/strong&gt; - FreeIPA provides all the information that NIS does as well as providing application and service information to the network. Additionally, FreeIPA uses directory structure such that information can be logically stored in a tree-like structure. It also comes with a web interface for managing the solution.&lt;/li&gt;
+&lt;li&gt;Connecting to an &lt;strong&gt;externally-managed&lt;/strong&gt; user-authentication service (e.g. LDAP, active-directory). This option is not recommended, as a large HPC cluster can put considerable load on external services. Using external user-authentication also creates a dependency for your cluster on another service, complicating troubleshooting and potentially impacting service availability.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If the user accounts need to be consistent with accounts on the external network then the master node should have a replica service to the external networks account management system. This will allow the account information to be forwarded to the HPC network, without creating a hard-dependency on an external authentication service.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="user-authentication">User Authentication</h2>
+<p>User authentication is usually performed in a server/client setup inside the HPC environment due to the unnecessary overhead of manually maintaining <code>/etc/passwd</code> on a network of nodes. A few options for network user management are:</p>
+<ul>
+<li><strong>NIS</strong> - NIS is a directory service that enables the sharing of user and host information across a network.</li>
+<li><strong>FreeIPA</strong> - FreeIPA provides all the information that NIS does as well as providing application and service information to the network. Additionally, FreeIPA uses directory structure such that information can be logically stored in a tree-like structure. It also comes with a web interface for managing the solution.</li>
+<li>Connecting to an <strong>externally-managed</strong> user-authentication service (e.g. LDAP, active-directory). This option is not recommended, as a large HPC cluster can put considerable load on external services. Using external user-authentication also creates a dependency for your cluster on another service, complicating troubleshooting and potentially impacting service availability.</li>
+</ul>
+<blockquote>
+<p>If the user accounts need to be consistent with accounts on the external network then the master node should have a replica service to the external networks account management system. This will allow the account information to be forwarded to the HPC network, without creating a hard-dependency on an external authentication service.</p></blockquote>
+<h2 id="user-access">User Access</h2>
+<p>It is also worth considering how users will be accessing the system. A few ways that users can be accessing and interacting with the HPC environment are:</p>
+<ul>
+<li><strong>SSH</strong> - This is the most common form of access for both users and admins. SSH will provide terminal-based access and X forwarding capabilities to the user.</li>
+<li><strong>VNC</strong> - The VNC service creates a desktop session that can be remotely connected to by a user, allowing them to run graphical applications inside the HPC network.</li>
+<li><strong>VPN</strong> - A VPN will provide remote network access to the HPC environment. This can be especially useful when access to the network is required from outside of the external network. Once connected to the VPN service, SSH or VNC can be used as it usually would be.</li>
+</ul>
+<blockquote>
+<p>If running firewall services within the environment (recommended) then be sure to allow access from the ports used by the selected user access protocols.</p></blockquote>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>What information will need to be shared between the systems?</li>
+<li>How will users want to access the system?</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Storage</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/storage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/storage/</guid>
+      <description>&lt;h2 id=&#34;storage-hardware&#34;&gt;Storage Hardware&lt;/h2&gt;
+&lt;p&gt;When selecting the storage solution it is worth considering the size, performance and resilience of the desired storage solution. Usually some sort of storage array will be used; e.g. a collection of disks (otherwise known as JBOD) in the form of an internal or external RAID array.&lt;/p&gt;
+&lt;h2 id=&#34;type-of-filesystem&#34;&gt;Type of filesystem&lt;/h2&gt;
+&lt;p&gt;For many requirements, a simple NFS solution can provide sufficient performance and resiliency for data. Application, library and source-code files are often small enough to be stored on an appropriately sized NFS solution; such storage systems can even be grown over time using technologies like LVM and XFS as requirements increase.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="storage-hardware">Storage Hardware</h2>
+<p>When selecting the storage solution it is worth considering the size, performance and resilience of the desired storage solution. Usually some sort of storage array will be used; e.g. a collection of disks (otherwise known as JBOD) in the form of an internal or external RAID array.</p>
+<h2 id="type-of-filesystem">Type of filesystem</h2>
+<p>For many requirements, a simple NFS solution can provide sufficient performance and resiliency for data. Application, library and source-code files are often small enough to be stored on an appropriately sized NFS solution; such storage systems can even be grown over time using technologies like LVM and XFS as requirements increase.</p>
+<p>For data-sets that require high capacity (&gt;100TB) or high-performance (&gt;1GB/sec) access, a parallel filesystem may be suitable to store data. Particularly well suited to larger files (e.g. at least 4MB per storage server), a parallel filesystem can provide additional features such as byte-range locking (the ability for multiple nodes to update sections of a large file simultaneously), and MPI-IO (the ability to control data read/written using MPI calls). Parallel filesystems work by aggregating performance and capacity from multiple servers and allowing clients (your cluster compute and login nodes) to mount the filesystem as a single mount-point. Common examples include:</p>
+<ul>
+<li><strong>Lustre</strong> - an open-source kernel-based parallel filesystem for Linux</li>
+<li><strong>GPFS</strong> - a proprietary kernel-based parallel filesystem for Linux</li>
+<li><strong>BeeGFS</strong> - an open-source user-space parallel filesystem for Linux</li>
+</ul>
+<p>Your choice of filesystem will depend on the features you require, and your general familiarity with the technologies involved. As parallel filesystems do not perform well for smaller files, it is very common to deploy a parallel filesystem alongside a simple NFS-based storage solution.</p>
+<p>If your data-set contains a large number of files which need to be kept and searchable for a long time (&gt; 12-months) then an object storage system can also be considered. Accessed using client-agnostic protocols such as HTTPS, an object storage system is ideal for creating data archives which can include extended metadata to assist users to locate and organise their data. Most object storage systems include data redundancy options (e.g. multiple copies, object versioning and tiering), making them an excellent choice for long-term data storage. Examples of object-storage systems include:</p>
+<ul>
+<li><strong>AWS Simple Storage Service (S3)</strong> - a cloud-hosted service with a range of data persistence options</li>
+<li><strong>Swift-stack</strong> - available as both on-premise and cloud-hosted services, the SWIFT protocol is compatible with a wide range of software and services</li>
+<li><strong>Ceph</strong> - an on-premise object storage system with a range of interfaces (block, object, S3, POSIX file)</li>
+</ul>
+<h2 id="network-storage-solutions">Network Storage Solutions</h2>
+<h3 id="single-server-with-nfs">Single server with NFS</h3>
+<p><img src="/images/knowledge/hpc-concepts/SingleServerNFS.png" alt=""></p>
+<p>In this example, a single server is connected to a RAID 6 storage array which it is serving over NFS to the systems on the network. While simple in design and implementation, this design only provides redundancy at the RAID level.</p>
+<h3 id="multiple-servers-with-nfs">Multiple Servers with NFS</h3>
+<p><img src="/images/knowledge/hpc-concepts/MultiServerNFS.png" alt=""></p>
+<p>In addition to the previous example, this setup features multiple storage servers which balance the load of serving the disk over NFS.</p>
+<h3 id="multiple-servers-with-parallel-filesystem">Multiple Servers with Parallel filesystem</h3>
+<p><img src="/images/knowledge/hpc-concepts/MultiServerLustre.png" alt=""></p>
+<p>This setup features multiple RAID sets which are installed externally to the storage servers and are connected to both of them using multipath - this allows for multiple paths to the storage devices to be utilised. Using this storage, a Lustre volume has been configured which consists of a combination of all the external disks. Authorisation of access to the storage volume is managed by the metadata node, which also has dedicated storage.</p>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>What data will need to be centrally stored?</li>
+<li>Where will data be coming from?
+<ul>
+<li>Are source files created within the HPC network or do they exist in the external network?</li>
+<li>Will compute nodes be writing out logs/results from running jobs?</li>
+<li>Where else might data be coming from?</li>
+</ul>
+</li>
+<li>Is scratch space needed?</li>
+<li>What level of redundancy/stability is required for the data?</li>
+<li>How will the data be backed up?
+<ul>
+<li>Will there be off-site backups?</li>
+<li>Should a separate storage medium be used?</li>
+<li>Does all the data need backing up or only certain files?</li>
+<li>For how long will we keep the data, and any backups created?</li>
+</ul>
+</li>
+<li>What are my disaster recovery and business continuity plans?
+<ul>
+<li>If the storage service fails, how will my users continue working?</li>
+<li>How can I recreate the storage service if it fails?</li>
+<li>How long will it take to restore any data from backups?</li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Monitoring</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/monitoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/monitoring/</guid>
+      <description>&lt;h2 id=&#34;types-of-monitoring&#34;&gt;Types of Monitoring&lt;/h2&gt;
+&lt;p&gt;There are 2 types of monitoring that can be implemented into a network; these are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Passive&lt;/strong&gt; - Passive monitoring tools collect data and store from systems. Usually this data will be displayed in graphs and is accessible either through command-line or web interfaces. This sort of monitoring is useful for historical metrics and live monitoring of systems.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Active&lt;/strong&gt; - Active monitoring collects and checks metrics; it will then send out notifications if certain thresholds or conditions are met. This form of monitoring is beneficial for ensuring the health of systems; for example, email notifications can be sent out when systems start overheating or if a system is no longer responsive.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both forms of monitoring are usually necessary in order to ensure that your HPC cluster is running properly, and in full working order.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="types-of-monitoring">Types of Monitoring</h2>
+<p>There are 2 types of monitoring that can be implemented into a network; these are:</p>
+<ul>
+<li><strong>Passive</strong> - Passive monitoring tools collect data and store from systems. Usually this data will be displayed in graphs and is accessible either through command-line or web interfaces. This sort of monitoring is useful for historical metrics and live monitoring of systems.</li>
+<li><strong>Active</strong> - Active monitoring collects and checks metrics; it will then send out notifications if certain thresholds or conditions are met. This form of monitoring is beneficial for ensuring the health of systems; for example, email notifications can be sent out when systems start overheating or if a system is no longer responsive.</li>
+</ul>
+<p>Both forms of monitoring are usually necessary in order to ensure that your HPC cluster is running properly, and in full working order.</p>
+<h2 id="metrics">Metrics</h2>
+<p>It is worth considering what metrics for the system will be monitored; a few common ones are listed here:</p>
+<ul>
+<li>CPU
+<ul>
+<li>Load average</li>
+<li>Idle percentage</li>
+<li>Temperature</li>
+</ul>
+</li>
+<li>Memory
+<ul>
+<li>Used</li>
+<li>Free</li>
+<li>Cached</li>
+</ul>
+</li>
+<li>Disk
+<ul>
+<li>Free space</li>
+<li>Used space</li>
+<li>Swap (free/used/total)</li>
+<li>Quotas (if configured)</li>
+</ul>
+</li>
+<li>Network
+<ul>
+<li>Packets in</li>
+<li>Packets out</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Cloud service providers usually have both passive and active monitoring services available through their cloud management front-end.</p></blockquote>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>What metrics should be monitored?</li>
+<li>How frequently should metrics be checked?</li>
+<li>What level of notification is required?
+<ul>
+<li>Escalation upon repeated errors?</li>
+<li>Acknowledgement of long-running outages?</li>
+<li>How do we avoid over-saturation of notifications during major outages?</li>
+<li>What tests will we run to ensure that notifications are working properly?</li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>HPC Environment</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/hpc-environment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/hpc-environment/</guid>
+      <description>&lt;h2 id=&#34;job-scheduling&#34;&gt;Job Scheduling&lt;/h2&gt;
+&lt;p&gt;In a HPC environment there are large, distributed, multiple processor jobs that the users wish to run. While these jobs can be run manually by simply executing job scripts along with a hostfile containing the compute nodes to execute on, you will soon run into problems with multiple users, job queuing and priorities. These features are provided by a job scheduler, delivering a centralised server that manages the distribution, prioritisation and execution of job scripts from multiple users in the HPC network.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="job-scheduling">Job Scheduling</h2>
+<p>In a HPC environment there are large, distributed, multiple processor jobs that the users wish to run. While these jobs can be run manually by simply executing job scripts along with a hostfile containing the compute nodes to execute on, you will soon run into problems with multiple users, job queuing and priorities. These features are provided by a job scheduler, delivering a centralised server that manages the distribution, prioritisation and execution of job scripts from multiple users in the HPC network.</p>
+<p>Popular job schedulers for HPC clusters include:</p>
+<ul>
+<li>Open Grid Scheduler (SGE)</li>
+<li>PBS / Torque-Maui / Torque-Moab / PBSPro</li>
+<li>SLURM</li>
+<li>LSF / OpenLava</li>
+</ul>
+<p>All job schedulers provide a similar level of functionality and customisations so it is worth investigating the features of the available solutions to find the one best suited for your environment.</p>
+<blockquote>
+<p>Traditional job schedulers are not the only solution, in some modern HPC environments resources can be managed using container frameworks, such as, <a href="https://kubernetes.io/">Kubernetes</a></p></blockquote>
+<h2 id="application-deployment">Application Deployment</h2>
+<p>General management of applications and libraries is mentioned in the <a href="/knowledge/hpc-concepts/base-system/#repository-management">repository management docs</a> however this section focuses on installing applications into the entire HPC environment instead of individually to each node system.</p>
+<p>A few things to consider when designing/implementing an application deployment system are:</p>
+<ul>
+<li>How will applications be stored? (central network storage location?)</li>
+<li>What parts of the application need to be seen by the nodes? (application data? program files? libraries?)</li>
+<li>How will multiple versions of the same application be installed, and how will users choose between them?</li>
+<li>How will dependencies be managed? (more on this below)</li>
+</ul>
+<p>An application deployment system can be created yourself or but it&rsquo;s recommended to use an existing solution that provides tools and an index of HPC applications for HPC platform installations (such as Conda, EasyBuild or Spack).</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>When it comes to managing dependencies for applications it can either be done with local installations of libraries/packages or by storing these in a centralised location (as suggested with the applications themselves). Dependency control is one of the main reasons that using the same OS for all systems is recommended as it eliminates the risk of applications only working on some systems within the HPC environment.</p>
+<p>Dependencies must be managed across all nodes of the cluster, and over time as the system is managed. For example, an application that requires a particular C++ library that is available from your Linux distribution may not work properly after you install distribution updates on your compute nodes. Dependencies for applications that utilise dynamic libraries (i.e. loaded at runtime, rather than compile-time) must be particularly carefully managed over time.</p>
+<h3 id="reproducibility">Reproducibility</h3>
+<p>It is important that your users receive a consistent, long-term service from your HPC cluster to allow them to rely on results from applications run at different points in your clusters&rsquo; life cycle. Consider the following questions when designing your application management system:</p>
+<ul>
+<li>How can I install new applications quickly and easily for users?</li>
+<li>What test plans have I created to ensure that applications run in the same way across all cluster nodes?</li>
+<li>How can I ensure that applications run normally as nodes are re-installed, or new nodes are added to the cluster?</li>
+<li>How can I test that applications are working properly after an operating system upgrade or update?</li>
+<li>How will I prepare for moving to a new HPC cluster created on fresh hardware, or using cloud resources?</li>
+<li>What are the disaster recovery plans for my software applications?</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Verification</title>
+      <link>https://openflighthpc.org/knowledge/hpc-concepts/verification/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://openflighthpc.org/knowledge/hpc-concepts/verification/</guid>
+      <description>&lt;p&gt;Before putting the system into a production environment it is worth verifying that the hardware and software is functioning as expected. The 2 key types of verification are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Configuration&lt;/strong&gt; - Verifying that the system is functioning properly as per the server setup.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Performance&lt;/strong&gt; - Verifying that the performance of the system is as expected for the hardware, network and applications.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;verifying-the-configuration&#34;&gt;Verifying the configuration&lt;/h2&gt;
+&lt;p&gt;Simple configuration tests for the previous stages of the HPC platform creation will need to be performed to verify that it will perform to user expectations. For example, the following could be tested:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Before putting the system into a production environment it is worth verifying that the hardware and software is functioning as expected. The 2 key types of verification are:</p>
+<ul>
+<li><strong>Configuration</strong> - Verifying that the system is functioning properly as per the server setup.</li>
+<li><strong>Performance</strong> - Verifying that the performance of the system is as expected for the hardware, network and applications.</li>
+</ul>
+<h2 id="verifying-the-configuration">Verifying the configuration</h2>
+<p>Simple configuration tests for the previous stages of the HPC platform creation will need to be performed to verify that it will perform to user expectations. For example, the following could be tested:</p>
+<ul>
+<li>Passwordless SSH between nodes performs as expected</li>
+<li>Running applications on different nodes within the network</li>
+<li>Pinging and logging into systems on separate networks</li>
+</ul>
+<p>Best practice would be to test the configuration whilst it is being setup at regular intervals to confirm functionality is still as expected. In combination with written documentation, a well practiced preventative maintenance schedule is essential to ensuring a high-quality, long-term stable platform for your users.</p>
+<h2 id="testing-system">Testing System</h2>
+<p>There are multiple parts of the hardware configuration that can be tested on the systems. The main few areas are CPU, memory and interconnect (but may also include GPUs, disk drives and any other hardware that will be heavily utilised). Many applications are available for testing, including:</p>
+<ul>
+<li>Memtester</li>
+<li>HPL/Linpack/HPC-Challenge (HPCC)</li>
+<li>IOZone</li>
+<li>IMB</li>
+<li>GPUBurn</li>
+</ul>
+<p>Additionally, benchmarking can be performed using whichever applications the HPC platform is being designed to run to give more representable results for the use case.</p>
+<h2 id="additional-considerations-and-questions">Additional Considerations and Questions</h2>
+<ul>
+<li>How will you know that a compute node is performing at the expected level?
+<ul>
+<li>Gflops theoretical vs actual performance efficiency</li>
+<li>Network performance (bandwidth, latency, ping interval)</li>
+</ul>
+</li>
+<li>How can you test nodes regularly to ensure that performance has not changed / degraded?</li>
+</ul>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
