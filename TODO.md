@@ -1,9 +1,10 @@
 - [ ] Projects
-    - [ ] Flight Warehouse
+    - [x] Flight Warehouse
     - [ ] Flight Solo
-    - [ ] Flight User Suite
-    - [ ] Flight Web Suite
-    - [ ] Flight Admin Suite
+    - [x] Flight Environment
+        - [x] Flight User Suite
+        - [x] Flight Web Suite
+        - [x] Flight Admin Suite
     - [x] Carbon Leaderboard
     - [x] GHPC
     - [ ] Other Tools
