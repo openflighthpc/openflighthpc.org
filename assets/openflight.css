@@ -22,13 +22,13 @@
 .lab-experiment a {
     text-decoration: none;
 }
-.lab-experiment .badge .status {
+.status {
     color: green;
 }
-.lab-experiment .badge .status-maintenance {
+.status-maintenance {
     color: orange;
 }
-.lab-experiment .badge .status-archived {
+.status-archived {
     color: red;
 }
 .lab-experiment .badge {
