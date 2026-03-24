@@ -48,6 +48,14 @@ The Flight Web Suite consists of:
 - **File Manager** - Access to user files, providing a simple way to upload and download data directly into the user environment
 - **Job** - Create and manage customized job scripts and their execution
 
+![](/images/labs/flight_web_landing.png)
+![](/images/labs/flight_web_landing_apps.png)
+![](/images/labs/flight_web_console.png)
+![](/images/labs/flight_web_desktop_landing_sessions.png)
+![](/images/labs/flight_web_desktop_vnc.png)
+![](/images/labs/flight_web_filemanager_files.png)
+
+
 ### Flight Admin Tools
 
 The Flight Admin Tools are:
