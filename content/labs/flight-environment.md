@@ -64,3 +64,8 @@ The Flight Admin Tools are:
 - **Hunter** - Send system information and manage a host inventory over the network
 - **Profile** - Apply configuration identities to hosts in a HPC environment
 - **PDSH** - OpenFlight's build of PDSH
+
+
+## Documentation
+
+The Flight Environment was extensively documented in the previous iteration of this website (available [here](https://github.com/openflighthpc/docs.openflighthpc.org/tree/release/2024.2/docs/docs/flight-environment)) and some reference documentation persists on this site [here]({{< relref "knowledge/flight-environment/_index.md" >}})
